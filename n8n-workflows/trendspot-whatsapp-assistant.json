@@ -1,0 +1,241 @@
+{
+  "name": "iPhone Luxury - WhatsApp Assistant con Claude",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp-consulta",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook - Consulta Cliente",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [250, 300],
+      "webhookId": "iphoneluxury-whatsapp"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "mensaje_cliente",
+              "name": "mensaje_cliente",
+              "value": "={{ $json.body.mensaje }}",
+              "type": "string"
+            },
+            {
+              "id": "telefono_cliente",
+              "name": "telefono_cliente",
+              "value": "={{ $json.body.telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "timestamp",
+              "name": "timestamp",
+              "value": "={{ $now }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "parse-input",
+      "name": "Parse Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:3000/api/dolar",
+        "options": {}
+      },
+      "id": "get-dolar",
+      "name": "Get Cotización Dólar",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "model": "claude-sonnet-4-20250514",
+        "text": "=Sos un asistente de ventas para iPhone Luxury, una tienda de iPhones seminuevos en Argentina.\n\n**MENSAJE DEL CLIENTE:**\n{{ $('Parse Input').item.json.mensaje_cliente }}\n\n**CATÁLOGO DISPONIBLE:**\n\nModelos iPhone disponibles:\n- iPhone 11 (64GB, 128GB) - desde USD 299\n- iPhone 12 (64GB, 128GB, 256GB) - desde USD 379  \n- iPhone 12 Pro (128GB, 256GB, 512GB) - desde USD 499\n- iPhone 13 (128GB, 256GB, 512GB) - desde USD 529\n- iPhone 13 Pro (128GB, 256GB, 512GB, 1TB) - desde USD 699\n- iPhone 14 (128GB, 256GB, 512GB) - desde USD 649\n- iPhone 14 Pro (128GB, 256GB, 512GB, 1TB) - desde USD 849\n- iPhone 15 (128GB, 256GB, 512GB) - desde USD 799\n- iPhone 15 Pro (128GB, 256GB, 512GB, 1TB) - desde USD 999\n- iPhone 15 Pro Max (256GB, 512GB, 1TB) - desde USD 1199\n- iPhone 16 (128GB, 256GB, 512GB) - desde USD 899\n- iPhone 16 Plus (128GB, 256GB, 512GB) - desde USD 999\n- iPhone 16 Pro (128GB, 256GB, 512GB, 1TB) - desde USD 1099\n- iPhone 16 Pro Max (256GB, 512GB, 1TB) - desde USD 1299\n\n**Condiciones:** Sellado, Grado A+, Grado A\n**Colores disponibles:** Varía según modelo (negro, blanco, azul, rosa, etc.)\n\n**COTIZACIÓN DÓLAR BLUE HOY:** ${{ $('Get Cotización Dólar').item.json.venta }}\n\n**BENEFICIOS:**\n✅ Batería certificada 100%\n✅ Garantía 30 días\n✅ Entrega 24hs en CABA/GBA\n✅ +500 iPhones vendidos\n\n**TU TAREA:**\n\n1. Analiza qué modelo/información busca el cliente\n2. Si pregunta por un modelo específico:\n   - Confirma disponibilidad\n   - Da precio en USD y ARS (multiplicá por el dólar blue)\n   - Menciona capacidades disponibles\n   - Ofrece condiciones (Sellado/Grado A+/Grado A)\n3. Si pregunta algo genérico:\n   - Ofrece opciones según presupuesto\n   - Pregunta qué modelo prefiere\n4. Si pregunta por garantía/entrega/batería:\n   - Da info de los beneficios\n\n**IMPORTANTE:**\n- Sé amigable y directo\n- Usa emojis moderadamente  \n- Precios siempre en USD primero, luego ARS\n- No inventes modelos que no existen\n- Si no hay stock de algo específico, ofrece alternativa cercana\n\n**RESPONDE SOLO EL MENSAJE PARA EL CLIENTE (sin explicaciones adicionales):**",
+        "options": {
+          "temperature": 0.7,
+          "maxTokens": 500
+        }
+      },
+      "id": "claude-assistant",
+      "name": "Claude - Generar Respuesta",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.7,
+      "position": [850, 300],
+      "credentials": {
+        "anthropicApi": {
+          "id": "AQUI_VA_TU_CREDENTIAL_ID",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "respuesta_final",
+              "name": "respuesta",
+              "value": "={{ $json.message.content }}",
+              "type": "string"
+            },
+            {
+              "id": "telefono",
+              "name": "telefono",
+              "value": "={{ $('Parse Input').item.json.telefono_cliente }}",
+              "type": "string"
+            },
+            {
+              "id": "mensaje_original",
+              "name": "mensaje_original",
+              "value": "={{ $('Parse Input').item.json.mensaje_cliente }}",
+              "type": "string"
+            },
+            {
+              "id": "dolar_blue",
+              "name": "dolar_blue",
+              "value": "={{ $('Get Cotización Dólar').item.json.venta }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "format-response",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.3,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"success\": true, \"respuesta\": $json.respuesta, \"telefono\": $json.telefono, \"dolar_blue\": $json.dolar_blue } }}",
+        "options": {}
+      },
+      "id": "webhook-response",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "TU_GOOGLE_SHEET_ID",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Consultas",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Timestamp": "={{ $('Parse Input').item.json.timestamp }}",
+            "Telefono": "={{ $json.telefono }}",
+            "Mensaje_Cliente": "={{ $json.mensaje_original }}",
+            "Respuesta_Claude": "={{ $json.respuesta }}",
+            "Dolar_Blue": "={{ $json.dolar_blue }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "save-to-sheet",
+      "name": "Guardar en Google Sheets (CRM)",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.4,
+      "position": [1050, 480],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "TU_GOOGLE_CREDENTIAL_ID",
+          "name": "Google Sheets"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook - Consulta Cliente": {
+      "main": [
+        [
+          {
+            "node": "Parse Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Input": {
+      "main": [
+        [
+          {
+            "node": "Get Cotización Dólar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Cotización Dólar": {
+      "main": [
+        [
+          {
+            "node": "Claude - Generar Respuesta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude - Generar Respuesta": {
+      "main": [
+        [
+          {
+            "node": "Format Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Response": {
+      "main": [
+        [
+          {
+            "node": "Webhook Response",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Guardar en Google Sheets (CRM)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-02-16T00:00:00.000Z",
+  "versionId": "1"
+}

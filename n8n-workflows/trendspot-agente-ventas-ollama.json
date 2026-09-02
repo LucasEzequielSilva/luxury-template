@@ -1,0 +1,221 @@
+{
+  "name": "iPhone Luxury - Agente de Ventas IA (Ollama)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "iphoneluxury-chat",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "name": "Webhook - Consulta Cliente",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 340],
+      "webhookId": "iphoneluxury-chat"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"mensaje\": {{ JSON.stringify($json.body.mensaje || $json.body.message || \"Hola, quiero info sobre iPhones\") }},\n  \"telefono\": {{ JSON.stringify($json.body.telefono || $json.body.phone || \"no-proporcionado\") }},\n  \"nombre\": {{ JSON.stringify($json.body.nombre || $json.body.name || \"Cliente\") }},\n  \"timestamp\": {{ JSON.stringify(new Date().toISOString()) }}\n}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0002-4000-8000-000000000002",
+      "name": "Parsear Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [460, 340]
+    },
+    {
+      "parameters": {
+        "url": "https://dolarapi.com/v1/dolares/blue",
+        "options": {
+          "allowUnauthorizedCerts": true,
+          "timeout": 5000
+        }
+      },
+      "id": "a1b2c3d4-0003-4000-8000-000000000003",
+      "name": "Get Dolar Blue",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 340],
+      "onError": "continueRegularOutput",
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "jsCode": "const inputData = $('Parsear Input').first().json;\nconst dolarData = $('Get Dolar Blue').first().json;\n\nconst dv = dolarData?.venta || 1400;\nconst dc = dolarData?.compra || 1380;\nconst mensaje = inputData.mensaje;\nconst telefono = inputData.telefono;\nconst nombre = inputData.nombre;\n\n// Función para calcular ARS y formatear\nfunction ars(usd) {\n  return (usd * dv).toLocaleString('es-AR');\n}\n\nconst systemPrompt = `Sos \"TrendBot\", el asistente de ventas de iPhone Luxury, una tienda premium de iPhones seminuevos verificados en Argentina (CABA/GBA).\n\n=== REGLAS ESTRICTAS ===\n- NUNCA inventes precios. Usá SOLO los precios exactos del catálogo de abajo.\n- Cuando menciones un precio, copialo TEXTUALMENTE como aparece.\n- Siempre mostrá precio en USD primero y en ARS después.\n- Respondé en argentino informal (tuteo, con onda).\n- Sé conciso: máximo 3-4 párrafos.\n- Usá 2-3 emojis como máximo por mensaje.\n- Cuando el cliente quiera comprar, dá el link de WhatsApp.\n\n=== COTIZACIÓN DOLAR BLUE HOY ===\nCompra: ${dc} pesos | Venta: ${dv} pesos\n\n=== BENEFICIOS TRENDSPOT ===\n- Batería certificada al 100%\n- Garantía de 30 días\n- Entrega en 24 horas en CABA y GBA\n- Más de 500 iPhones vendidos\n- Métodos de pago: efectivo, transferencia, crypto\n\n=== CONDICIONES ===\n- Sellado: de fábrica, caja sin abrir, accesorios originales\n- Grado A+: impecable, sin marcas, como nuevo, batería 100%\n- Grado A: muy buen estado, micro marcas imperceptibles, batería 100%\n\n=== CATÁLOGO CON PRECIOS EXACTOS ===\n\nIPHONE 16 PRO MAX 256GB Grado A+\nPrecio: 960 dólares (USD 960) = ${ars(960)} pesos argentinos\nColores: Titanio Natural, Titanio Negro, Titanio Blanco\nChip A18 Pro, pantalla 6.9 pulgadas 120Hz, cámara 48MP\n\nIPHONE 16 PRO 128GB Grado A+\nPrecio: 800 dólares (USD 800) = ${ars(800)} pesos argentinos\nColores: Titanio Negro, Titanio Natural, Titanio Blanco\nChip A18 Pro, pantalla 6.3 pulgadas 120Hz, cámara 48MP\n\nIPHONE 16 128GB Grado A+\nPrecio: 660 dólares (USD 660) = ${ars(660)} pesos argentinos\nColores: Azul Ultramar, Negro, Blanco\nChip A18, pantalla 6.1 pulgadas 60Hz, cámara 48MP\n\nIPHONE 15 PRO MAX 256GB Grado A+\nPrecio: 750 dólares (USD 750) = ${ars(750)} pesos argentinos\nColores: Titanio Azul, Titanio Natural, Titanio Negro\nChip A17 Pro, pantalla 6.7 pulgadas 120Hz, cámara 48MP\n\nIPHONE 15 PRO 128GB Grado A+\nPrecio: 640 dólares (USD 640) = ${ars(640)} pesos argentinos\nColores: Titanio Blanco, Titanio Negro, Titanio Natural\nChip A17 Pro, pantalla 6.1 pulgadas 120Hz, cámara 48MP\n\nIPHONE 15 128GB Grado A+\nPrecio: 510 dólares (USD 510) = ${ars(510)} pesos argentinos\nColores: Negro, Rosa, Azul\nChip A16, pantalla 6.1 pulgadas 60Hz, cámara 48MP\n\nIPHONE 14 PRO MAX 128GB Grado A+\nPrecio: 570 dólares (USD 570) = ${ars(570)} pesos argentinos\nColores: Negro, Morado Oscuro, Blanco\nChip A16 Pro, pantalla 6.7 pulgadas 120Hz, cámara 48MP\n\nIPHONE 14 PRO 128GB Grado A+\nPrecio: 500 dólares (USD 500) = ${ars(500)} pesos argentinos\nColores: Negro, Morado Oscuro, Dorado\nChip A16 Pro, pantalla 6.1 pulgadas 120Hz, cámara 48MP\n\nIPHONE 14 128GB Grado A+\nPrecio: 380 dólares (USD 380) = ${ars(380)} pesos argentinos\nColores: Azul, Medianoche, Blanco\nChip A15, pantalla 6.1 pulgadas 60Hz, cámara 12MP\n\nIPHONE 13 PRO MAX 128GB Grado A+\nPrecio: 500 dólares (USD 500) = ${ars(500)} pesos argentinos\nColores: Grafito, Dorado, Azul Sierra\nChip A15 Pro, pantalla 6.7 pulgadas 120Hz, cámara 12MP\n\nIPHONE 13 PRO 128GB Grado A+\nPrecio: 460 dólares (USD 460) = ${ars(460)} pesos argentinos\nColores: Grafito, Dorado, Azul Sierra\nChip A15 Pro, pantalla 6.1 pulgadas 120Hz, cámara 12MP\n\nIPHONE 13 128GB Grado A+\nPrecio: 360 dólares (USD 360) = ${ars(360)} pesos argentinos\nColores: Medianoche, Rosa, Blanco\nChip A15, pantalla 6.1 pulgadas 60Hz, cámara 12MP\n\nIPHONE 12 PRO MAX 256GB Grado A+\nPrecio: 420 dólares (USD 420) = ${ars(420)} pesos argentinos\nColores: Grafito, Dorado, Azul Pacífico\nChip A14 Pro, pantalla 6.7 pulgadas 60Hz, cámara 12MP\n\nIPHONE 12 PRO 128GB Grado A+\nPrecio: 350 dólares (USD 350) = ${ars(350)} pesos argentinos\nColores: Grafito, Dorado, Azul Pacífico\nChip A14 Pro, pantalla 6.1 pulgadas 60Hz, cámara 12MP\n\nIPHONE 12 128GB Grado A+\nPrecio: 285 dólares (USD 285) = ${ars(285)} pesos argentinos\nColores: Blanco, Azul, Negro\n\nIPHONE 12 64GB Grado A+\nPrecio: 250 dólares (USD 250) = ${ars(250)} pesos argentinos\nColor: Negro\n\nIPHONE 11 128GB Grado A+\nPrecio: 245 dólares (USD 245) = ${ars(245)} pesos argentinos\nColores: Negro, Blanco, Rojo\n\nIPHONE 11 64GB Grado A+\nPrecio: 225 dólares (USD 225) = ${ars(225)} pesos argentinos\nColor: Negro\n\n=== GUÍA POR PRESUPUESTO ===\nHasta 300 dólares: iPhone 11 o iPhone 12\nEntre 300 y 500 dólares: iPhone 12 Pro, iPhone 13, iPhone 13 Pro, iPhone 14\nEntre 500 y 700 dólares: iPhone 13 Pro Max, iPhone 14 Pro, iPhone 14 Pro Max, iPhone 15, iPhone 15 Pro\nMás de 700 dólares: iPhone 15 Pro Max, iPhone 16, iPhone 16 Pro, iPhone 16 Pro Max\n\n=== LINK DE WHATSAPP PARA COMPRAR ===\nCuando el cliente quiera comprar o consultar disponibilidad, genera este link:\nhttps://wa.me/3757541930?text=Hola!%20Me%20interesa%20el%20[MODELO]%20[CAPACIDAD]%20[COLOR]%20a%20USD%20[PRECIO].%20Esta%20disponible?\n\nReemplazá [MODELO], [CAPACIDAD], [COLOR] y [PRECIO] con los datos reales del producto.`;\n\nconst requestBody = {\n  model: 'llama3.1',\n  messages: [\n    { role: 'system', content: systemPrompt },\n    { role: 'user', content: mensaje }\n  ],\n  temperature: 0.5,\n  max_tokens: 800\n};\n\nreturn {\n  json: {\n    requestBody,\n    clientData: { mensaje, telefono, nombre, timestamp: inputData.timestamp, dolarBlue: dv }\n  }\n};"
+      },
+      "id": "a1b2c3d4-0004-4000-8000-000000000004",
+      "name": "Preparar Prompt + Catalogo",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 340]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:11434/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.requestBody) }}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "a1b2c3d4-0005-4000-8000-000000000005",
+      "name": "Ollama - Generar Respuesta",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1120, 340]
+    },
+    {
+      "parameters": {
+        "jsCode": "const ollamaResponse = $('Ollama - Generar Respuesta').first().json;\nconst clientData = $('Preparar Prompt + Catalogo').first().json.clientData;\n\nconst respuestaIA = ollamaResponse?.choices?.[0]?.message?.content || 'Disculpá, tuve un problema técnico. Escribinos directo por WhatsApp: https://wa.me/3757541930';\nconst tokensUsados = ollamaResponse?.usage?.total_tokens || 0;\nconst quiereComprar = /comprar|lo quiero|me interesa|disponible|reserv|lo llevo/i.test(clientData.mensaje);\nconst modeloMencionado = clientData.mensaje.match(/iphone\\s*\\d{2}\\s*(pro\\s*max|pro|plus)?/i)?.[0] || 'no detectado';\n\nreturn {\n  json: {\n    success: true,\n    respuesta: respuestaIA,\n    telefono: clientData.telefono,\n    nombre: clientData.nombre,\n    mensajeOriginal: clientData.mensaje,\n    timestamp: clientData.timestamp,\n    dolarBlue: clientData.dolarBlue,\n    tokensUsados,\n    modeloDetectado: modeloMencionado,\n    intencionCompra: quiereComprar,\n    modelo: 'llama3.1 (Ollama local)'\n  }\n};"
+      },
+      "id": "a1b2c3d4-0006-4000-8000-000000000006",
+      "name": "Formatear Respuesta",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1340, 340]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ success: $json.success, respuesta: $json.respuesta, telefono: $json.telefono, nombre: $json.nombre, dolarBlue: $json.dolarBlue, modeloDetectado: $json.modeloDetectado, intencionCompra: $json.intencionCompra }) }}",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Access-Control-Allow-Origin",
+                "value": "*"
+              }
+            ]
+          }
+        }
+      },
+      "id": "a1b2c3d4-0007-4000-8000-000000000007",
+      "name": "Responder al Cliente",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1560, 240]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"Timestamp\": {{ JSON.stringify($json.timestamp) }},\n  \"Nombre\": {{ JSON.stringify($json.nombre) }},\n  \"Telefono\": {{ JSON.stringify($json.telefono) }},\n  \"Mensaje_Cliente\": {{ JSON.stringify($json.mensajeOriginal) }},\n  \"Respuesta_IA\": {{ JSON.stringify($json.respuesta) }},\n  \"Modelo_Detectado\": {{ JSON.stringify($json.modeloDetectado) }},\n  \"Intencion_Compra\": {{ $json.intencionCompra }},\n  \"Dolar_Blue\": {{ $json.dolarBlue }},\n  \"Tokens_Usados\": {{ $json.tokensUsados }}\n}",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0008-4000-8000-000000000008",
+      "name": "Preparar Datos CRM",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1560, 460],
+      "notesInFlow": true,
+      "notes": "Conectar aqui Google Sheets, Airtable, Notion o tu CRM"
+    }
+  ],
+  "connections": {
+    "Webhook - Consulta Cliente": {
+      "main": [
+        [
+          {
+            "node": "Parsear Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parsear Input": {
+      "main": [
+        [
+          {
+            "node": "Get Dolar Blue",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Dolar Blue": {
+      "main": [
+        [
+          {
+            "node": "Preparar Prompt + Catalogo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Preparar Prompt + Catalogo": {
+      "main": [
+        [
+          {
+            "node": "Ollama - Generar Respuesta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama - Generar Respuesta": {
+      "main": [
+        [
+          {
+            "node": "Formatear Respuesta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatear Respuesta": {
+      "main": [
+        [
+          {
+            "node": "Responder al Cliente",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Preparar Datos CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "iphoneluxury"
+    },
+    {
+      "name": "ventas"
+    },
+    {
+      "name": "ollama"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2026-02-16T04:00:00.000Z",
+  "versionId": "2"
+}
