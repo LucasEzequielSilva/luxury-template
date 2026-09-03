@@ -6,6 +6,15 @@ const SUPABASE_URL = "https://wbqenajvjesmoqzgskhu.supabase.co";
 const SUPABASE_ANON_KEY =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndicWVuYWp2amVzbW9xemdza2h1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzNzA3MTAsImV4cCI6MjA4OTk0NjcxMH0.Eb5odIrMZdheQ6ubIUemkZz7qnUXH0c13QCyEZK0st4";
 
+// Reseñas de spam/vandalismo cargadas por el formulario público (contenido
+// obsceno). El anon key no tiene permiso DELETE en Supabase (RLS), así que
+// se filtran acá hasta que se borren desde el dashboard con el service role key.
+const BLOCKED_REVIEW_IDS = new Set([
+  "ee2dfa2f-b6ba-41f7-bf91-4c43b6932a85",
+  "4db0bb3b-388d-4d08-ac76-491134e8d2f8",
+  "980e28e4-0394-4c8b-8431-e4f3dae18763",
+]);
+
 export async function GET() {
   try {
     const res = await fetch(
@@ -19,7 +28,10 @@ export async function GET() {
       }
     );
     const data = await res.json();
-    return NextResponse.json(data);
+    const filtered = Array.isArray(data)
+      ? data.filter((r) => !BLOCKED_REVIEW_IDS.has(r.id))
+      : data;
+    return NextResponse.json(filtered);
   } catch {
     return NextResponse.json([], { status: 500 });
   }

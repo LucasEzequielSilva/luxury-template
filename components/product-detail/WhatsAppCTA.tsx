@@ -1,10 +1,11 @@
-import Link from "next/link";
+// import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
-import { HiOutlineClock, HiOutlineShieldCheck, HiOutlineBolt, HiOutlineArrowPath } from "react-icons/hi2";
+import { HiOutlineClock, HiOutlineShieldCheck, HiOutlineBolt /*, HiOutlineArrowPath */ } from "react-icons/hi2";
 import { getWhatsAppLink, type Product } from "@/data/products";
 
 export default function WhatsAppCTA({ product }: { product: Product }) {
-  const isIphone = product.category !== "android";
+  // Cotizador / plan canje: lógica aparte, deshabilitada por ahora
+  // const isIphone = product.category !== "android";
 
   return (
     <div className="space-y-4">
@@ -18,6 +19,7 @@ export default function WhatsAppCTA({ product }: { product: Product }) {
         Lo quiero — Consultar ahora
       </a>
 
+      {/* Cotizador / plan canje: lógica aparte, deshabilitada por ahora
       {isIphone && (
         <Link
           href="/cotizador"
@@ -27,6 +29,7 @@ export default function WhatsAppCTA({ product }: { product: Product }) {
           Entregá tu usado en parte de pago — Cotizalo
         </Link>
       )}
+      */}
 
       {/* Urgency & trust micro-copy */}
       <div className="grid grid-cols-3 gap-1 sm:gap-2">

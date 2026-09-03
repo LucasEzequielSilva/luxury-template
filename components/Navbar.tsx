@@ -38,12 +38,14 @@ export default function Navbar() {
           >
             Garantía
           </a>
+          {/* Cotizador / plan canje: lógica aparte, deshabilitada por ahora
           <a
             href="/cotizador"
             className="text-sm font-medium hover:text-white transition-colors"
           >
             Plan Canje
           </a>
+          */}
           <ResellerModal />
         </div>
 

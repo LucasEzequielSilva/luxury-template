@@ -7,7 +7,8 @@ import Featured from "@/components/Featured";
 import Inventory from "@/components/Inventory";
 import Warranty from "@/components/Warranty";
 import Reviews from "@/components/Reviews";
-import TradeInBanner from "@/components/TradeInBanner";
+// Cotizador / plan canje: lógica aparte, deshabilitada por ahora
+// import TradeInBanner from "@/components/TradeInBanner";
 import Footer from "@/components/Footer";
 import HomeClient from "@/components/HomeClient";
 
@@ -21,7 +22,7 @@ export default function Home() {
       <Inventory />
       <Warranty />
       <Reviews />
-      <TradeInBanner />
+      {/* <TradeInBanner /> */}
       <Footer />
     </HomeClient>
   );

@@ -33,9 +33,11 @@ export default function Footer() {
           <a href="/#warranty" className="text-sm text-slate-400 hover:text-white transition-colors min-h-[44px] inline-flex items-center px-2 cursor-pointer">
             Garantía
           </a>
+          {/* Cotizador / plan canje: lógica aparte, deshabilitada por ahora
           <a href="/cotizador" className="text-sm text-slate-400 hover:text-white transition-colors min-h-[44px] inline-flex items-center px-2 cursor-pointer">
             Plan Canje
           </a>
+          */}
           <ResellerModal />
         </div>
         <p className="text-xs sm:text-sm text-slate-500 text-center">

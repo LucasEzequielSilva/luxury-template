@@ -9,7 +9,8 @@ const links = [
   { label: "Stock", href: "/#inventory" },
   { label: "Destacados", href: "/#featured" },
   { label: "Garantía", href: "/#warranty" },
-  { label: "Plan Canje", href: "/cotizador" },
+  // Cotizador / plan canje: lógica aparte, deshabilitada por ahora
+  // { label: "Plan Canje", href: "/cotizador" },
 ];
 
 export default function MobileMenu() {
