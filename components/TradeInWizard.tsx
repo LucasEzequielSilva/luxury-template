@@ -167,7 +167,7 @@ export default function TradeInWizard() {
       {/* Header */}
       <header className="sticky top-0 z-50 flex items-center justify-between px-5 py-4 border-b border-white/5 bg-black/90 backdrop-blur-md">
         <a href="/" className="flex items-center gap-2">
-          <Image src="/logo.jpg" alt="iPhone Luxury" width={120} height={34} className="h-7 w-auto" />
+          <Image src="/logo.png" alt="IPHONES LUXURY" width={160} height={52} className="h-7 w-auto" />
         </a>
         <ProgressDots current={step} total={TOTAL_STEPS} />
       </header>

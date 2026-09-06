@@ -113,7 +113,7 @@ function ReviewFormModal({ onClose, onSubmit }: { onClose: () => void; onSubmit:
 
         <div>
           <h3 className="text-xl font-medium text-white">Dejá tu reseña</h3>
-          <p className="text-sm text-slate-500 mt-1">Contanos tu experiencia con iPhone Luxury.</p>
+          <p className="text-sm text-slate-500 mt-1">Contanos tu experiencia con IPHONES LUXURY.</p>
         </div>
 
         {/* Rating */}

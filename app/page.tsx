@@ -11,15 +11,18 @@ import Reviews from "@/components/Reviews";
 // import TradeInBanner from "@/components/TradeInBanner";
 import Footer from "@/components/Footer";
 import HomeClient from "@/components/HomeClient";
+import { getProducts } from "@/lib/airtable";
 
-export default function Home() {
+export default async function Home() {
+  const products = await getProducts();
+
   return (
     <HomeClient>
       <Navbar />
-      <Hero />
+      <Hero products={products} />
       <QualityGallery />
-      <Featured />
-      <Inventory />
+      <Featured products={products} />
+      <Inventory products={products} />
       <Warranty />
       <Reviews />
       {/* <TradeInBanner /> */}

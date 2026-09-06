@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config */
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "*.airtableusercontent.com" },
+    ],
+  },
 };
 
 export default nextConfig;

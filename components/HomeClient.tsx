@@ -12,7 +12,7 @@ export default function HomeClient({
   const [loaderDone, setLoaderDone] = useState(false);
 
   useEffect(() => {
-    const hasVisited = localStorage.getItem("iPhone Luxury_visited");
+    const hasVisited = localStorage.getItem("iphones_luxury_visited");
     if (hasVisited) {
       setLoaderDone(true);
     } else {
@@ -23,7 +23,7 @@ export default function HomeClient({
   const handleLoaderComplete = () => {
     setLoaderDone(true);
     setShowLoader(false);
-    localStorage.setItem("iPhone Luxury_visited", "1");
+    localStorage.setItem("iphones_luxury_visited", "1");
   };
 
   return (

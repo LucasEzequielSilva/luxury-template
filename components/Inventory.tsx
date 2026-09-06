@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { HiArrowsUpDown, HiOutlineMagnifyingGlass, HiOutlineXMark } from "react-icons/hi2";
-import { products } from "@/data/products";
+import type { Product } from "@/data/products";
 import ProductCard from "./ProductCard";
 
 const INITIAL_COUNT = 6;
@@ -11,7 +11,7 @@ const LOAD_MORE_COUNT = 6;
 type Category = "iphone" | "android" | "consolas";
 type SortOrder = "default" | "price-asc" | "price-desc";
 
-export default function Inventory() {
+export default function Inventory({ products }: { products: Product[] }) {
   const [category, setCategory] = useState<Category>("iphone");
   const [sort, setSort] = useState<SortOrder>("default");
   const [search, setSearch] = useState("");
@@ -19,9 +19,9 @@ export default function Inventory() {
 
   // One product per model, split by category
   const { iphoneModels, androidModels, consolaModels } = useMemo(() => {
-    const seenIphone = new Map<string, (typeof products)[number]>();
-    const seenAndroid = new Map<string, (typeof products)[number]>();
-    const seenConsola = new Map<string, (typeof products)[number]>();
+    const seenIphone = new Map<string, Product>();
+    const seenAndroid = new Map<string, Product>();
+    const seenConsola = new Map<string, Product>();
     for (const p of products) {
       if (p.category === "android") {
         if (!seenAndroid.has(p.modelKey)) seenAndroid.set(p.modelKey, p);
@@ -36,7 +36,7 @@ export default function Inventory() {
       androidModels: Array.from(seenAndroid.values()),
       consolaModels: Array.from(seenConsola.values()),
     };
-  }, []);
+  }, [products]);
 
   const currentList = useMemo(() => {
     const base =
@@ -164,7 +164,7 @@ export default function Inventory() {
         {currentList.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {currentList.slice(0, visible).map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} allProducts={products} />
             ))}
           </div>
         ) : (

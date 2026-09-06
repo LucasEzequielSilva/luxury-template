@@ -32,6 +32,7 @@ export default function ProductHeader({ product }: { product: Product }) {
         </span>
         <span className="text-xs text-slate-500">
           {product.capacity} &middot; {product.color}
+          {product.batteryHealth ? ` · Batería ${product.batteryHealth}%` : ""}
         </span>
       </div>
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-medium text-white leading-tight text-balance">

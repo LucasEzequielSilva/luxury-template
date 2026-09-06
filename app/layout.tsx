@@ -17,20 +17,20 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "iPhone Luxury | iPhones verificados al mejor precio",
+  title: "IPHONES LUXURY | iPhones verificados al mejor precio",
   description:
-    "iPhones seminuevos con batería al 100% y garantía de 30 días. Precios en USD, entrega en el día en CABA/GBA. iPhone 11 al 16 Pro Max.",
+    "iPhones seminuevos con batería verificada y garantía de 30 días. Precios en USD.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "32x32" },
       { url: "/favicon.png", sizes: "192x192", type: "image/png" },
     ],
-    apple: "/favicon.png",
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "iPhone Luxury | iPhones verificados al mejor precio",
+    title: "IPHONES LUXURY | iPhones verificados al mejor precio",
     description:
-      "iPhones seminuevos con batería al 100% y garantía de 30 días. Precios en USD, entrega en el día en CABA/GBA.",
+      "iPhones seminuevos con batería verificada y garantía de 30 días. Precios en USD.",
     locale: "es_AR",
     type: "website",
   },

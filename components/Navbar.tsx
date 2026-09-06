@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FaWhatsapp } from "react-icons/fa";
 import { FiArrowRight } from "react-icons/fi";
 
@@ -10,12 +11,13 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black">
       <BlueDollarTicker />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-1.5 sm:gap-2">
+        <a href="/" className="flex items-center gap-2 sm:gap-2.5">
+          <Image src="/logo-icon.png" alt="" width={36} height={36} className="size-7 sm:size-9 w-auto" />
           <span className="font-sf text-lg sm:text-xl font-semibold text-amber-500 uppercase tracking-wide">
-            iPhone Luxury
+            iPhones
           </span>
           <span className="font-sf text-lg sm:text-xl font-light text-white uppercase tracking-wide">
-            Iguazú
+            Luxury
           </span>
         </a>
 

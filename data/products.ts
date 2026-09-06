@@ -32,6 +32,7 @@ export interface Product {
   modelKey: string;
   images?: string[];
   category?: "iphone" | "android" | "consolas";
+  batteryHealth?: number;
 }
 
 // ─── Specs por modelo ───────────────────────────────────────
@@ -615,12 +616,12 @@ export const conditionInfo: Record<
   "A+": {
     label: "Grado A+",
     description:
-      "Equipo en estado impecable, prácticamente nuevo. Sin marcas de uso visibles. Batería al 100% y funcionamiento verificado al 100%. Garantía iPhone Luxury de 30 días incluida.",
+      "Equipo en estado impecable, prácticamente nuevo. Sin marcas de uso visibles. Batería y funcionamiento verificados al 100%. Garantía IPHONES LUXURY de 30 días incluida.",
   },
   A: {
     label: "Grado A",
     description:
-      "Equipo en muy buen estado con mínimos signos de uso. Puede presentar micro marcas cosméticas imperceptibles en uso diario. Batería al 100% y funcionamiento verificado. Garantía iPhone Luxury de 30 días incluida.",
+      "Equipo en muy buen estado con mínimos signos de uso. Puede presentar micro marcas cosméticas imperceptibles en uso diario. Batería y funcionamiento verificados. Garantía IPHONES LUXURY de 30 días incluida.",
   },
 };
 
@@ -1838,26 +1839,6 @@ export function getWhatsAppLink(product: Product): string {
   return `https://wa.me/3757541930?text=${encodeURIComponent(message)}`;
 }
 
-export function getProductById(id: string): Product | undefined {
-  return products.find((p) => p.id === id);
-}
-
-export function getRelatedProducts(product: Product, limit = 4): Product[] {
-  return products
-    .filter((p) => p.id !== product.id)
-    .sort((a, b) => {
-      const aScore =
-        (a.modelKey === product.modelKey ? 2 : 0) +
-        (a.condition === product.condition ? 1 : 0);
-      const bScore =
-        (b.modelKey === product.modelKey ? 2 : 0) +
-        (b.condition === product.condition ? 1 : 0);
-      if (bScore !== aScore) return bScore - aScore;
-      return Math.abs(a.price - product.price) - Math.abs(b.price - product.price);
-    })
-    .slice(0, limit);
-}
-
 // Extract series number from name: "iPhone 16 Pro Max" → "16"
 export function getSeriesNumber(name: string): string {
   const match = name.match(/iPhone (\d+)/);
@@ -1866,7 +1847,7 @@ export function getSeriesNumber(name: string): string {
 
 // Get all model variants in the same series (e.g., 16, 16 Plus, 16 Pro, 16 Pro Max)
 // Returns unique model names with one representative product each, sorted by tier
-export function getSeriesModels(product: Product): Product[] {
+export function getSeriesModels(product: Product, allProducts: Product[]): Product[] {
   const series = getSeriesNumber(product.name);
   const seen = new Map<string, Product>();
 
@@ -1878,7 +1859,7 @@ export function getSeriesModels(product: Product): Product[] {
     return 1;
   };
 
-  products
+  allProducts
     .filter((p) => getSeriesNumber(p.name) === series)
     .sort((a, b) => tierOrder(a.name) - tierOrder(b.name))
     .forEach((p) => {
@@ -1891,8 +1872,8 @@ export function getSeriesModels(product: Product): Product[] {
 }
 
 // Get all color variants for the same model name
-export function getColorVariants(product: Product): Product[] {
-  return products.filter((p) => p.modelKey === product.modelKey);
+export function getColorVariants(product: Product, allProducts: Product[]): Product[] {
+  return allProducts.filter((p) => p.modelKey === product.modelKey);
 }
 
 export function getDiscountPercentage(product: Product): number | null {

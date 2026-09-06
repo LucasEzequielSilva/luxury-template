@@ -77,7 +77,7 @@ export default function IntroLoader({ onComplete }: IntroLoaderProps) {
         <motion.div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black"
           role="status"
-          aria-label="Cargando iPhone Luxury"
+          aria-label="Cargando IPHONES LUXURY"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.05 }}
           transition={{ duration: 0.4, ease: "easeOut" }}

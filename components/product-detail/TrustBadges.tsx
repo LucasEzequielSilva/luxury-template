@@ -16,7 +16,7 @@ export default function TrustBadges({ category, condition, productName }: { cate
   const isPS5 = productName?.toLowerCase().includes("playstation");
 
   const badges: { icon: typeof HiOutlineShieldCheck; label: string }[] = [
-    { icon: HiOutlineShieldCheck, label: "30 días de garantía iPhone Luxury" },
+    { icon: HiOutlineShieldCheck, label: "30 días de garantía IPHONES LUXURY" },
   ];
 
   if (!isConsola) {

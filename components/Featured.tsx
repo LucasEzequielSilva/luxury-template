@@ -5,45 +5,15 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import { FiArrowRight } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
-import { products, formatPrice, getWhatsAppLink } from "@/data/products";
+import { formatPrice, getWhatsAppLink, type Product } from "@/data/products";
 import { useCurrency } from "./CurrencyProvider";
 
-const featuredPicks = [
-  {
-    id: "33",
-    reason: "Mejor equilibrio entre precio, cámara de 48 MP y Dynamic Island.",
-  },
-  {
-    id: "85",
-    reason: "Máxima batería, pantalla 120 Hz y rendimiento premium sostenido.",
-  },
-  {
-    id: "53",
-    reason: "Última generación disponible, mayor vida útil y tecnología actual.",
-  },
-  {
-    id: "28",
-    reason: "Potencia de última gen en formato compacto con titanio y USB-C.",
-  },
-  {
-    id: "12",
-    reason: "La mejor puerta de entrada a Apple por rendimiento y precio.",
-  },
-  {
-    id: "74",
-    reason: "Opción económica confiable con buena batería y pantalla amplia.",
-  },
-];
-
-export default function Featured() {
+export default function Featured({ products }: { products: Product[] }) {
   const { blueRate } = useCurrency();
 
-  const items = featuredPicks
-    .map((pick) => {
-      const product = products.find((p) => p.id === pick.id);
-      return product ? { product, reason: pick.reason } : null;
-    })
-    .filter(Boolean) as { product: (typeof products)[number]; reason: string }[];
+  const items = products.filter((p) => p.featured).slice(0, 6);
+
+  if (items.length === 0) return null;
 
   return (
     <section id="featured" className="py-20 px-6">
@@ -55,7 +25,7 @@ export default function Featured() {
           Los modelos que más recomendamos hoy por rendimiento y precio.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {items.map(({ product, reason }) => {
+          {items.map((product) => {
             const hasImage = product.images && product.images.length > 0;
             const arsPrice = blueRate ? Math.round(product.price * blueRate) : null;
 
@@ -121,7 +91,8 @@ export default function Featured() {
                       {product.name}
                     </Link>
                     <p className="text-sm text-slate-400 mt-2 leading-relaxed">
-                      {reason}
+                      {product.capacity} · {product.color}
+                      {product.batteryHealth ? ` · Batería ${product.batteryHealth}%` : ""}
                     </p>
                   </div>
                   <div className="flex flex-col gap-3 mt-auto">

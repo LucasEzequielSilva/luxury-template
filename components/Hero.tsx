@@ -1,17 +1,15 @@
 "use client";
 
 import { FaWhatsapp } from "react-icons/fa";
-import { FiArrowRight } from "react-icons/fi";
-import { HiOutlineArrowDown, HiOutlineUserGroup } from "react-icons/hi2";
+import { HiOutlineArrowDown } from "react-icons/hi2";
 import IPhoneModel from "./IPhoneModel";
 import { useCurrency } from "./CurrencyProvider";
-import { products } from "@/data/products";
+import type { Product } from "@/data/products";
 
-const MIN_PRICE = Math.min(...products.filter((p) => p.category !== "android").map((p) => p.price));
-
-export default function Hero() {
+export default function Hero({ products }: { products: Product[] }) {
   const { blueRate } = useCurrency();
-  const arsMinPrice = blueRate ? Math.round(MIN_PRICE * blueRate) : null;
+  const minPrice = Math.min(...products.filter((p) => p.category !== "android").map((p) => p.price));
+  const arsMinPrice = blueRate ? Math.round(minPrice * blueRate) : null;
 
   return (
     <section className="relative lg:h-dvh pt-28 pb-12 lg:pb-0 px-4 sm:px-6 overflow-visible">
@@ -54,12 +52,12 @@ export default function Hero() {
                   Desde ${new Intl.NumberFormat("de-DE").format(arsMinPrice)}
                 </span>
                 <span className="text-xs sm:text-sm text-slate-500 tabular-nums">
-                  (US${new Intl.NumberFormat("en-US").format(MIN_PRICE)})
+                  (US${new Intl.NumberFormat("en-US").format(minPrice)})
                 </span>
               </>
             ) : (
               <span className="text-xl sm:text-2xl md:text-3xl font-semibold text-amber-400 tabular-nums">
-                Desde US${new Intl.NumberFormat("en-US").format(MIN_PRICE)}
+                Desde US${new Intl.NumberFormat("en-US").format(minPrice)}
               </span>
             )}
           </div>
@@ -83,20 +81,6 @@ export default function Hero() {
               WhatsApp
             </a>
           </div>
-
-          {/* Community CTA */}
-          <a
-            href="https://chat.whatsapp.com/JxhpRTtwQVcHBLNQjPeTKh"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.02] px-4 py-2.5 min-h-[44px] hover:bg-white/[0.04] hover:border-white/12 transition-[background-color,border-color] duration-150"
-          >
-            <HiOutlineUserGroup aria-hidden="true" className="size-4 text-slate-400 shrink-0" />
-            <span className="text-sm font-medium text-slate-300">
-              Comunidad iPhone Luxury
-            </span>
-            <FiArrowRight aria-hidden="true" className="size-3.5 text-slate-600 group-hover:text-slate-400 shrink-0 transition-colors duration-150" />
-          </a>
         </div>
 
         {/* 3D iPhone Model */}

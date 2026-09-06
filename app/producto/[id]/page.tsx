@@ -1,11 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import {
-  products,
-  getProductById,
-  iphoneSpecsMap,
-  formatPrice,
-} from "@/data/products";
+import { iphoneSpecsMap, formatPrice } from "@/data/products";
+import { getProductById, getProducts, getRelatedProducts } from "@/lib/airtable";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/product-detail/Breadcrumbs";
@@ -32,14 +28,14 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const product = getProductById(id);
-  if (!product) return { title: "Producto no encontrado | iPhone Luxury" };
+  const product = await getProductById(id);
+  if (!product) return { title: "Producto no encontrado | IPHONES LUXURY" };
 
   return {
-    title: `${product.name} ${product.capacity} ${product.color} | iPhone Luxury`,
+    title: `${product.name} ${product.capacity} ${product.color} | IPHONES LUXURY`,
     description: `${product.name} ${product.capacity} en color ${product.color}. Condición: ${product.condition}. ${formatPrice(product.price)}. Garantía incluida.`,
     openGraph: {
-      title: `${product.name} ${product.capacity} | iPhone Luxury`,
+      title: `${product.name} ${product.capacity} | IPHONES LUXURY`,
       description: `Comprá tu ${product.name} al mejor precio. ${product.condition}. ${formatPrice(product.price)}.`,
       locale: "es_AR",
       type: "website",
@@ -53,8 +49,13 @@ export default async function ProductPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const product = getProductById(id);
+  const product = await getProductById(id);
   if (!product) notFound();
+
+  const [allProducts, related] = await Promise.all([
+    getProducts(),
+    getRelatedProducts(product, 4),
+  ]);
 
   const specs = iphoneSpecsMap[product.modelKey] ?? null;
 
@@ -73,7 +74,7 @@ export default async function ProductPage({
             {/* Right: Info — sticky on desktop */}
             <div className="space-y-5 sm:space-y-6 lg:sticky lg:top-28 lg:self-start">
               <ProductHeader product={product} />
-              <ProductVariants product={product} />
+              <ProductVariants product={product} allProducts={allProducts} />
               <ProductPricing product={product} />
               <ConditionExplainer condition={product.condition} />
               <WhatsAppCTA product={product} />
@@ -83,7 +84,7 @@ export default async function ProductPage({
         </section>
 
         {/* Specs */}
-        {specs && <SpecsTable specs={specs} capacity={product.capacity} />}
+        {specs && <SpecsTable specs={specs} capacity={product.capacity} batteryHealth={product.batteryHealth} />}
 
         {/* Info panels */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 py-8 sm:py-10">
@@ -93,7 +94,7 @@ export default async function ProductPage({
         </div>
 
         {/* Related */}
-        <RelatedProducts product={product} />
+        <RelatedProducts related={related} allProducts={allProducts} />
       </main>
       <StickyBottomBar product={product} />
       <Footer />

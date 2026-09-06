@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import ResellerModal from "./ResellerModal";
 
@@ -5,8 +6,11 @@ export default function Footer() {
   return (
     <footer className="border-t border-white/5 py-10 sm:py-12 px-6">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-        <span className="font-sf text-xl font-semibold text-white uppercase">
-          iPhone Luxury
+        <span className="flex items-center gap-2">
+          <Image src="/logo-icon.png" alt="" width={32} height={32} className="size-8 w-auto" />
+          <span className="font-sf text-xl font-semibold text-white uppercase">
+            IPHONES LUXURY
+          </span>
         </span>
         <div className="flex items-center gap-2 sm:gap-4 flex-wrap justify-center">
           <a
@@ -41,7 +45,7 @@ export default function Footer() {
           <ResellerModal />
         </div>
         <p className="text-xs sm:text-sm text-slate-500 text-center">
-          © {new Date().getFullYear()} iPhone Luxury. Todos los derechos reservados.
+          © {new Date().getFullYear()} IPHONES LUXURY. Todos los derechos reservados.
         </p>
       </div>
     </footer>

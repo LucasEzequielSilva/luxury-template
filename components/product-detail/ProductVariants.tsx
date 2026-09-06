@@ -9,8 +9,8 @@ import {
   formatPrice,
 } from "@/data/products";
 
-function ModelSelector({ product }: { product: Product }) {
-  const seriesModels = getSeriesModels(product);
+function ModelSelector({ product, allProducts }: { product: Product; allProducts: Product[] }) {
+  const seriesModels = getSeriesModels(product, allProducts);
   if (seriesModels.length <= 1) return null;
 
   const series = getSeriesNumber(product.name);
@@ -89,8 +89,8 @@ function ModelSelector({ product }: { product: Product }) {
   );
 }
 
-function ColorSelector({ product }: { product: Product }) {
-  const allVariants = getColorVariants(product);
+function ColorSelector({ product, allProducts }: { product: Product; allProducts: Product[] }) {
+  const allVariants = getColorVariants(product, allProducts);
 
   // One entry per unique color (first occurrence)
   const uniqueColors: Product[] = [];
@@ -166,8 +166,8 @@ function ColorSelector({ product }: { product: Product }) {
   );
 }
 
-function CapacitySelector({ product }: { product: Product }) {
-  const allVariants = getColorVariants(product);
+function CapacitySelector({ product, allProducts }: { product: Product; allProducts: Product[] }) {
+  const allVariants = getColorVariants(product, allProducts);
 
   // Get unique capacities for this model
   const capacities = new Map<string, Product>();
@@ -219,8 +219,8 @@ const conditionStyles: Record<string, string> = {
   A: "bg-yellow-500/10 text-yellow-400 border-yellow-500/30",
 };
 
-function ConditionSelector({ product }: { product: Product }) {
-  const allVariants = getColorVariants(product);
+function ConditionSelector({ product, allProducts }: { product: Product; allProducts: Product[] }) {
+  const allVariants = getColorVariants(product, allProducts);
 
   // Find condition variants for the same color + capacity
   const conditionVariants = allVariants.filter(
@@ -253,17 +253,17 @@ function ConditionSelector({ product }: { product: Product }) {
   );
 }
 
-export default function ProductVariants({ product }: { product: Product }) {
+export default function ProductVariants({ product, allProducts }: { product: Product; allProducts: Product[] }) {
   if (product.category === "android") return null;
 
   const isConsola = product.category === "consolas";
 
   return (
     <div className="space-y-5 glass-panel rounded-2xl p-5">
-      {!isConsola && <ModelSelector product={product} />}
-      <ColorSelector product={product} />
-      {!isConsola && <ConditionSelector product={product} />}
-      {!isConsola && <CapacitySelector product={product} />}
+      {!isConsola && <ModelSelector product={product} allProducts={allProducts} />}
+      <ColorSelector product={product} allProducts={allProducts} />
+      {!isConsola && <ConditionSelector product={product} allProducts={allProducts} />}
+      {!isConsola && <CapacitySelector product={product} allProducts={allProducts} />}
     </div>
   );
 }

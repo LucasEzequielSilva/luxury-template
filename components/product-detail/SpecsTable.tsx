@@ -3,6 +3,7 @@ import type { IPhoneSpecs } from "@/data/products";
 interface Props {
   specs: IPhoneSpecs;
   capacity: string;
+  batteryHealth?: number;
 }
 
 const specGroups: { title: string; rows: { label: string; key: keyof IPhoneSpecs | "capacity" }[] }[] = [
@@ -50,9 +51,10 @@ const specGroups: { title: string; rows: { label: string; key: keyof IPhoneSpecs
   },
 ];
 
-export default function SpecsTable({ specs, capacity }: Props) {
+export default function SpecsTable({ specs, capacity, batteryHealth }: Props) {
   const getValue = (key: keyof IPhoneSpecs | "capacity") => {
     if (key === "capacity") return capacity;
+    if (key === "battery" && batteryHealth) return `${batteryHealth}% de salud · ${specs.battery}`;
     return String(specs[key]);
   };
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaWhatsapp } from "react-icons/fa";
 import { FiArrowRight } from "react-icons/fi";
-import { Product, products, formatPrice, getWhatsAppLink, getDiscountPercentage } from "@/data/products";
+import { Product, formatPrice, getWhatsAppLink, getDiscountPercentage } from "@/data/products";
 import { useCurrency } from "./CurrencyProvider";
 
 const conditionStyles: Record<Product["condition"], string> = {
@@ -13,14 +13,14 @@ const conditionStyles: Record<Product["condition"], string> = {
   A: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
 };
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({ product, allProducts = [] }: { product: Product; allProducts?: Product[] }) {
   const hasImage = product.images && product.images.length > 0;
   const { blueRate } = useCurrency();
   const discount = getDiscountPercentage(product);
 
   // Check if this model has multiple conditions
   const modelConditions = new Set(
-    products.filter((p) => p.modelKey === product.modelKey).map((p) => p.condition)
+    allProducts.filter((p) => p.modelKey === product.modelKey).map((p) => p.condition)
   );
   const hasBothConditions = modelConditions.size > 1;
 
@@ -107,6 +107,7 @@ export default function ProductCard({ product }: { product: Product }) {
           </Link>
           <p className="text-sm text-slate-400">
             {product.condition} · {product.capacity}
+            {product.batteryHealth ? ` · Batería ${product.batteryHealth}%` : ""}
           </p>
         </div>
         <div className="mt-auto space-y-2">
