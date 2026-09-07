@@ -368,8 +368,13 @@ export default function ModelCarousel({ products }: { products: Product[] }) {
       {/* Contador + dots + mute. Van en flujo debajo del carrusel: flotando dentro de la pista
           caían justo encima de los CTA de la tarjeta activa y tapaban "Ver modelo" y "Consultar". */}
       <div className="mt-6 flex items-center justify-center gap-x-4 gap-y-3 flex-wrap">
+        {/* El punto dibujado mide 8px de alto, que como blanco táctil es la
+            mitad de lo que un dedo acierta. El botón se agranda a 24px con
+            padding vertical y el punto queda adentro como un span: se ve igual
+            y se puede tocar. El -my-2 devuelve el alto extra para que la fila
+            no se separe del carrusel. */}
         {models.length > 1 && (
-          <div className="flex items-center justify-center gap-2 flex-wrap">
+          <div className="flex items-center justify-center gap-1 flex-wrap -my-2">
             {models.map((m, i) => (
               <button
                 key={m.key}
@@ -377,10 +382,15 @@ export default function ModelCarousel({ products }: { products: Product[] }) {
                 onClick={() => goTo(i)}
                 aria-label={`Ir a ${m.name}`}
                 aria-current={i === active ? "true" : undefined}
-                className={`cursor-pointer h-2 rounded-full transition-all duration-200 ${
-                  i === active ? "w-8 bg-[#d4a843]" : "w-2 bg-white/20 hover:bg-white/40"
-                }`}
-              />
+                className="cursor-pointer flex items-center justify-center px-1 py-3"
+              >
+                <span
+                  aria-hidden="true"
+                  className={`block h-2 rounded-full transition-all duration-200 ${
+                    i === active ? "w-8 bg-[#d4a843]" : "w-2 bg-white/20 hover:bg-white/40"
+                  }`}
+                />
+              </button>
             ))}
           </div>
         )}

@@ -243,8 +243,12 @@ export default function Reviews() {
           </p>
         </div>
 
-        {/* Google-style rating card */}
-        <div className="glass-panel rounded-2xl p-5 sm:p-6 max-w-lg mx-auto mb-12 flex items-center gap-4 sm:gap-5">
+        {/* Tarjeta de calificación. En teléfono el botón baja a lo ancho en vez
+            de pelear por el espacio con el texto: con las tres cosas en una
+            fila, a 390px el nombre del negocio y la línea de testimonios
+            quedaban en una columna de menos de 150px, partidos en cuatro
+            renglones. */}
+        <div className="glass-panel rounded-2xl p-5 sm:p-6 max-w-lg mx-auto mb-12 flex flex-wrap items-center gap-4 sm:gap-5">
           <span
             aria-hidden="true"
             className="size-9 sm:size-10 shrink-0 rounded-full bg-[#d4a843]/10 border border-[#d4a843]/25 flex items-center justify-center"
@@ -252,7 +256,11 @@ export default function Reviews() {
             <HiStar aria-hidden="true" className="size-5" style={{ color: "#d4a843" }} />
           </span>
           <div className="flex-1 min-w-0">
-            <p className="text-white font-semibold text-sm sm:text-base truncate">IPHONES LUXURY</p>
+            {/* Sin truncate: el nombre del negocio es la prueba social de la
+                tarjeta y con el ancho de un teléfono de 360 o 375 se cortaba en
+                "IPHONES LUXU…". Prefiero que baje a dos renglones antes que
+                mostrar la marca a medias. */}
+            <p className="text-white font-semibold text-sm sm:text-base">IPHONES LUXURY</p>
             <div className="flex items-center gap-2 mt-1">
               <span className="text-xl font-bold text-white tabular-nums">{avg}</span>
               <Stars count={Math.round(Number(avg))} />
@@ -266,7 +274,7 @@ export default function Reviews() {
               window.history.replaceState(null, "", "#dejar-resena");
               setShowForm(true);
             }}
-            className="btn-gold cursor-pointer shrink-0 px-4 sm:px-5 py-2.5 min-h-[44px] rounded-full text-xs sm:text-sm font-semibold"
+            className="btn-gold cursor-pointer w-full sm:w-auto sm:shrink-0 px-4 sm:px-5 py-2.5 min-h-[44px] rounded-full text-xs sm:text-sm font-semibold"
           >
             Escribir reseña
           </button>
