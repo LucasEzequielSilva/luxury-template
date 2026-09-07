@@ -32,6 +32,8 @@ const CONDICION_TEXTO: Record<Product["condition"], string> = {
   Sellado: "nuevo sellado",
   "A+": "usado grado A+",
   A: "usado grado A",
+  B: "usado grado B",
+  C: "usado grado C",
 };
 
 const CATEGORIA_TEXTO: Record<NonNullable<Product["category"]>, string> = {
@@ -81,6 +83,8 @@ const CONDICION_SUFIJO: Record<Product["condition"], string> = {
   Sellado: "Sellado",
   "A+": "Grado A+",
   A: "Grado A",
+  B: "Grado B",
+  C: "Grado C",
 };
 
 function claveVariante(product: Product): string {

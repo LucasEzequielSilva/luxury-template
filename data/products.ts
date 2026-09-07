@@ -23,7 +23,7 @@ export interface Product {
   id: string;
   name: string;
   capacity: string;
-  condition: "Sellado" | "A+" | "A";
+  condition: "Sellado" | "A+" | "A" | "B" | "C";
   color: string;
   colorHex: string;
   price: number;
@@ -613,15 +613,34 @@ export const conditionInfo: Record<
     description:
       "Equipo sellado de fábrica. Sin uso previo, caja sin abrir, con todos sus accesorios originales y garantía completa del fabricante.",
   },
+  /* Los grados siguen la clasificación que usa el mercado de reacondicionados:
+     A+ es estética impecable, A admite micro marcas. La batería se describe por
+     el piso real de venta (80%) y se remite al porcentaje exacto de la ficha:
+     antes decía "verificados al 100%", que en un usado es una promesa que el
+     equipo no cumple y se descubre el primer día. */
   "A+": {
     label: "Grado A+",
     description:
-      "Equipo en estado impecable, prácticamente nuevo. Sin marcas de uso visibles. Batería y funcionamiento verificados al 100%. Garantía IPHONES LUXURY de 60 días incluida.",
+      "Equipo en estado impecable, prácticamente nuevo. Sin marcas de uso visibles a simple vista. Funciona al 100% y la batería nunca baja del 80%: el porcentaje exacto de esta unidad va publicado más arriba. Garantía IPHONES LUXURY de 60 días incluida.",
   },
   A: {
     label: "Grado A",
     description:
-      "Equipo en muy buen estado con mínimos signos de uso. Puede presentar micro marcas cosméticas imperceptibles en uso diario. Batería y funcionamiento verificados. Garantía IPHONES LUXURY de 60 días incluida.",
+      "Equipo en muy buen estado con mínimos signos de uso. Puede presentar micro marcas cosméticas imperceptibles en uso diario. Funciona al 100% y la batería nunca baja del 80%: el porcentaje exacto de esta unidad va publicado más arriba. Garantía IPHONES LUXURY de 60 días incluida.",
+  },
+  /* B y C existen para que el negocio pueda publicar equipos con desgaste
+     visible sin disfrazarlos de A. Acá el desgaste es parte de lo que se
+     compra, así que se nombra de frente: lo que baja es la estética y la
+     batería, nunca el funcionamiento ni la garantía. */
+  B: {
+    label: "Grado B",
+    description:
+      "Equipo con marcas de uso visibles: rayones en los bordes o en la tapa que se notan de cerca. Funciona al 100% y la pantalla no tiene daños. El porcentaje de batería de esta unidad va publicado más arriba. Garantía IPHONES LUXURY de 60 días incluida.",
+  },
+  C: {
+    label: "Grado C",
+    description:
+      "Equipo con desgaste notorio: rayones profundos o golpes en el chasis. Es la opción para el que busca precio y le da lo mismo la estética. Funciona correctamente y el porcentaje de batería va publicado más arriba. Garantía IPHONES LUXURY de 60 días incluida.",
   },
 };
 

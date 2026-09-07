@@ -17,6 +17,19 @@ const warrantyByCondition: Record<Product["condition"], string[]> = {
     "Cubre defectos de funcionamiento",
     "Soporte post-venta incluido",
   ],
+  /* La garantía es la misma para todos los usados: cubre funcionamiento, no
+     estética. En B y C se dice explícito porque son los grados donde el
+     desgaste visible es parte de lo que se compra. */
+  B: [
+    "60 días de garantía IPHONES LUXURY",
+    "Cubre defectos de funcionamiento, no el desgaste estético",
+    "Soporte post-venta incluido",
+  ],
+  C: [
+    "60 días de garantía IPHONES LUXURY",
+    "Cubre defectos de funcionamiento, no el desgaste estético",
+    "Soporte post-venta incluido",
+  ],
 };
 
 export default function WarrantyInfo({

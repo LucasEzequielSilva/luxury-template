@@ -11,6 +11,8 @@ const conditionStyles: Record<Product["condition"], string> = {
   Sellado: "bg-amber-500/10 text-amber-400 border-amber-500/20",
   "A+": "bg-blue-500/10 text-blue-400 border-blue-500/20",
   A: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
+  B: "bg-orange-500/10 text-orange-400 border-orange-500/20",
+  C: "bg-slate-500/10 text-slate-300 border-slate-500/20",
 };
 
 export default function ProductCard({ product, allProducts = [] }: { product: Product; allProducts?: Product[] }) {

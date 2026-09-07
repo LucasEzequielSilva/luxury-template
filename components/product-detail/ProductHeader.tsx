@@ -12,6 +12,16 @@ const conditionStyles: Record<
     classes: "bg-blue-500/10 text-blue-400 border-blue-500/20",
     dot: "bg-blue-400",
   },
+  /* B y C bajan en la escala de color igual que en la de estado: el comprador
+     tiene que poder leer el grado sin leer la letra. */
+  B: {
+    classes: "bg-orange-500/10 text-orange-400 border-orange-500/20",
+    dot: "bg-orange-400",
+  },
+  C: {
+    classes: "bg-slate-500/10 text-slate-300 border-slate-500/20",
+    dot: "bg-slate-400",
+  },
   A: {
     classes: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
     dot: "bg-yellow-400",
