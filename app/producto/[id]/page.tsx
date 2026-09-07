@@ -348,7 +348,12 @@ export default async function ProductPage({
               <ProductPricing product={product} />
               <ConditionExplainer condition={product.condition} />
               <WhatsAppCTA product={product} />
-              <TrustBadges category={product.category} condition={product.condition} productName={product.name} />
+              <TrustBadges
+                category={product.category}
+                condition={product.condition}
+                productName={product.name}
+                batteryHealth={product.batteryHealth}
+              />
             </div>
           </div>
         </section>

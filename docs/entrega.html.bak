@@ -169,10 +169,6 @@ figcaption b{color:var(--ink-2);font-weight:600}
 .tight h2.blk{margin:4.4mm 0 2.2mm}
 .tight ol.steps li{padding-bottom:2mm}
 .tight ol.steps{margin-bottom:2mm}
-.repro{
-  margin:2.6mm 0 0;font-size:8pt;line-height:1.4;color:var(--ink-3);
-  border-left:.8mm solid var(--gold-soft);padding-left:3mm;max-width:170mm;
-}
 </style>
 </head>
 <body>
@@ -188,9 +184,9 @@ figcaption b{color:var(--ink-2);font-weight:600}
     <div class="cover-block">
       <div class="cover-logo" role="img" aria-label="IPHONES LUXURY"></div>
       <div>
-        <div class="cover-kicker">Manual de uso</div>
+        <div class="cover-kicker">Manual del dueño</div>
         <h1 class="cover-title">Tu web y tu panel de carga</h1>
-        <p class="cover-sub">Cómo cargar un equipo, cambiar un precio y dar de baja lo vendido desde tu panel.</p>
+        <p class="cover-sub">Cómo cargar un equipo, cambiar un precio y bajar lo vendido, sin depender de nadie.</p>
         <div class="cover-dom">iphonesluxury.com.ar</div>
       </div>
     </div>
@@ -214,7 +210,7 @@ figcaption b{color:var(--ink-2);font-weight:600}
     </div>
   </div>
 
-  <p>El cliente entra, ve todo el stock con precio y condición, abre el equipo que le interesa y te escribe por WhatsApp con el modelo ya puesto en el mensaje. La información que antes repetías por chat ya está publicada.</p>
+  <p>El cliente entra, ve todo el stock con precio y condición, abre el equipo que le interesa y te escribe por WhatsApp con el modelo ya puesto en el mensaje. Vos dejás de explicar lo mismo dos veces.</p>
 
   <h2 class="blk">Lo que hace la web</h2>
   <ul class="checks">
@@ -228,16 +224,16 @@ figcaption b{color:var(--ink-2);font-weight:600}
 
   <div class="duo" style="margin-top:6mm">
     <figure style="width:106mm;flex:none">
-      <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/docimg/portada.jpg" alt="Portada de la web">
+      <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/pdf-shots/09-portada-recorte.png" alt="Portada de la web">
       <figcaption><b>Lo primero que ve alguien que entra.</b> El precio de arriba es el del equipo más barato que tengas publicado, sin contar los Android. Lo calcula la web sola: si bajás ese equipo, el número cambia solo.</figcaption>
     </figure>
     <div class="grow">
       <h2 class="blk" style="margin-top:0">Además de la portada y el stock</h2>
       <p>La web tiene la sección de calidad verificada, con video y carrusel de modelos; los destacados; la garantía; las reseñas de clientes con su formulario; el mapa de Puerto Iguazú y una ventana para revendedores.</p>
-      <p>Esos textos están escritos dentro de la web y no cambian solos. Si necesitás modificar alguno, lo solicitás al estudio.</p>
+      <p>Esos textos están escritos dentro de la web y no cambian solos. Si querés tocar alguno, se pide y se cambia.</p>
       <div class="card" style="margin-bottom:0">
         <p class="tagline">Lo que cambia todos los días</p>
-        <p>El stock. Lo manejás vos desde el panel, que es el tema del resto de este documento.</p>
+        <p>El stock. Y el stock lo manejás vos desde el panel, que es de lo que habla el resto de este documento.</p>
       </div>
     </div>
   </div>
@@ -255,41 +251,40 @@ figcaption b{color:var(--ink-2);font-weight:600}
     </div>
   </div>
 
-  <p>La dirección es <a href="https://airtable.com/appkJDEph0wKYmMIJ"><span class="chip">airtable.com/appkJDEph0wKYmMIJ</span></a>. Tiene dos pestañas: <strong>Productos</strong>, que es el stock, y <strong>Ajustes</strong>, con la cotización del dólar. Guardala en favoritos. Se abre con tu mail, el mismo con el que te dimos el acceso: la primera vez desde una computadora o un celular nuevo te pide iniciar sesión y te manda un código a ese mail. En el teléfono es más cómoda la aplicación, que se llama <strong>Airtable</strong> y está en Play Store y App Store.</p>
+  <p>La dirección es <a href="https://airtable.com/appkJDEph0wKYmMIJ"><span class="chip">airtable.com/appkJDEph0wKYmMIJ</span></a> y la pestaña se llama <strong>Productos</strong>. Guardala en favoritos. Se abre con tu mail, el mismo con el que te dimos el acceso: la primera vez desde una computadora o un celular nuevo te pide iniciar sesión y te manda un código a ese mail. En el teléfono es más cómoda la aplicación, que se llama <strong>Airtable</strong> y está en Play Store y App Store.</p>
 
-  <figure class="bleed" style="margin-top:5mm">
-    <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/docimg/grilla-izq.png" alt="Mitad izquierda de la tabla Productos">
-    <figcaption><b>La tabla Productos, mitad izquierda.</b> Una fila por equipo. Los campos que se ven como pastilla gris —Modelo, Categoría, Capacidad y Condición— se eligen de una lista, no se escriben libres. El botón marcado en dorado, sobre la primera fila, es el que abre la ficha; aparece al pasar el mouse.</figcaption>
+  <figure class="bleed" style="margin-top:6mm">
+    <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/panel-shots/grilla-izq.png" alt="Mitad izquierda de la tabla Productos">
+    <figcaption><b>La tabla Productos, mitad izquierda.</b> Una fila por equipo. Los campos que se ven como pastilla gris —Modelo, Categoría, Capacidad y Condición— se eligen de una lista, no se escriben libres.</figcaption>
   </figure>
 
-  <figure class="bleed" style="margin-top:5mm">
-    <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/docimg/grilla-der.png" alt="Mitad derecha de la tabla Productos">
+  <figure class="bleed" style="margin-top:6mm">
+    <img style="width:168mm" src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/panel-shots/grilla-der.png" alt="Mitad derecha de la tabla Productos">
     <figcaption><b>La misma tabla, mitad derecha.</b> Es una sola planilla: se partió en dos para que se lea impresa. Batería % y Precio Original USD están vacíos en las 110 filas cargadas; mientras estén así, esas líneas no se muestran en la web.</figcaption>
-    <p class="repro">Las imágenes del panel de este documento son reproducciones armadas con los datos de tu base. La pantalla real puede verse un poco distinta.</p>
   </figure>
 
   <div class="page-foot"><span><b>IPHONES LUXURY</b> · iphonesluxury.com.ar</span><span class="mid">Entregado por Vorágine</span><span class="pnum">3</span></div>
 </section>
 
-<!-- ============ 4 · LOS CAMPOS + AJUSTES ============ -->
+<!-- ============ 4 · LOS CAMPOS ============ -->
 <section class="page">
   <div class="cont">2 · El panel</div>
   <h2 class="blk" style="margin-bottom:2mm">Qué va en cada campo</h2>
-  <p style="margin-bottom:2.6mm">Trece campos. En las columnas de la tabla aparecen en este orden. En la ficha de una fila, Nombre es el título de arriba de todo y abajo van los otros doce, en el mismo orden.</p>
+  <p style="margin-bottom:2.6mm">Los trece campos aparecen en este orden, tanto en las columnas de la tabla como en la ficha de cada fila.</p>
   <table>
-    <thead><tr><th>Campo</th><th>Qué poner</th><th>Obligatorio</th></tr></thead>
+    <thead><tr><th>Campo</th><th>Qué poner</th><th>¿Hace falta?</th></tr></thead>
     <tbody>
-      <tr><td>Nombre</td><td>Tu referencia para reconocer y buscar la fila: iPhone 14 Pro 128GB Negro. <strong>No se usa en la web</strong>: el título visible sale del campo Modelo.</td><td><span class="must">Sí, uso interno</span></td></tr>
+      <tr><td>Nombre</td><td>Tu referencia para reconocer y buscar la fila: iPhone 14 Pro 128GB Negro. <strong>No se usa en la web</strong>: el título visible sale del campo Modelo.</td><td><span class="must">Sí, para vos</span></td></tr>
       <tr><td>Modelo</td><td>Se elige de una lista. Es el título que muestra la web, y lo que engancha la ficha técnica y los botones de otras versiones.</td><td><span class="must">Sí</span></td></tr>
       <tr><td>Categoría</td><td>iphone, android o consolas. Define en qué pestaña del stock aparece.</td><td><span class="must">Sí</span></td></tr>
       <tr><td>Capacidad</td><td>De 32GB a 1TB. Se elige de la lista.</td><td><span class="must">Sí</span></td></tr>
-      <tr><td>Condición</td><td>Sellado, A+ o A. Es la etiqueta que ve el cliente en la tarjeta. Sellado es nuevo; A+ y A son usados revisados.</td><td><span class="must">Sí</span></td></tr>
+      <tr><td>Condición</td><td>Sellado, A+ o A. Es la etiqueta que ve el cliente en la tarjeta.</td><td><span class="must">Sí</span></td></tr>
       <tr><td>Batería %</td><td>Solo para usados. El número de salud de batería, sin el signo de porcentaje. Vacío, esa línea no se muestra.</td><td><span class="opt">Solo usados</span></td></tr>
       <tr><td>Color</td><td>El color tal como lo querés mostrar. Por ejemplo: Negro Espacial.</td><td><span class="must">Sí</span></td></tr>
-      <tr><td>Color Hex</td><td>El código del color. Por ejemplo, #1C1C1E. Se usa para el círculo de color y de fondo si el equipo no tiene fotos.</td><td><span class="opt">Opcional</span></td></tr>
+      <tr><td>Color Hex</td><td>El código del color, tipo #1C1C1E. Se usa para el círculo de color y de fondo si el equipo no tiene fotos.</td><td><span class="opt">Opcional</span></td></tr>
       <tr><td>Precio USD</td><td>El precio de venta en dólares, solo el número.</td><td><span class="must">Sí</span></td></tr>
       <tr><td>Precio Original USD</td><td>Solo para usados: el precio de ese mismo equipo <strong>nuevo</strong>. La web calcula el porcentaje, le pone a la tarjeta un cartel que dice “-X% vs nuevo” y adentro muestra ese precio tachado. Vacío, no aparece nada. No sirve para una promo común: el cartel dice “vs nuevo”.</td><td><span class="opt">Opcional</span></td></tr>
-      <tr><td>Destacado</td><td>Casilla. Tildada, el equipo también entra en la vidriera de la portada, que muestra hasta 6.</td><td><span class="opt">Opcional</span></td></tr>
+      <tr><td>Destacado</td><td>Casilla. Tildada, el equipo también aparece en la vidriera de la portada, que muestra hasta 6.</td><td><span class="opt">Opcional</span></td></tr>
       <tr><td>Publicado</td><td>Casilla. Sin esto tildado, el equipo no se ve en la web.</td><td><span class="must">Sí</span></td></tr>
       <tr><td>Fotos</td><td>Las fotos del equipo. La primera es la que se ve en la tarjeta del listado. Se pueden cargar varias.</td><td><span class="must">Muy recomendable</span></td></tr>
     </tbody>
@@ -299,16 +294,6 @@ figcaption b{color:var(--ink-2);font-weight:600}
     <h4>El campo Modelo ordena todo</h4>
     <p>Agrupa el stock, engancha la ficha técnica y arma los botones de otros colores y capacidades. Si el modelo que necesitás no está en la lista, lo podés agregar ahí mismo. Avisanos cuando lo hagas: la ficha técnica la carga el estudio y, hasta entonces, la página de ese equipo sale sin la tabla de especificaciones.</p>
   </div>
-
-  <h2 class="blk">La pestaña Ajustes</h2>
-  <p style="margin-bottom:2mm">Una sola fila, con dos números que manejás vos. Los dos cambian el precio en pesos de todo el catálogo a la vez; el Precio USD de cada equipo no se toca.</p>
-  <ul class="checks" style="margin-bottom:1mm">
-    <li><strong>Ajuste por dólar:</strong> lo que se le suma a la cotización del blue. Hoy está en 20.</li>
-    <li><strong>Cotización manual:</strong> si cargás un número, la web usa ese y deja de mirar el blue. Si lo borrás, vuelve al automático.</li>
-  </ul>
-  <figure style="margin-top:3.4mm">
-    <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/docimg/ajustes.png" alt="Pestaña Ajustes">
-  </figure>
 
   <div class="page-foot"><span><b>IPHONES LUXURY</b> · iphonesluxury.com.ar</span><span class="mid">Entregado por Vorágine</span><span class="pnum">4</span></div>
 </section>
@@ -328,45 +313,44 @@ figcaption b{color:var(--ink-2);font-weight:600}
       <ol class="steps">
         <li>Entrá a la planilla y abrí la pestaña <strong>Productos</strong>.</li>
         <li>Bajá hasta el final de la lista y tocá el <strong>+</strong> para sumar una fila.</li>
-        <li>Pasá el mouse por esa fila y hacé clic en las flechas de expansión, a la izquierda. En el celular, tocá la fila. Se abre la <strong>ficha</strong>.</li>
-        <li>Escribí el <strong>Nombre</strong> arriba de todo, donde va el título de la ficha. Después completá los campos de abajo con la tabla de la página anterior.</li>
+        <li>Pasá el mouse por esa fila y apretá las flechitas de la izquierda. En el celular, tocá la fila. Se abre la <strong>ficha</strong>, con los campos uno abajo del otro.</li>
+        <li>Completá desde Nombre hasta Precio Original USD con la tabla de la página anterior.</li>
         <li>Arrastrá las fotos del equipo al campo <strong>Fotos</strong>.</li>
         <li>Tildá la casilla <strong>Publicado</strong>, al final de todo.</li>
         <li>Esperá un minuto y entrá a la web para verlo.</li>
       </ol>
-
-      <div class="card" style="margin:3mm 0 0">
-        <h4>Publicado es el interruptor</h4>
-        <p>Sin esa casilla tildada el equipo no aparece en la web, aunque la fila esté completa y con fotos. Tildarla es siempre el último paso; destildarla es como se baja un equipo vendido.</p>
-      </div>
-
-      <figure style="margin-top:4mm">
-        <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/docimg/publicado.png" alt="Casillas Destacado y Publicado">
-        <figcaption><b>Las dos casillas.</b> Destacado sin tildar, Publicado tildado: el estado de la mayoría de las filas.</figcaption>
-      </figure>
     </div>
-
-    <figure style="width:78mm;flex:none;margin-top:0">
-      <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/docimg/fila-abierta.png" alt="Ficha de una fila abierta">
-      <figcaption><b>Una fila abierta.</b> El Nombre es el título de arriba de todo; debajo van los otros doce campos. Es la forma más cómoda de cargar, sobre todo en el celular.</figcaption>
+    <figure style="width:56mm;flex:none;margin-top:0">
+      <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/opt/fila-abierta.jpg" alt="Ficha de una fila abierta">
+      <figcaption><b>Así se ve una fila abierta.</b> Es la forma más cómoda de cargar, sobre todo en el celular.</figcaption>
     </figure>
   </div>
 
   <div class="duo" style="margin-top:6mm">
     <figure style="width:48mm;flex:none">
-      <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/docimg/campo-fotos.png" alt="Campo Fotos">
+      <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/opt/campo-fotos.jpg" alt="Campo Fotos">
       <figcaption><b>El campo Fotos.</b> El recuadro con el signo más suma otra imagen a la misma fila.</figcaption>
     </figure>
+    <figure style="width:58mm;flex:none">
+      <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/panel-shots/publicado.png" alt="Casillas Destacado y Publicado">
+      <figcaption><b>Las dos casillas.</b> Destacado sin tildar, Publicado tildado: es el estado de la mayoría de las filas.</figcaption>
+    </figure>
     <div class="grow">
-      <div class="card" style="margin:0 0 3.4mm">
-        <h4>Una fila es un equipo concreto</h4>
-        <p>No cargues un modelo, cargá la unidad que tenés para vender. El mismo iPhone sellado y uno A+ son dos filas, cada una con su precio y su batería. Para que el cliente pueda pasar de una a otra desde la misma página, las dos filas tienen que coincidir en color y capacidad.</p>
-      </div>
       <div class="card" style="margin:0">
-        <h4>Si la fila no tiene fotos</h4>
-        <p>La tarjeta se muestra igual: la web arma un fondo con el color que cargaste en Color Hex y escribe el nombre del color abajo. El resultado es correcto, pero recibe menos consultas que una tarjeta con fotos. Es una solución transitoria.</p>
+        <h4>Publicado es el interruptor</h4>
+        <p>Sin esa casilla tildada el equipo no aparece en la web, aunque la fila esté completa y con fotos. Tildarla es siempre el último paso; destildarla es como se baja un equipo vendido.</p>
       </div>
     </div>
+  </div>
+
+  <div class="card">
+    <h4>Una fila es un equipo concreto</h4>
+    <p>No cargues un modelo, cargá la unidad que tenés para vender. El mismo iPhone sellado y uno A+ son dos filas, cada una con su precio y su batería.</p>
+  </div>
+
+  <div class="card">
+    <h4>Si la fila no tiene fotos</h4>
+    <p>La tarjeta no queda rota: la web arma un fondo con el color que cargaste en Color Hex y escribe el nombre del color abajo. Queda prolijo, pero llama menos la atención y se consulta menos. Es un parche, no un reemplazo.</p>
   </div>
 
   <div class="page-foot"><span><b>IPHONES LUXURY</b> · iphonesluxury.com.ar</span><span class="mid">Entregado por Vorágine</span><span class="pnum">5</span></div>
@@ -378,19 +362,13 @@ figcaption b{color:var(--ink-2);font-weight:600}
     <div class="sec-num">4</div>
     <div>
       <h1 class="sec">Los movimientos de todos los días</h1>
-      <p class="sec-lead">Con estos cinco movimientos cubrís la operación diaria.</p>
+      <p class="sec-lead">Con estos cinco manejás el negocio entero.</p>
     </div>
   </div>
 
-  <div class="duo" style="margin-top:0;gap:7mm">
-    <div class="card" style="margin:0;width:80mm;flex:none">
-      <h4>Buscar una fila</h4>
-      <p>Arriba a la derecha de la planilla hay una <strong>lupa</strong>. Tocala y escribí, por ejemplo, <em>14 Pro 128</em>. Te marca las filas que coinciden. Por eso conviene tener el campo Nombre bien escrito: es lo que vas a buscar.</p>
-    </div>
-    <figure class="grow" style="margin:0">
-      <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/docimg/buscar.png" alt="Buscador de la planilla">
-      <figcaption>La lupa marca en amarillo lo que coincide. La fila que no coincide queda gris.</figcaption>
-    </figure>
+  <div class="card" style="margin-top:0">
+    <h4>Antes que nada: encontrar una fila entre 110</h4>
+    <p>Arriba a la derecha de la planilla hay una <strong>lupa</strong>. Tocala y escribí, por ejemplo, <em>14 Pro 128</em>. Te marca las filas que coinciden. Por eso conviene tener el campo Nombre bien escrito: es lo que vas a buscar.</p>
   </div>
 
   <h2 class="blk">Cambiar un precio</h2>
@@ -411,24 +389,21 @@ figcaption b{color:var(--ink-2);font-weight:600}
   <ol class="steps">
     <li>Buscá la fila y hacé clic en la celda <strong>Fotos</strong>.</li>
     <li>Arrastrá las imágenes, o elegilas desde la galería si estás en el celular.</li>
-    <li>Acomodalas para que la que querés en la tarjeta quede primera. Para borrar una, abrila y tocá el ícono de papelera.</li>
+    <li>Acomodalas para que la que querés en la tarjeta quede primera. Para borrar una, abrila y usá el tacho.</li>
   </ol>
 
   <h2 class="blk">Destacar un equipo en la portada</h2>
   <ol class="steps">
-    <li>La portada muestra <strong>6 destacados</strong> y hoy tenés 10 filas tildadas. Tildar una más no cambia nada.</li>
-    <li>Destildá <strong>Destacado</strong> en alguna de las que ya no querés mostrar.</li>
-    <li>Tildá <strong>Destacado</strong> en la fila del equipo que querés poner en su lugar.</li>
+    <li>Tildá la casilla <strong>Destacado</strong> en la fila de ese equipo.</li>
+    <li>Aparece en la vidriera de la portada, arriba del stock. La portada muestra hasta 6.</li>
+    <li>Cuando lo vendas o quieras rotar, destildala. Conviene tener pocos destacados a la vez.</li>
   </ol>
-  <p style="margin:0 0 2mm">Entran los 6 primeros según el orden de la tabla, no por precio ni por fecha. La portada tampoco agrupa por modelo: si tildás dos filas del mismo modelo, ese modelo ocupa dos lugares.</p>
 
   <h2 class="blk">Cargar el mismo modelo en otra condición o color</h2>
   <ol class="steps">
     <li>Clic derecho sobre la fila ya cargada y elegí <strong>Duplicate record</strong>. El menú está en inglés. En el celular, mantené el dedo apretado sobre la fila.</li>
-    <li>En la fila nueva destildá <strong>Publicado</strong> antes de tocar nada: la copia sale publicada con el precio y las fotos de la original.</li>
-    <li>Cambiá Condición, Color o Capacidad, y el Precio USD. Cambiale también el Nombre.</li>
-    <li>Las fotos se copian de la fila original: si es otra unidad, borralas y subí las del equipo que tenés en la mano.</li>
-    <li>Cuando la fila esté completa, volvé a tildar <strong>Publicado</strong>.</li>
+    <li>En la fila nueva cambiá Condición, Color o Capacidad, y el Precio USD.</li>
+    <li>Cambiale el Nombre y dejá Publicado tildado. Las fotos se copian de la fila original: si es otra unidad, borralas y subí las del equipo que tenés en la mano.</li>
   </ol>
 
   <div class="page-foot"><span><b>IPHONES LUXURY</b> · iphonesluxury.com.ar</span><span class="mid">Entregado por Vorágine</span><span class="pnum">6</span></div>
@@ -440,46 +415,36 @@ figcaption b{color:var(--ink-2);font-weight:600}
     <div class="sec-num">5</div>
     <div>
       <h1 class="sec">Una tarjeta por modelo</h1>
-      <p class="sec-lead">Cargás cinco iPhone 14 y en el stock ves una sola tarjeta. El agrupado es intencional.</p>
+      <p class="sec-lead">Cargás cinco iPhone 14 y en el stock ves una sola tarjeta. Es a propósito.</p>
     </div>
   </div>
 
-  <p>El stock agrupa por <strong>Modelo</strong>: una tarjeta por modelo, no una por fila. Con 110 filas publicadas hoy se ven 30 tarjetas: 19 de iPhone, 7 de Android y 4 de consolas. El stock completo sigue disponible: las otras unidades se alcanzan desde adentro de la ficha.</p>
-  <p>La tarjeta muestra la foto y el precio de la <strong>primera fila de ese modelo en la planilla</strong>, no la del más barato. El orden por precio usa ese mismo precio. Si querés que la tarjeta muestre otra unidad, movés esa fila más arriba en la tabla.</p>
+  <p>El stock agrupa por <strong>Modelo</strong>: una tarjeta por modelo, no una por fila. Con 110 filas publicadas hoy se ven 30 tarjetas: 19 de iPhone, 7 de Android y 4 de consolas. No falta nada.</p>
+  <p>Las otras unidades están adentro. Cuando el cliente abre la página de un equipo, arriba del precio le aparecen los botones para elegir <strong>color</strong>, <strong>capacidad</strong> y <strong>condición</strong>. Los de condición muestran el precio de cada una al lado. Cada grupo de botones aparece solo si hay más de una opción cargada de ese modelo.</p>
 
-  <div class="duo" style="margin-top:5mm">
-    <div style="width:78mm;flex:none">
-      <figure style="margin:0">
-        <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/docimg/stock.jpg" alt="Pestañas y tarjetas del stock">
-        <figcaption><b>Las tres pestañas del stock.</b> Salen del campo Categoría.</figcaption>
-      </figure>
-      <div class="card">
-        <h4>Dos excepciones</h4>
-        <p>En <strong>Android</strong> la página del equipo no tiene botones de color, capacidad ni condición: si cargás dos unidades del mismo modelo Android, solo se va a poder ver una. En <strong>consolas</strong> funciona el botón de color, pero no los de capacidad ni condición. Si necesitás publicar dos variantes de un mismo Android, avisanos.</p>
-      </div>
-    </div>
+  <div class="duo" style="margin-top:6mm">
+    <figure style="width:76mm;flex:none">
+      <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/opt/08-stock.jpg" alt="Pestañas y tarjetas del stock">
+      <figcaption><b>Las tres pestañas del stock.</b> Salen del campo Categoría.</figcaption>
+    </figure>
     <div class="grow">
-      <h2 class="blk" style="margin-top:0">Los botones de adentro</h2>
-      <p>Cuando el cliente abre la página de un equipo, arriba del precio aparecen cuatro grupos de botones: los otros <strong>modelos de la misma serie</strong>, el <strong>color</strong>, la <strong>condición</strong> —cada una con su precio— y la <strong>capacidad</strong>. Cada grupo tiene su propia regla:</p>
-      <ul class="checks">
-        <li><strong>Color:</strong> aparece siempre, aunque tengas un solo color cargado.</li>
-        <li><strong>Capacidad:</strong> aparece si el modelo tiene más de una capacidad cargada.</li>
-        <li><strong>Condición:</strong> aparece solo entre filas del mismo modelo, mismo color y misma capacidad. Si además cambiás la capacidad, esa unidad no se alcanza desde ahí.</li>
-      </ul>
-
-      <h2 class="blk">Se ven de a seis</h2>
-      <p>El listado muestra <strong>6 tarjetas por pestaña</strong> y sigue con el botón <strong>Ver más</strong>, que va sumando de a 6. El número entre paréntesis dice cuántas quedan. Si ves 6 iPhone en pantalla, el resto se abre con Ver más.</p>
+      <h2 class="blk" style="margin-top:0">Se ven de a seis</h2>
+      <p>El listado muestra <strong>6 tarjetas por pestaña</strong> y sigue con el botón <strong>Ver más</strong>, que va sumando de a 6. El número entre paréntesis dice cuántas quedan. Si contás 6 iPhone en pantalla, no es que falten.</p>
       <figure style="margin-top:4mm">
-        <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/docimg/vermas.png" alt="Botón Ver más">
+        <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/pdf-shots/10-vermas.png" alt="Botón Ver más">
       </figure>
-
       <h2 class="blk">El buscador</h2>
       <p>Filtra mientras escribís, por modelo y color, y solo dentro de la pestaña donde estés parado: para buscar un Samsung, pasá primero a Android. No busca por capacidad ni por condición.</p>
       <figure style="margin-top:4mm">
-        <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/docimg/buscador-web.png" alt="Buscador y orden por precio">
+        <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/pdf-shots/11-buscador.png" alt="Buscador y orden por precio">
         <figcaption>El botón <b>Precio</b> ordena de menor a mayor, después al revés, y a la tercera vuelve al orden original.</figcaption>
       </figure>
     </div>
+  </div>
+
+  <div class="card">
+    <h4>Dos excepciones</h4>
+    <p>En <strong>Android</strong> la página del equipo no tiene botones de color, capacidad ni condición: si cargás dos unidades del mismo modelo Android, solo se va a poder ver una. En <strong>consolas</strong> funciona el botón de color, pero no los de capacidad ni condición. Si necesitás publicar dos variantes de un mismo Android, avisanos.</p>
   </div>
 
   <div class="page-foot"><span><b>IPHONES LUXURY</b> · iphonesluxury.com.ar</span><span class="mid">Entregado por Vorágine</span><span class="pnum">7</span></div>
@@ -496,14 +461,14 @@ figcaption b{color:var(--ink-2);font-weight:600}
   </div>
 
   <div class="duo" style="margin-top:0">
-    <figure style="width:58mm;flex:none;margin-top:0">
-      <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/docimg/tarjeta.jpg" alt="Tarjeta de producto">
+    <figure style="width:56mm;flex:none;margin-top:0">
+      <img src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/opt/06-tarjeta.jpg" alt="Tarjeta de producto">
       <figcaption>Una tarjeta del stock, en grande.</figcaption>
     </figure>
     <div class="grow">
       <ul class="checks">
         <li><strong>La foto</strong> es la primera imagen del campo Fotos. El orden que les des manda.</li>
-        <li><strong>La etiqueta de arriba</strong> es la Condición: en esta tarjeta, Sellado.</li>
+        <li><strong>La etiqueta de arriba</strong> es la Condición. Si el modelo lo tenés sellado y A+, muestra las dos.</li>
         <li><strong>El nombre</strong> es el Modelo. Abajo, en gris, la condición, la capacidad y la batería si la cargaste.</li>
         <li><strong>El precio grande en pesos</strong> lo calcula la web con tu Precio USD. Abajo, el mismo precio en dólares.</li>
         <li><strong>Consultar</strong> abre tu WhatsApp con el mensaje escrito. <strong>Ver detalle</strong> abre la página completa.</li>
@@ -518,8 +483,8 @@ figcaption b{color:var(--ink-2);font-weight:600}
   <p style="margin-top:4mm">El modelo, la capacidad, el color y el precio salen de la fila. Si cambiás el precio, ese mensaje cambia solo.</p>
 
   <figure style="margin-top:4mm">
-    <img style="width:112mm" src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/docimg/variantes.jpg" alt="Botones de modelo, color y condición">
-    <figcaption><b>La página de un equipo es la dirección que conviene compartir.</b> Arriba, los otros modelos de la serie. En el medio, los colores cargados de ese modelo. Abajo, las condiciones, cada una con su precio. Acá no hay botones de capacidad porque de ese modelo hay una sola cargada. El <em>Desde</em> de cada tarjeta de serie es el precio de la primera fila de ese modelo en la planilla, no el más bajo: por eso puede ser mayor al de la condición más barata.</figcaption>
+    <img style="width:112mm" src="file:///C:/Users/Lucas/AppData/Local/Temp/claude/d--Dev-luxury/a654404e-cba1-41ac-99fd-75b34510a9c7/scratchpad/pdf-shots/07-ficha-variantes.png" alt="Botones de modelo, color y condición">
+    <figcaption><b>La página de un equipo es el link que conviene mandar.</b> Arriba, los otros modelos de la familia. En el medio, los colores cargados de ese modelo. Abajo, las condiciones, cada una con su precio. Acá no hay botones de capacidad porque de ese modelo hay una sola cargada.</figcaption>
   </figure>
 
   <div class="page-foot"><span><b>IPHONES LUXURY</b> · iphonesluxury.com.ar</span><span class="mid">Entregado por Vorágine</span><span class="pnum">8</span></div>
@@ -529,25 +494,25 @@ figcaption b{color:var(--ink-2);font-weight:600}
 <section class="page airy">
   <div class="sec-head">
     <div class="sec-num">7</div>
-    <div><h1 class="sec">Preguntas frecuentes</h1></div>
+    <div><h1 class="sec">Preguntas que te van a surgir</h1></div>
   </div>
 
   <h3 class="q">¿Por qué cargo los precios en dólares si la gente paga en pesos?</h3>
-  <p>Porque comprás y valuás en dólares, y el peso se mueve todos los días. Cargás el precio en dólares una vez y la web lo pasa a pesos sola, con la cotización del blue del día más el ajuste que tenés en la pestaña Ajustes, hoy 20 pesos por dólar. Si no fuera así, tendrías que corregir 110 precios cada vez que se mueve el dólar. Si querés otro ajuste, o clavar la cotización, los dos números están en esa pestaña y los cambiás vos.</p>
+  <p>Porque vos comprás y valuás en dólares, y el peso se mueve todos los días. Cargás el precio en dólares una vez y la web lo pasa a pesos sola, con la cotización del blue del día más un ajuste fijo de $20 por dólar. Si no fuera así, tendrías que retocar 110 precios cada vez que salta el dólar. Si querés otro ajuste, o el blue clavado, se cambia.</p>
 
   <h3 class="q">Un día no aparecen los precios en pesos.</h3>
-  <p>La cotización la va a buscar la web a una página de dólar. Si esa página está caída, la web sigue funcionando y muestra los precios en dólares, sin los pesos. No se rompió nada y no se perdió ningún dato. Si se mantiene así por varias horas, cargá un número en <strong>Cotización manual</strong>: la web deja de depender de esa página. Si preferís no tocarlo, escribinos.</p>
+  <p>La cotización la va a buscar la web a una página de dólar. Si esa página está caída, la web sigue funcionando y muestra los precios en dólares, sin los pesos. No se rompió nada y no se perdió ningún dato. Si dura más de un rato, avisanos.</p>
 
   <h3 class="q">¿Cuánto tarda en verse un cambio?</h3>
   <p>Menos de un minuto, cualquier cambio: un precio, una foto o destildar Publicado. Si no lo ves, actualizá la página del navegador. No hay que avisarle a nadie ni apretar ningún botón de publicar.</p>
 
   <h3 class="q">Borré una fila sin querer.</h3>
-  <p>Si te diste cuenta en el momento, apretá <strong>Ctrl + Z</strong> y la fila se restaura. Si ya cerraste la planilla, las filas borradas quedan guardadas igual y se pueden recuperar: escribinos. De todos modos, para sacar un equipo de la web alcanza con destildar Publicado. Borrar no hace falta.</p>
+  <p>Si te diste cuenta en el momento, apretá <strong>Ctrl + Z</strong> y vuelve. Si ya cerraste la planilla, las filas borradas quedan guardadas igual y se pueden recuperar: escribinos. De todos modos, para sacar un equipo de la web alcanza con destildar Publicado. Borrar no hace falta.</p>
 
   <h3 class="q">¿Puedo agregar un modelo que no está en la lista?</h3>
   <p>Sí. Al abrir la lista del campo Modelo podés escribir uno nuevo y agregarlo. La ficha técnica —pantalla, cámara, procesador— está armada para los modelos que ya estaban: la de un modelo nuevo la carga el estudio. Hasta que se cargue, la página de ese equipo sale sin esa sección.</p>
 
-  <h3 class="q">Publiqué un precio equivocado.</h3>
+  <h3 class="q">Me equivoqué en un precio y lo vio gente.</h3>
   <p>Lo corregís en la planilla y en un minuto está bien. No queda nada publicado del precio viejo.</p>
 
   <h3 class="q">¿Puedo cargar desde el celular?</h3>
@@ -561,21 +526,21 @@ figcaption b{color:var(--ink-2);font-weight:600}
 
 <!-- ============ 10 · PREGUNTAS 2 + REPARTO ============ -->
 <section class="page airy">
-  <div class="cont">7 · Preguntas frecuentes</div>
+  <div class="cont">7 · Preguntas que te van a surgir</div>
 
   <h3 class="q" style="margin-top:0">¿Se puede comprar directamente desde la web?</h3>
-  <p>No. La web no cobra: deriva la consulta a tu WhatsApp. Los botones de cada equipo llevan el modelo y el precio ya escritos. El botón redondo fijo en la parte inferior abre el chat con un saludo escrito. Los del encabezado y la portada abren el chat vacío, así que ahí el mensaje lo escribe la persona. La venta la cerrás vos, hablando.</p>
+  <p>No, y es a propósito. Los botones de cada equipo llevan a tu WhatsApp con el modelo y el precio ya escritos. Los botones generales —el de arriba, el de la portada y el redondo que flota abajo— abren el chat con un saludo, sin equipo. La venta la seguís cerrando vos, hablando.</p>
 
   <h3 class="q">Busco “256GB” en la web y no aparece nada.</h3>
   <p>El buscador del stock busca por modelo y color, y solo dentro de la pestaña donde estés parado. No busca por capacidad ni por condición. Para eso están las pestañas, el orden por precio y los botones de adentro de cada equipo.</p>
 
   <h3 class="q">Apareció una reseña que no corresponde.</h3>
-  <p>El formulario de reseñas es abierto: cualquier visitante puede dejar una. No se saca desde la planilla. Indicanos cuál es y la damos de baja.</p>
+  <p>El formulario de reseñas es abierto: cualquier visitante puede dejar una. Sacarla no se hace desde la planilla. Mandanos cuál es y la sacamos.</p>
 
-  <h3 class="q">Cambiar el número de WhatsApp.</h3>
+  <h3 class="q">¿Y si un día cambio el número de WhatsApp?</h3>
   <p>Ese número está escrito dentro de la web, en todos los botones. No se cambia desde la planilla: avisanos y lo actualizamos.</p>
 
-  <hr class="rule" style="margin:11mm 0 7mm">
+  <hr class="rule" style="margin:13mm 0 8mm">
 
   <h2 class="blk">Qué cambiás vos y qué pedís al estudio</h2>
   <table class="split">
@@ -583,16 +548,16 @@ figcaption b{color:var(--ink-2);font-weight:600}
     <tbody>
       <tr>
         <td style="width:50%;white-space:normal;font-weight:400;vertical-align:top">
-          Cargar un equipo nuevo · sacar uno de la web · cambiar el precio, la capacidad, la condición, el color, la batería o la categoría · subir, cambiar y reordenar las fotos · poner y sacar destacados · mostrar el precio de nuevo de un usado · el ajuste por dólar y la cotización manual, en la pestaña Ajustes.
+          Cargar un equipo nuevo · sacar uno de la web · cambiar el precio, la capacidad, la condición, el color, la batería o la categoría · subir, cambiar y reordenar las fotos · poner y sacar destacados · mostrar el precio de nuevo de un usado.
         </td>
         <td style="width:50%;color:var(--ink);vertical-align:top">
-          Los textos de las secciones (garantía, calidad, envío, medios de pago) · los recargos por transferencia · el video y el iPhone que gira en la portada · el número de WhatsApp y las redes · la ficha técnica de un modelo nuevo · sacar una reseña · una categoría nueva · cualquier cambio en las columnas de la planilla.
+          Los textos de las secciones (garantía, calidad, envío, medios de pago) · el ajuste que se le suma al dólar · los recargos por transferencia · el video y el iPhone que gira en la portada · el número de WhatsApp y las redes · la ficha técnica de un modelo nuevo · sacar una reseña · una categoría nueva · cualquier cambio en las columnas de la planilla.
         </td>
       </tr>
     </tbody>
   </table>
 
-  <p style="margin-top:3.4mm">Los cambios de la segunda columna se solicitan al estudio y los resolvemos nosotros.</p>
+  <p style="margin-top:3.4mm">Nada de la segunda columna es un cambio grande. Se pide y se hace.</p>
 
   <div class="card">
     <h4>La regla general</h4>
@@ -613,7 +578,7 @@ figcaption b{color:var(--ink-2);font-weight:600}
   </div>
 
   <ol class="steps">
-    <li><strong>Cargué un equipo y no lo veo.</strong> Verificá que Publicado esté tildada y que Modelo, Categoría, Capacidad, Condición, Color y Precio USD estén completos: si falta alguno, el equipo no sale. Después tocá <strong>Ver más</strong> al final del listado, que de entrada se ven 6 por pestaña. Si es otra versión de un modelo que ya tenías, no aparece como tarjeta nueva: está dentro de la página de ese modelo.</li>
+    <li><strong>Cargué un equipo y no lo veo.</strong> Fijate que Publicado esté tildada y que Modelo, Capacidad, Condición, Color y Precio USD estén completos: si falta alguno, el equipo no sale. Después apretá <strong>Ver más</strong> al final del listado, que de entrada se ven 6 por pestaña. Y si es otra versión de un modelo que ya tenías, está adentro de la página de ese modelo, no como tarjeta nueva.</li>
     <li><strong>Cambié algo y sigo viendo lo viejo.</strong> Esperá un minuto y actualizá la página del navegador.</li>
     <li><strong>La web no carga o se ve rara.</strong> Probá desde otro celular, o con datos móviles en vez de wifi. Muchas veces es la conexión.</li>
   </ol>
@@ -626,16 +591,16 @@ figcaption b{color:var(--ink-2);font-weight:600}
   <div class="card dark">
     <p class="tagline">Soporte</p>
     <h4 class="studio-name" style="font-size:14pt;margin-bottom:3mm">Vorágine</h4>
-    <p style="color:#c9c2b5;margin-bottom:2.6mm">La web la hizo Vorágine. Tu contacto para cualquier cambio o consulta es Lucas Silva.</p>
+    <p style="color:#c9c2b5;margin-bottom:2.6mm">El estudio que hizo la web es el que la mantiene. Tu contacto directo es Lucas Silva.</p>
     <p style="font-size:12pt;font-weight:700;color:#fff;margin-bottom:2mm"><a href="https://wa.me/5491161461034">Lucas Silva · WhatsApp +54 9 11 6146-1034</a></p>
     <p style="color:#c9c2b5;margin-bottom:0">Mandá qué equipo es y, si podés, una captura de lo que ves en pantalla. Con eso se resuelve más rápido.</p>
   </div>
 
-  <h2 class="blk">Direcciones de referencia</h2>
+  <h2 class="blk">Las direcciones a mano</h2>
   <table class="kv">
     <tbody>
       <tr><td>Tu web</td><td><a class="link" href="https://iphonesluxury.com.ar">iphonesluxury.com.ar</a></td></tr>
-      <tr><td>El panel</td><td><a class="link" href="https://airtable.com/appkJDEph0wKYmMIJ">airtable.com/appkJDEph0wKYmMIJ</a> &nbsp;·&nbsp; pestañas Productos y Ajustes</td></tr>
+      <tr><td>El panel</td><td><a class="link" href="https://airtable.com/appkJDEph0wKYmMIJ">airtable.com/appkJDEph0wKYmMIJ</a> &nbsp;·&nbsp; pestaña Productos</td></tr>
       <tr><td>Tu WhatsApp</td><td>3757 541930 &nbsp;·&nbsp; <a class="link" href="https://wa.me/3757541930">wa.me/3757541930</a></td></tr>
       <tr><td>Tu Instagram</td><td><a class="link" href="https://www.instagram.com/iphonesluxury/">instagram.com/iphonesluxury</a></td></tr>
       <tr><td>Soporte</td><td>Vorágine · Lucas Silva &nbsp;·&nbsp; <a class="link" href="https://wa.me/5491161461034">+54 9 11 6146-1034</a></td></tr>

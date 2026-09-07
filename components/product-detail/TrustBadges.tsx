@@ -9,7 +9,17 @@ import {
 import { IoGameControllerOutline } from "react-icons/io5";
 import type { Product } from "@/data/products";
 
-export default function TrustBadges({ category, condition, productName }: { category?: string; condition?: Product["condition"]; productName?: string }) {
+export default function TrustBadges({
+  category,
+  condition,
+  productName,
+  batteryHealth,
+}: {
+  category?: string;
+  condition?: Product["condition"];
+  productName?: string;
+  batteryHealth?: number;
+}) {
   const isIphone = !category || category === "iphone";
   const isConsola = category === "consolas";
   const isSellado = condition === "Sellado";
@@ -19,8 +29,17 @@ export default function TrustBadges({ category, condition, productName }: { cate
     { icon: HiOutlineShieldCheck, label: "60 días de garantía IPHONES LUXURY" },
   ];
 
+  /* Antes decía "Batería al 100%" en todo lo que no fuera consola, incluidos
+     los usados. El piso real del negocio es 80%, así que en un A+ era una
+     promesa que el equipo no cumple. Ahora: el sellado sí es 100%, el usado con
+     dato cargado muestra el suyo, y el usado sin dato muestra el piso. */
   if (!isConsola) {
-    badges.push({ icon: HiOutlineCheckBadge, label: "Batería al 100%" });
+    const bateria = isSellado
+      ? "Batería 100%"
+      : batteryHealth
+        ? `Batería ${batteryHealth}%`
+        : "Batería 80% o más";
+    badges.push({ icon: HiOutlineCheckBadge, label: bateria });
   }
 
   badges.push({ icon: HiOutlineTruck, label: "Entrega en el día" });

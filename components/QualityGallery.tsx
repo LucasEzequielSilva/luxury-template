@@ -9,8 +9,11 @@ import ModelCarousel from "./ModelCarousel";
 const qualityPoints = [
   {
     icon: HiOutlineBattery100,
-    title: "Batería al máximo de salud",
-    desc: "La cambiamos si hace falta. No vendemos equipos con la batería gastada.",
+    /* El piso real del negocio es 80%. Decir "al máximo de salud" prometía un
+       100% que un usado no da, y es de las primeras cosas que el comprador
+       chequea cuando recibe el equipo. */
+    title: "Batería del 80% para arriba",
+    desc: "Ningún equipo sale a la venta por debajo de eso. El porcentaje exacto va publicado en cada ficha.",
   },
   {
     icon: HiOutlineCheckBadge,
