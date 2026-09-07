@@ -126,12 +126,15 @@ export async function getProducts(): Promise<Product[]> {
      (metadata, ficha y relacionados): las demás esperan a la misma promesa. */
   if (!enVuelo) {
     enVuelo = traerTodo()
+      /* Cero publicados es una respuesta legítima, no un error: puede que se
+         haya vendido todo o que el dueño esté destildando para probar. Antes se
+         caía al catálogo de ejemplo y la web mostraba 21 equipos que no son del
+         negocio, con precios que no son los suyos. Ahora se sirve el vacío y
+         cada sección muestra su estado de "sin stock". */
       .then((products) => {
-        if (products.length > 0) {
-          cacheado = { at: Date.now(), products };
-          ultimoOk = products;
-        }
-        return products.length > 0 ? products : (ultimoOk ?? seedProducts);
+        cacheado = { at: Date.now(), products };
+        ultimoOk = products;
+        return products;
       })
       .catch((err) => {
         console.error("getProducts: Airtable falló, sirvo lo último bueno", err);

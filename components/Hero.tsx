@@ -8,8 +8,12 @@ import type { Product } from "@/data/products";
 
 export default function Hero({ products }: { products: Product[] }) {
   const { blueRate } = useCurrency();
-  const minPrice = Math.min(...products.filter((p) => p.category !== "android").map((p) => p.price));
-  const arsMinPrice = blueRate ? Math.round(minPrice * blueRate) : null;
+  /* Con el catálogo vacío Math.min() devuelve Infinity y la chapa mostraba
+     "Desde US$Infinity". Sin precios no se muestra el precio: queda la prueba
+     de los +500 entregados, que sigue siendo cierta. */
+  const precios = products.filter((p) => p.category !== "android").map((p) => p.price);
+  const minPrice = precios.length > 0 ? Math.min(...precios) : null;
+  const arsMinPrice = minPrice !== null && blueRate ? Math.round(minPrice * blueRate) : null;
 
   /* overflow-x-clip y no overflow-visible: los dos glows decorativos miden
      500 y 600px y en un viewport de 390 asomaban hasta x=495, con lo que el
@@ -35,10 +39,14 @@ export default function Hero({ products }: { products: Product[] }) {
           {/* Price + Proof Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-xs sm:text-sm font-medium text-slate-300">
             <span className="flex size-2 rounded-full bg-amber-500 shrink-0" />
-            <span className="text-gold font-semibold tabular-nums">
-              Desde {arsMinPrice ? `$${new Intl.NumberFormat("de-DE").format(arsMinPrice)}` : `US$${new Intl.NumberFormat("en-US").format(minPrice)}`}
-            </span>
-            <span className="text-slate-500">·</span>
+            {minPrice !== null && (
+              <>
+                <span className="text-gold font-semibold tabular-nums">
+                  Desde {arsMinPrice ? `$${new Intl.NumberFormat("de-DE").format(arsMinPrice)}` : `US$${new Intl.NumberFormat("en-US").format(minPrice)}`}
+                </span>
+                <span className="text-slate-500">·</span>
+              </>
+            )}
             <span>+500 entregados</span>
           </div>
 

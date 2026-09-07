@@ -181,8 +181,30 @@ export default function Inventory({ products }: { products: Product[] }) {
             ))}
           </div>
         ) : (
-          <div className="glass-panel rounded-xl p-12 text-center">
-            <p className="text-slate-400">No se encontraron resultados para &ldquo;{search}&rdquo;</p>
+          /* Dos vacíos distintos. Con búsqueda cargada, el usuario buscó algo
+             que no está. Sin búsqueda, no hay stock publicado en esa categoría:
+             ahí el cartel de "no se encontraron resultados" no explica nada y
+             deja la sección muerta, así que se ofrece el WhatsApp. */
+          <div className="glass-panel rounded-xl p-10 sm:p-12 text-center">
+            {search.trim() ? (
+              <p className="text-slate-400">No se encontraron resultados para &ldquo;{search}&rdquo;</p>
+            ) : (
+              <>
+                <p className="text-white font-medium">Estamos actualizando el stock</p>
+                <p className="text-slate-400 text-sm mt-2 max-w-md mx-auto">
+                  Escribinos y te decimos qué equipos tenemos disponibles hoy. Si el modelo que
+                  buscás no está, lo conseguimos en 48 hs.
+                </p>
+                <a
+                  href="https://wa.me/3757541930"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-gold inline-flex items-center justify-center gap-2 mt-6 px-6 py-3.5 min-h-[44px] rounded-full text-sm font-semibold uppercase tracking-wide"
+                >
+                  Consultar por WhatsApp
+                </a>
+              </>
+            )}
           </div>
         )}
         {hasMore && (
