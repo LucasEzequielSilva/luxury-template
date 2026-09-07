@@ -7,6 +7,7 @@ import Featured from "@/components/Featured";
 import Inventory from "@/components/Inventory";
 import Warranty from "@/components/Warranty";
 import Reviews from "@/components/Reviews";
+import Location from "@/components/Location";
 // Cotizador / plan canje: lógica aparte, deshabilitada por ahora
 // import TradeInBanner from "@/components/TradeInBanner";
 import Footer from "@/components/Footer";
@@ -20,11 +21,12 @@ export default async function Home() {
     <HomeClient>
       <Navbar />
       <Hero products={products} />
-      <QualityGallery />
+      <QualityGallery products={products} />
       <Featured products={products} />
       <Inventory products={products} />
       <Warranty />
       <Reviews />
+      <Location />
       {/* <TradeInBanner /> */}
       <Footer />
     </HomeClient>

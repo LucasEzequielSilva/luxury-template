@@ -5,7 +5,7 @@ export default function NotFound() {
       <p className="text-slate-400 mb-8">Esta página no existe.</p>
       <a
         href="/"
-        className="px-6 py-3 bg-white text-black rounded-full text-sm font-semibold hover:bg-white/90 transition-colors"
+        className="btn-gold px-6 py-3 rounded-full text-sm font-semibold"
       >
         Volver al inicio
       </a>

@@ -8,8 +8,8 @@ import {
 const stats = [
   { value: "+500", label: "Equipos vendidos", icon: HiOutlineUsers },
   { value: "100%", label: "Batería en cada equipo", icon: HiOutlineFingerPrint },
-  { value: "24hs", label: "Entrega CABA y GBA", icon: HiOutlineTrophy },
-  { value: "30 días", label: "Garantía incluida", icon: HiOutlineShieldCheck },
+  { value: "24hs", label: "Entrega en el día", icon: HiOutlineTrophy },
+  { value: "60 días", label: "Garantía incluida", icon: HiOutlineShieldCheck },
 ];
 
 export default function Stats() {

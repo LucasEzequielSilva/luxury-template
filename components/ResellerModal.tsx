@@ -8,7 +8,7 @@ import { FaWhatsapp } from "react-icons/fa";
 const WHATSAPP_URL =
   "https://wa.me/3757541930?text=" +
   encodeURIComponent(
-    "Hola, quiero información para revender equipos me mandarias lista mayorista?"
+    "Hola! Quiero sumarme al programa de revendedores. ¿Me pasás la lista mayorista?"
   );
 
 function ModalContent({ onClose }: { onClose: () => void }) {
@@ -30,7 +30,7 @@ function ModalContent({ onClose }: { onClose: () => void }) {
 
       {/* Modal */}
       <div
-        className="relative w-full max-w-lg rounded-2xl border border-white/10 bg-[#0a0a0a] p-6 sm:p-8 space-y-6 shadow-2xl animate-in fade-in zoom-in-95"
+        className="relative w-full max-w-lg rounded-2xl border border-white/10 bg-black p-6 sm:p-8 space-y-6 shadow-2xl animate-in fade-in zoom-in-95"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close */}
@@ -50,17 +50,17 @@ function ModalContent({ onClose }: { onClose: () => void }) {
         {/* Content */}
         <div className="space-y-3">
           <h3 className="text-xl sm:text-2xl font-medium text-white text-balance">
-            Programa para revendedores
+            Precio mayorista para revendedores
           </h3>
           <p className="text-sm sm:text-base text-slate-400 leading-relaxed text-pretty">
-            Vendés iPhones o querés comenzar a revender? Accedé a precios
-            mayoristas, stock actualizado y soporte directo para revendedores.
-            Ideal para técnicos, tiendas y vendedores online.
+            Precio mayorista, stock actualizado y una sola persona de contacto.
+            Para técnicos, tiendas y vendedores online que necesitan reposición
+            constante.
           </p>
         </div>
 
         <p className="text-[11px] text-slate-600">
-          Reposición garantizada en 48 hs — Stock constante para que nunca te quedes sin mercadería.
+          Reponemos stock en 48 hs para que no te quedes sin mercadería.
         </p>
 
         {/* CTA */}
@@ -68,7 +68,7 @@ function ModalContent({ onClose }: { onClose: () => void }) {
           href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2.5 w-full bg-amber-500 text-white px-6 py-3.5 min-h-[44px] rounded-full text-sm font-semibold hover:bg-amber-600 active:scale-95 transition-[transform,background-color]"
+          className="btn-gold flex items-center justify-center gap-2.5 w-full px-6 py-3.5 min-h-[44px] rounded-full text-sm font-semibold active:scale-95 transition-[transform,filter]"
         >
           <FaWhatsapp className="size-5" />
           Pedir lista mayorista

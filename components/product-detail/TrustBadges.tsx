@@ -16,7 +16,7 @@ export default function TrustBadges({ category, condition, productName }: { cate
   const isPS5 = productName?.toLowerCase().includes("playstation");
 
   const badges: { icon: typeof HiOutlineShieldCheck; label: string }[] = [
-    { icon: HiOutlineShieldCheck, label: "30 días de garantía IPHONES LUXURY" },
+    { icon: HiOutlineShieldCheck, label: "60 días de garantía IPHONES LUXURY" },
   ];
 
   if (!isConsola) {
@@ -63,7 +63,7 @@ export default function TrustBadges({ category, condition, productName }: { cate
       )}
       {isPS5 && (
         <p className="text-[11px] text-slate-500 text-center border-t border-white/5 pt-3">
-          Joystick adicional no incluido — solo demostración
+          El joystick adicional de la foto no está incluido
         </p>
       )}
     </div>

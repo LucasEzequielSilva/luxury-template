@@ -1,36 +1,38 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import CurrencyProvider from "@/components/CurrencyProvider";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-inter",
+const soehne = localFont({
+  src: [
+    { path: "./fonts/soehne_buch-s.p.2faoiug7xav04.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/soehne_buch_kursiv-s.p.2olvm13bchd_3.woff2", weight: "400", style: "italic" },
+    { path: "./fonts/soehne_halbfett-s.p.0cjwyfhpx35x7.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/soehne_dreiviertelfett-s.p.3afamixnanxop.woff2", weight: "700", style: "normal" },
+    { path: "./fonts/soehne_extrafett-s.p.237as54tdb2in.woff2", weight: "800", style: "normal" },
+  ],
+  variable: "--font-soehne",
 });
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
+const soehneBreit = localFont({
+  src: "./fonts/soehne_breit_extrafett-s.p.3us7o9sn4w6yj.woff2",
+  weight: "800",
+  variable: "--font-soehne-breit",
 });
 
 export const metadata: Metadata = {
-  title: "IPHONES LUXURY | iPhones verificados al mejor precio",
+  title: "IPHONES LUXURY | iPhones revisados con garantía en Iguazú",
   description:
-    "iPhones seminuevos con batería verificada y garantía de 30 días. Precios en USD.",
+    "iPhones revisados, con 60 días de garantía y entrega en el día en Puerto Iguazú. Más de 500 equipos vendidos. Consultá el stock por WhatsApp.",
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "32x32" },
-      { url: "/favicon.png", sizes: "192x192", type: "image/png" },
-    ],
+    icon: [{ url: "/favicon.png", sizes: "192x192", type: "image/png" }],
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "IPHONES LUXURY | iPhones verificados al mejor precio",
+    title: "IPHONES LUXURY | iPhones revisados con garantía en Iguazú",
     description:
-      "iPhones seminuevos con batería verificada y garantía de 30 días. Precios en USD.",
+      "iPhones revisados, con 60 días de garantía y entrega en el día en Puerto Iguazú. Más de 500 equipos vendidos. Consultá el stock por WhatsApp.",
     locale: "es_AR",
     type: "website",
   },
@@ -43,7 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="scroll-smooth">
-      <body className={`${inter.className} ${spaceGrotesk.variable} bg-black text-slate-300 antialiased`}>
+      <body className={`${soehne.className} ${soehneBreit.variable} bg-black text-slate-300 antialiased`}>
         <CurrencyProvider>{children}</CurrencyProvider>
         <Analytics />
       </body>

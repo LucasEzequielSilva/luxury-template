@@ -4,7 +4,7 @@ import ResellerModal from "./ResellerModal";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 py-10 sm:py-12 px-6">
+    <footer className="border-t border-white/5 pt-28 pb-20 sm:pt-40 sm:pb-28 px-6">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
         <span className="flex items-center gap-2">
           <Image src="/logo-icon.png" alt="" width={32} height={32} className="size-8 w-auto" />

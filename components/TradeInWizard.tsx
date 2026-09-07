@@ -179,7 +179,7 @@ export default function TradeInWizard() {
           {step === 1 && (
             <>
               <p className="text-sm text-amber-500 font-medium mb-2">Paso 1 de {TOTAL_STEPS}</p>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1" style={{ fontFamily: "var(--font-soehne-breit)" }}>
                 ¿Qué iPhone tenés?
               </h1>
               <p className="text-slate-500 text-sm mb-6">Tocá tu modelo para empezar.</p>
@@ -215,7 +215,7 @@ export default function TradeInWizard() {
             <>
               <BackButton onClick={goBack} />
               <p className="text-sm text-amber-500 font-medium mb-2 mt-6">Paso 2 de {TOTAL_STEPS}</p>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1" style={{ fontFamily: "var(--font-soehne-breit)" }}>
                 ¿Cuánto almacenamiento?
               </h1>
               <p className="text-slate-500 text-sm mb-8">
@@ -249,7 +249,7 @@ export default function TradeInWizard() {
             <>
               <BackButton onClick={goBack} />
               <p className="text-sm text-amber-500 font-medium mb-2 mt-6">Paso 3 de {TOTAL_STEPS}</p>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1" style={{ fontFamily: "var(--font-soehne-breit)" }}>
                 Salud de batería
               </h1>
               <p className="text-slate-500 text-sm mb-8">¿Qué porcentaje muestra tu iPhone?</p>
@@ -285,7 +285,7 @@ export default function TradeInWizard() {
             <>
               <BackButton onClick={goBack} />
               <p className="text-sm text-amber-500 font-medium mb-2 mt-6">Paso 4 de {TOTAL_STEPS}</p>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-1" style={{ fontFamily: "var(--font-soehne-breit)" }}>
                 ¿Tiene algún daño?
               </h1>
               <p className="text-slate-500 text-sm mb-6">Tocá los que apliquen. Si está perfecto, seguí de largo.</p>
@@ -336,7 +336,7 @@ export default function TradeInWizard() {
                     <p className="text-sm text-amber-500 font-medium">Tu cotización</p>
                     <p
                       className="text-6xl sm:text-7xl font-extrabold text-white tracking-tight"
-                      style={{ fontFamily: "var(--font-space-grotesk)" }}
+                      style={{ fontFamily: "var(--font-soehne-breit)" }}
                     >
                       USD {price}
                     </p>

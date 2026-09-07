@@ -90,7 +90,7 @@ export default function IntroLoader({ onComplete }: IntroLoaderProps) {
                   className="text-5xl md:text-7xl font-bold tracking-widest"
                   style={{
                     fontFamily:
-                      "var(--font-space-grotesk), system-ui, sans-serif",
+                      "var(--font-soehne-breit), system-ui, sans-serif",
                     background:
                       "linear-gradient(180deg, #ffffff 0%, #c0c0c0 40%, #ffffff 55%, #a0a0a0 100%)",
                     WebkitBackgroundClip: "text",

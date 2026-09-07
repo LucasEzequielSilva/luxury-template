@@ -616,12 +616,12 @@ export const conditionInfo: Record<
   "A+": {
     label: "Grado A+",
     description:
-      "Equipo en estado impecable, prácticamente nuevo. Sin marcas de uso visibles. Batería y funcionamiento verificados al 100%. Garantía IPHONES LUXURY de 30 días incluida.",
+      "Equipo en estado impecable, prácticamente nuevo. Sin marcas de uso visibles. Batería y funcionamiento verificados al 100%. Garantía IPHONES LUXURY de 60 días incluida.",
   },
   A: {
     label: "Grado A",
     description:
-      "Equipo en muy buen estado con mínimos signos de uso. Puede presentar micro marcas cosméticas imperceptibles en uso diario. Batería y funcionamiento verificados. Garantía IPHONES LUXURY de 30 días incluida.",
+      "Equipo en muy buen estado con mínimos signos de uso. Puede presentar micro marcas cosméticas imperceptibles en uso diario. Batería y funcionamiento verificados. Garantía IPHONES LUXURY de 60 días incluida.",
   },
 };
 

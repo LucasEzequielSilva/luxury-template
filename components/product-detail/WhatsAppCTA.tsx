@@ -13,10 +13,10 @@ export default function WhatsAppCTA({ product }: { product: Product }) {
         href={getWhatsAppLink(product)}
         target="_blank"
         rel="noopener noreferrer"
-        className="cursor-pointer group w-full flex items-center justify-center gap-2.5 px-7 py-4 min-h-[48px] bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-white rounded-full text-sm sm:text-base font-semibold uppercase transition-colors"
+        className="btn-gold cursor-pointer group w-full flex items-center justify-center gap-2.5 px-7 py-4 min-h-[48px] rounded-full text-sm sm:text-base font-semibold uppercase"
       >
         <FaWhatsapp aria-hidden="true" className="size-5" />
-        Lo quiero — Consultar ahora
+        Consultar por WhatsApp
       </a>
 
       {/* Cotizador / plan canje: lógica aparte, deshabilitada por ahora

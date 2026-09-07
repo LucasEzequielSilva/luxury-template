@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { HiArrowsUpDown, HiOutlineMagnifyingGlass, HiOutlineXMark } from "react-icons/hi2";
+import { HiArrowsUpDown, HiOutlineMagnifyingGlass, HiOutlineXMark, HiOutlineDevicePhoneMobile } from "react-icons/hi2";
 import type { Product } from "@/data/products";
 import ProductCard from "./ProductCard";
+import SectionDivider from "./SectionDivider";
 
 const INITIAL_COUNT = 6;
 const LOAD_MORE_COUNT = 6;
@@ -92,17 +93,25 @@ export default function Inventory({ products }: { products: Product[] }) {
   ];
 
   return (
-    <section id="inventory" className="py-20 px-6">
+    <section id="inventory" className="relative py-20 px-6 bg-[#101010]">
+      <SectionDivider edge="top" mirror />
+      <SectionDivider edge="bottom" shape="asymmetric" />
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-medium text-white mb-4 text-balance">
-          Stock disponible
-        </h2>
-        <p className="text-slate-500 mb-2 text-pretty">
-          Todos los equipos con batería al 100%, verificados y con garantía de 30 días.
-        </p>
-        <p className="text-xs text-slate-600 mb-6">
-          Reposición permanente — Si no está en stock, lo conseguimos en 48 hs.
-        </p>
+        <div className="text-center max-w-2xl mx-auto mb-6">
+          <span className="section-badge mb-4">
+            <HiOutlineDevicePhoneMobile aria-hidden="true" className="size-3.5" />
+            Stock
+          </span>
+          <h2 className="text-2xl md:text-3xl font-medium text-white mb-3 text-balance">
+            Elegí el tuyo
+          </h2>
+          <p className="text-slate-500 mb-2 text-pretty">
+            Todos los equipos están revisados y tienen 60 días de garantía. Las fotos son de cada equipo, no de catálogo.
+          </p>
+          <p className="text-xs text-slate-600">
+            Si el modelo que querés no está en stock, lo conseguimos en 48 hs.
+          </p>
+        </div>
 
         {/* Category toggle + Search + Sort */}
         <div className="flex items-center justify-between gap-3 mb-10 flex-wrap">
@@ -111,10 +120,10 @@ export default function Inventory({ products }: { products: Product[] }) {
               <button
                 key={cat.key}
                 onClick={() => switchCategory(cat.key)}
-                className={`cursor-pointer px-4 sm:px-6 py-2.5 rounded-full text-sm font-medium border transition-[border-color,background-color,color] ${
+                className={`cursor-pointer px-4 sm:px-6 py-2.5 min-h-[44px] rounded-full text-sm font-semibold uppercase transition-[border-color,background-color,color,filter] ${
                   category === cat.key
-                    ? "bg-white text-black border-white"
-                    : "glass-panel border-white/10 text-slate-400 hover:border-white/20 hover:text-white"
+                    ? "btn-gold"
+                    : "glass-panel border-white/10 text-slate-400 hover:border-[#d4a843]/40 hover:text-[#d4a843]"
                 }`}
               >
                 {cat.label}
@@ -176,7 +185,7 @@ export default function Inventory({ products }: { products: Product[] }) {
           <div className="mt-12 flex justify-center">
             <button
               onClick={showMore}
-              className="cursor-pointer px-8 py-3.5 min-h-[44px] rounded-full border border-white/15 text-white text-sm font-medium hover:bg-white/5 active:scale-95 transition-[transform,background-color] duration-150 w-full sm:w-auto"
+              className="btn-outline-gold cursor-pointer px-8 py-3.5 min-h-[44px] rounded-full text-sm font-semibold uppercase active:scale-95 w-full sm:w-auto"
             >
               Ver más ({currentList.length - visible} restantes)
             </button>

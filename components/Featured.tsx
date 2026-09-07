@@ -18,12 +18,18 @@ export default function Featured({ products }: { products: Product[] }) {
   return (
     <section id="featured" className="py-20 px-6">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-medium text-white mb-4 text-balance">
-          Recomendados
-        </h2>
-        <p className="text-slate-500 mb-12 text-pretty">
-          Los modelos que más recomendamos hoy por rendimiento y precio.
-        </p>
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <span className="section-badge mb-4">
+            <Star aria-hidden="true" className="size-3.5" />
+            Destacados
+          </span>
+          <h2 className="text-2xl md:text-3xl font-medium text-white mb-3 text-balance">
+            Los que más se venden
+          </h2>
+          <p className="text-slate-500 text-pretty">
+            Los modelos que más eligen nuestros clientes por precio y rendimiento.
+          </p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {items.map((product) => {
             const hasImage = product.images && product.images.length > 0;
@@ -131,7 +137,7 @@ export default function Featured({ products }: { products: Product[] }) {
                         href={getWhatsAppLink(product)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 bg-amber-500 text-white px-5 sm:px-6 py-2.5 sm:py-3 min-h-[44px] rounded-full text-sm font-medium hover:bg-amber-600 active:scale-95 transition-[transform,background-color] cursor-pointer"
+                        className="btn-gold flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 min-h-[44px] rounded-full text-sm font-medium active:scale-95 transition-[transform,filter] cursor-pointer"
                       >
                         <FaWhatsapp aria-hidden="true" className="size-4" />
                         Consultar

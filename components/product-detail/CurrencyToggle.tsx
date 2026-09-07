@@ -14,7 +14,7 @@ export default function CurrencyToggle() {
         <span
           className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
             currency === "USD"
-              ? "bg-white text-black"
+              ? "btn-gold"
               : "text-slate-400"
           }`}
         >
@@ -23,7 +23,7 @@ export default function CurrencyToggle() {
         <span
           className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
             currency === "ARS"
-              ? "bg-white text-black"
+              ? "btn-gold"
               : "text-slate-400"
           }`}
         >

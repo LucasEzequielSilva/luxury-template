@@ -53,14 +53,20 @@ export default function IPhoneModel() {
         gl={{ antialias: true, alpha: true }}
         style={{ background: "transparent" }}
       >
-        <ambientLight intensity={1} />
-        <directionalLight position={[5, 5, 5]} intensity={1.5} />
-        <directionalLight position={[-5, -5, -5]} intensity={0.5} />
+        <ambientLight intensity={1.8} />
+        <directionalLight position={[5, 5, 5]} intensity={2.5} />
+        <directionalLight position={[-5, -5, -5]} intensity={0.8} />
+        {/* Rim light to separate the (often dark) phone from the black background */}
+        <directionalLight position={[0, 2, -6]} intensity={2.5} color="#ffffff" />
+        <directionalLight position={[-6, 0, 2]} intensity={1.2} color="#d4a843" />
         <Suspense fallback={<Loader />}>
           <Center>
             <Model />
           </Center>
-          <Environment preset="city" />
+        </Suspense>
+        {/* HDR reflections load from a CDN; keep them out of the model's Suspense so a slow/blocked fetch never hides the phone */}
+        <Suspense fallback={null}>
+          <Environment preset="studio" />
         </Suspense>
         <OrbitControls
           autoRotate

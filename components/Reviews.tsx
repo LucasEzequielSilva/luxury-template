@@ -2,7 +2,19 @@
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { HiStar, HiOutlineXMark, HiOutlinePencilSquare } from "react-icons/hi2";
+import { HiStar, HiOutlineXMark } from "react-icons/hi2";
+import SectionDivider from "./SectionDivider";
+
+function GoogleGIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 48 48" className={className} aria-hidden="true">
+      <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" />
+      <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" />
+      <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" />
+      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" />
+    </svg>
+  );
+}
 
 interface Review {
   name: string;
@@ -100,7 +112,7 @@ function ReviewFormModal({ onClose, onSubmit }: { onClose: () => void; onSubmit:
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
       <div
-        className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#0a0a0a] p-6 sm:p-8 space-y-5 shadow-2xl"
+        className="relative w-full max-w-md rounded-2xl border border-white/10 bg-black p-6 sm:p-8 space-y-5 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -164,7 +176,7 @@ function ReviewFormModal({ onClose, onSubmit }: { onClose: () => void; onSubmit:
           disabled={!canSubmit}
           className={`cursor-pointer w-full py-3.5 rounded-full text-sm font-semibold transition-all ${
             canSubmit
-              ? "bg-amber-500 text-white hover:bg-amber-600 active:scale-95"
+              ? "btn-gold active:scale-95"
               : "bg-white/5 text-slate-600 cursor-not-allowed"
           }`}
         >
@@ -206,8 +218,6 @@ export default function Reviews() {
   const avg = allReviews.length > 0
     ? (allReviews.reduce((s, r) => s + r.rating, 0) / allReviews.length).toFixed(1)
     : "5.0";
-  const expanded = visible >= allReviews.length;
-
   const handleSubmit = async (review: Review) => {
     // Save to API
     try {
@@ -222,25 +232,44 @@ export default function Reviews() {
   };
 
   return (
-    <section id="resenas" className="py-20 px-6 scroll-mt-24">
+    <section id="resenas" className="relative py-20 px-6 scroll-mt-24 bg-[#101010]">
+      <SectionDivider edge="top" shape="asymmetric" />
+      <SectionDivider edge="bottom" />
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-medium text-white mb-3 text-balance">
-              +500 equipos vendidos
-            </h2>
-            <p className="text-slate-500 text-pretty">
-              Lo que dicen nuestros clientes.
-            </p>
-          </div>
-          <div className="flex items-center gap-3 shrink-0">
-            <span className="text-3xl font-bold text-white">{avg}</span>
-            <div>
+        <div className="text-center max-w-2xl mx-auto mb-8">
+          <span className="section-badge mb-4">
+            <HiStar aria-hidden="true" className="size-3.5" />
+            Reseñas
+          </span>
+          <h2 className="text-2xl md:text-3xl font-medium text-white mb-3 text-balance">
+            Más de 500 equipos vendidos
+          </h2>
+          <p className="text-slate-500 text-pretty">
+            Lo que cuentan los clientes que ya compraron.
+          </p>
+        </div>
+
+        {/* Google-style rating card */}
+        <div className="glass-panel rounded-2xl p-5 sm:p-6 max-w-lg mx-auto mb-12 flex items-center gap-4 sm:gap-5">
+          <GoogleGIcon className="size-9 sm:size-10 shrink-0" />
+          <div className="flex-1 min-w-0">
+            <p className="text-white font-semibold text-sm sm:text-base truncate">IPHONES LUXURY</p>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-xl font-bold text-white tabular-nums">{avg}</span>
               <Stars count={Math.round(Number(avg))} />
-              <p className="text-xs text-slate-500 mt-0.5">{allReviews.length} reseñas</p>
             </div>
+            <p className="text-xs text-slate-500 mt-0.5">{allReviews.length} reseñas de clientes reales</p>
           </div>
+          <button
+            onClick={() => {
+              window.history.replaceState(null, "", "#dejar-resena");
+              setShowForm(true);
+            }}
+            className="btn-gold cursor-pointer shrink-0 px-4 sm:px-5 py-2.5 min-h-[44px] rounded-full text-xs sm:text-sm font-semibold"
+          >
+            Escribir reseña
+          </button>
         </div>
 
         {/* Grid */}
@@ -278,7 +307,7 @@ export default function Reviews() {
           <div className="mt-10 flex justify-center">
             <button
               onClick={() => setVisible(allReviews.length)}
-              className="cursor-pointer px-8 py-3.5 min-h-[44px] rounded-full border border-white/15 text-white text-sm font-medium hover:bg-white/5 active:scale-95 transition-[transform,background-color] duration-150"
+              className="btn-outline-gold cursor-pointer px-8 py-3.5 min-h-[44px] rounded-full text-sm font-semibold uppercase active:scale-95"
             >
               Ver todas las reseñas
             </button>
@@ -287,24 +316,9 @@ export default function Reviews() {
           <div className="mt-10 flex justify-center">
             <button
               onClick={() => setVisible(INITIAL)}
-              className="cursor-pointer px-8 py-3.5 min-h-[44px] rounded-full border border-white/15 text-slate-400 text-sm font-medium hover:bg-white/5 active:scale-95 transition-[transform,background-color] duration-150"
+              className="btn-outline-gold cursor-pointer px-8 py-3.5 min-h-[44px] rounded-full text-sm font-semibold uppercase active:scale-95"
             >
               Ver menos
-            </button>
-          </div>
-        )}
-
-        {expanded && (
-          <div className="mt-8 flex justify-center">
-            <button
-              onClick={() => {
-                window.history.replaceState(null, "", "#dejar-resena");
-                setShowForm(true);
-              }}
-              className="cursor-pointer flex items-center gap-2 px-6 py-3 min-h-[44px] rounded-full border border-white/10 text-slate-400 hover:text-white hover:border-white/20 hover:bg-white/[0.03] text-sm transition-[border-color,background-color,color]"
-            >
-              <HiOutlinePencilSquare className="size-4" />
-              Dejar una reseña
             </button>
           </div>
         )}

@@ -10,19 +10,15 @@ export default function ShippingInfo() {
       <ul className="space-y-2.5 text-sm text-slate-400">
         <li className="flex items-start gap-2">
           <span className="text-amber-400 mt-0.5">&#8226;</span>
-          Entrega en el día para CABA y GBA
+          Entrega en el día dentro de Iguazú
         </li>
         <li className="flex items-start gap-2">
           <span className="text-amber-400 mt-0.5">&#8226;</span>
-          Envíos a todo el país por Correo Argentino o Andreani
+          Por ahora solo hacemos entregas en Iguazú
         </li>
         <li className="flex items-start gap-2">
           <span className="text-amber-400 mt-0.5">&#8226;</span>
-          Retiro por nuestra oficina en Ramos Mejía
-        </li>
-        <li className="flex items-start gap-2">
-          <span className="text-amber-400 mt-0.5">&#8226;</span>
-          Punto de encuentro a coordinar por WhatsApp
+          Punto de encuentro y retiro a coordinar directo por WhatsApp
         </li>
       </ul>
     </div>

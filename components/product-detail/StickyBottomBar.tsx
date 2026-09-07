@@ -19,7 +19,7 @@ export default function StickyBottomBar({ product }: { product: Product }) {
           href={getWhatsAppLink(product)}
           target="_blank"
           rel="noopener noreferrer"
-          className="cursor-pointer shrink-0 flex items-center gap-2 px-5 py-3 min-h-[44px] bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white rounded-full text-sm font-semibold transition-colors"
+          className="btn-gold cursor-pointer shrink-0 flex items-center gap-2 px-5 py-3 min-h-[44px] rounded-full text-sm font-semibold"
         >
           <FaWhatsapp className="w-5 h-5" />
           Consultar

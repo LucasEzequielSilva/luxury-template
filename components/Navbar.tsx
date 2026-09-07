@@ -1,69 +1,55 @@
-import Image from "next/image";
 import { FaWhatsapp } from "react-icons/fa";
-import { FiArrowRight } from "react-icons/fi";
 
 import MobileMenu from "./MobileMenu";
-import BlueDollarTicker from "./BlueDollarTicker";
 import ResellerModal from "./ResellerModal";
+
+const links = [
+  { label: "Stock", href: "/#inventory" },
+  { label: "Destacados", href: "/#featured" },
+  { label: "Garantía", href: "/#warranty" },
+  // Cotizador / plan canje: lógica aparte, deshabilitada por ahora
+  // { label: "Plan Canje", href: "/cotizador" },
+];
 
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black">
-      <BlueDollarTicker />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-2 sm:gap-2.5">
-          <Image src="/logo-icon.png" alt="" width={36} height={36} className="size-7 sm:size-9 w-auto" />
-          <span className="font-sf text-lg sm:text-xl font-semibold text-amber-500 uppercase tracking-wide">
-            iPhones
-          </span>
-          <span className="font-sf text-lg sm:text-xl font-light text-white uppercase tracking-wide">
-            Luxury
-          </span>
-        </a>
+    <div className="fixed top-0 inset-x-0 z-50">
+      <nav className="mx-3 sm:mx-6 mt-3 max-w-5xl lg:mx-auto rounded-2xl border border-white/[0.06] bg-black">
+        <div className="px-4 sm:px-5 h-16 flex items-center justify-between">
+          <a href="/" className="flex items-center">
+            <div
+              role="img"
+              aria-label="IPHONES LUXURY"
+              className="logo-gold w-[150px] h-[48px]"
+            />
+          </a>
 
-        <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm text-slate-400 hover:text-white transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+            <ResellerModal />
+          </div>
+
           <a
-            href="/#inventory"
-            className="text-sm font-medium hover:text-white transition-colors"
+            href="https://wa.me/3757541930"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-gold hidden md:inline-flex items-center gap-2 px-4 py-2 min-h-[40px] rounded-full text-xs font-semibold uppercase"
           >
-            Stock
+            <FaWhatsapp aria-hidden="true" className="size-4" />
+            Contacto
           </a>
-          <a
-            href="/#featured"
-            className="text-sm font-medium hover:text-white transition-colors"
-          >
-            Destacados
-          </a>
-          <a
-            href="/#warranty"
-            className="text-sm font-medium hover:text-white transition-colors"
-          >
-            Garantía
-          </a>
-          {/* Cotizador / plan canje: lógica aparte, deshabilitada por ahora
-          <a
-            href="/cotizador"
-            className="text-sm font-medium hover:text-white transition-colors"
-          >
-            Plan Canje
-          </a>
-          */}
-          <ResellerModal />
+
+          <MobileMenu />
         </div>
-
-        <a
-          href="https://wa.me/3757541930"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden md:flex items-center gap-2 bg-amber-500 text-white px-5 py-2.5 min-h-[44px] rounded-full text-sm font-medium hover:bg-amber-600 transition-colors"
-        >
-          <FaWhatsapp aria-hidden="true" className="size-4" />
-          Contacto
-          <FiArrowRight aria-hidden="true" className="size-4" />
-        </a>
-
-        <MobileMenu />
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }

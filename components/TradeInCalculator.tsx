@@ -311,7 +311,7 @@ export default function TradeInCalculator() {
               {price > 0 ? (
                 <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-8 text-center space-y-2">
                   <p className="text-sm text-slate-400">Valor estimado de tu equipo</p>
-                  <p className="text-5xl font-extrabold text-white tracking-tight" style={{ fontFamily: "var(--font-space-grotesk)" }}>
+                  <p className="text-5xl font-extrabold text-white tracking-tight" style={{ fontFamily: "var(--font-soehne-breit)" }}>
                     USD {price}
                   </p>
                   <p className="text-xs text-slate-500 pt-1">

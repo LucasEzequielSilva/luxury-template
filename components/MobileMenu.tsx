@@ -31,7 +31,7 @@ export default function MobileMenu() {
       </button>
 
       {open && (
-        <div className="fixed inset-0 top-20 z-40 bg-black">
+        <div className="fixed inset-0 top-[84px] z-40 bg-black">
           <nav className="flex flex-col items-center gap-8 pt-16 px-6">
             {links.map((link) => (
               <a
@@ -49,7 +49,7 @@ export default function MobileMenu() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setOpen(false)}
-              className="mt-4 flex items-center gap-2 bg-amber-500 text-white px-8 py-3 min-h-[44px] rounded-full text-lg font-medium hover:bg-amber-600 transition-colors"
+              className="btn-gold mt-4 flex items-center gap-2 px-8 py-3 min-h-[44px] rounded-full text-lg font-medium"
             >
               <FaWhatsapp aria-hidden="true" className="size-5" />
               Contacto

@@ -4,16 +4,16 @@ import type { Product } from "@/data/products";
 const warrantyByCondition: Record<Product["condition"], string[]> = {
   Sellado: [
     "Garantía oficial Apple",
-    "30 días de garantía IPHONES LUXURY adicional",
+    "60 días de garantía IPHONES LUXURY adicional",
     "Soporte post-venta incluido",
   ],
   "A+": [
-    "30 días de garantía IPHONES LUXURY",
+    "60 días de garantía IPHONES LUXURY",
     "Cubre defectos de funcionamiento",
     "Soporte post-venta incluido",
   ],
   A: [
-    "30 días de garantía IPHONES LUXURY",
+    "60 días de garantía IPHONES LUXURY",
     "Cubre defectos de funcionamiento",
     "Soporte post-venta incluido",
   ],

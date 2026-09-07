@@ -27,11 +27,11 @@ export default function ProductCard({ product, allProducts = [] }: { product: Pr
   const arsPrice = blueRate ? Math.round(product.price * blueRate) : null;
 
   return (
-    <div className="glass-panel rounded-xl overflow-hidden flex flex-col hover:border-white/20 transition-[border-color] group">
+    <div className="glass-panel rounded-2xl p-3 flex flex-col hover:border-white/20 transition-[border-color] group shadow-lg shadow-black/20">
       {/* Image area */}
-      <Link href={`/producto/${product.id}`} className="relative block">
+      <Link href={`/producto/${product.id}`} className="relative block rounded-2xl overflow-hidden">
         {hasImage ? (
-          <div className="relative aspect-[4/3] overflow-hidden bg-black/30">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-black/30">
             <Image
               src={product.images![0]}
               alt={`${product.name} ${product.color}`}
@@ -43,7 +43,7 @@ export default function ProductCard({ product, allProducts = [] }: { product: Pr
           </div>
         ) : (
           <div
-            className="relative aspect-[4/3] flex items-center justify-center"
+            className="relative aspect-[4/3] rounded-2xl flex items-center justify-center"
             style={{
               background: `
                 radial-gradient(ellipse at 30% 40%, ${product.colorHex}30 0%, transparent 60%),
@@ -137,7 +137,7 @@ export default function ProductCard({ product, allProducts = [] }: { product: Pr
               href={getWhatsAppLink(product)}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-amber-500 text-white px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium hover:bg-amber-600 active:scale-95 transition-[transform,background-color] cursor-pointer"
+              className="btn-gold flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium active:scale-95 transition-[transform,filter] cursor-pointer"
             >
               <FaWhatsapp aria-hidden="true" className="size-4" />
               Consultar
