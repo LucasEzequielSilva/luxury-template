@@ -12,6 +12,11 @@ const EXIT_DURATION = 500;
 
 type Phase = "void" | "brand" | "exit";
 
+/* Decía "IPHONE LUXURY", sin la S: el nombre del negocio es IPHONES LUXURY.
+   El espacio va como no-separable porque cada carácter es un item de flex y un
+   espacio normal se colapsa, con lo que las dos palabras quedaban pegadas. */
+const MARCA = "IPHONES LUXURY".split("");
+
 // ---------------------------------------------------------------------------
 // Preload the GLB so it's cached for the hero
 // ---------------------------------------------------------------------------
@@ -83,16 +88,25 @@ export default function IntroLoader({ onComplete }: IntroLoaderProps) {
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <div className="relative z-10 flex flex-col items-center">
-            <div className="flex overflow-hidden">
-              {"IPHONE LUXURY".split("").map((char, i) => (
+            {/* El bloque se corría a la izquierda por el tracking: la letra
+                espaciada suma el espacio DESPUÉS de cada letra, incluida la
+                última, así que el centrado repartía un hueco fantasma a la
+                derecha. El -mr negativo del contenedor lo devuelve.
+                Los tamaños bajan en mobile porque los 14 caracteres a 48px
+                pedían ~470px y se recortaban contra el overflow-hidden. */}
+            <div className="flex overflow-hidden -mr-[0.1em]">
+              {MARCA.map((char, i) => (
                 <motion.span
                   key={i}
-                  className="text-5xl md:text-7xl font-bold tracking-widest"
+                  className="text-[28px] sm:text-5xl md:text-7xl font-bold tracking-widest"
                   style={{
                     fontFamily:
                       "var(--font-soehne-breit), system-ui, sans-serif",
+                    /* El degradado dorado de la marca, el mismo de los botones
+                       y del logo. Antes era plateado y no se parecía a nada
+                       del resto del sitio. */
                     background:
-                      "linear-gradient(180deg, #ffffff 0%, #c0c0c0 40%, #ffffff 55%, #a0a0a0 100%)",
+                      "linear-gradient(289deg, #fef48a 0%, #cfa534 20%, #ba810c 49%, #ddba4c 66%, #fef48a 76%, #ca9b28 86%)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -119,7 +133,7 @@ export default function IntroLoader({ onComplete }: IntroLoaderProps) {
               className="h-px mt-5 w-[140px] origin-center"
               style={{
                 background:
-                  "linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)",
+                  "linear-gradient(90deg, transparent, rgba(212,168,67,0.9), transparent)",
               }}
               initial={{ scaleX: 0, opacity: 0 }}
               animate={
