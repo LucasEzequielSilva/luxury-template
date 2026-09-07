@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import CurrencyProvider from "@/components/CurrencyProvider";
@@ -27,25 +27,76 @@ const soehneBreit = localFont({
    fija y el canonical apunta siempre al dominio del cliente. */
 const SITIO = "https://iphonesluxury.com.ar";
 
+const TITULO = "iPhones revisados con garantía en Iguazú | IPHONES LUXURY";
+const DESCRIPCION =
+  "iPhones sellados y usados revisados en Puerto Iguazú: 60 días de garantía, batería verificada y entrega en el día. +500 entregados. Consultá por WhatsApp.";
+
+/* Thumbnail social estático, renderizado con la tipografía y el dorado de la
+   marca. Vive en /public a propósito: las fotos del catálogo son URLs de
+   Airtable que caducan a las pocas horas, y una og:image muerta deja el
+   preview de WhatsApp roto para siempre. */
+const OG_IMAGE = {
+  url: "/og.png",
+  width: 1200,
+  height: 630,
+  alt: "IPHONES LUXURY — iPhones revisados con garantía en Puerto Iguazú",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITIO),
-  title: "IPHONES LUXURY | iPhones revisados con garantía en Iguazú",
-  description:
-    "iPhones revisados, con 60 días de garantía y entrega en el día en Puerto Iguazú. Más de 500 equipos vendidos. Consultá el stock por WhatsApp.",
-  alternates: { canonical: "/" },
+  title: TITULO,
+  description: DESCRIPCION,
+  applicationName: "IPHONES LUXURY",
+  authors: [{ name: "IPHONES LUXURY", url: SITIO }],
+  creator: "IPHONES LUXURY",
+  publisher: "IPHONES LUXURY",
+  category: "shopping",
+  keywords: [
+    "iphone usado iguazú",
+    "comprar iphone en puerto iguazú",
+    "iphone con garantía misiones",
+    "celulares con garantía iguazú",
+    "iphone sellado precio argentina",
+    "iphone reacondicionado",
+    "iphones luxury",
+  ],
+  /* iOS autolinkea como teléfono cadenas tipo "128GB" o los precios de las
+     fichas; apagar la detección evita links azules falsos sobre el catálogo. */
+  formatDetection: { telephone: false, email: false, address: false },
   icons: {
     icon: [{ url: "/favicon.png", sizes: "192x192", type: "image/png" }],
     apple: "/apple-touch-icon.png",
   },
+  robots: {
+    index: true,
+    follow: true,
+    /* max-image-preview:large es lo que habilita la miniatura grande en la SERP
+       y en Discover; sin esto Google recorta la foto del producto a un thumb. */
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+  },
   openGraph: {
-    title: "IPHONES LUXURY | iPhones revisados con garantía en Iguazú",
-    description:
-      "iPhones revisados, con 60 días de garantía y entrega en el día en Puerto Iguazú. Más de 500 equipos vendidos. Consultá el stock por WhatsApp.",
+    title: TITULO,
+    description: DESCRIPCION,
     url: SITIO,
     siteName: "IPHONES LUXURY",
     locale: "es_AR",
     type: "website",
+    images: [OG_IMAGE],
   },
+  /* Sólo la card: el objeto `twitter` de un layout se hereda ENTERO por la
+     página que no lo declara, así que poner acá title/description hacía que las
+     ~110 fichas compartieran el texto de la home junto a su propia foto. Sin
+     esas claves Next cae al title/description resueltos de cada página (y a las
+     imágenes de openGraph), y la home igual conserva los suyos porque los
+     declara en metadata.title/description. */
+  twitter: { card: "summary_large_image" },
+};
+
+export const viewport: Viewport = {
+  /* Desde Next 15 theme-color va acá, no en metadata. Pinta la barra del
+     navegador en Chrome Android del mismo negro que el sitio. */
+  themeColor: "#0b0b0b",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -54,7 +105,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="scroll-smooth">
+    <html lang="es-AR" className="scroll-smooth">
       <body className={`${soehne.className} ${soehneBreit.variable} bg-black text-slate-300 antialiased`}>
         <CurrencyProvider>{children}</CurrencyProvider>
         <Analytics />

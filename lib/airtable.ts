@@ -47,35 +47,88 @@ function recordToProduct(record: AirtableRecord): Product | null {
   };
 }
 
+const TTL_MS = 60_000;
+const REINTENTOS = 3;
+
+/* Snapshot del último catálogo que Airtable devolvió bien. Es lo que se sirve
+   si una llamada falla: caer al seed en una ficha de producto sería un 404,
+   porque los IDs del seed son numéricos y los de Airtable son "rec...".
+
+   Estas tres variables son estado de módulo: viven por proceso y las comparten
+   TODAS las requests. Sirve porque el catálogo es idéntico para cualquier
+   visitante. Si algún día getProducts() recibe parámetros por usuario (precios
+   por cliente, stock por sucursal, algo detrás de login), este caché y `enVuelo`
+   filtrarían datos de un usuario a otro: ahí hay que indexarlos por esa clave.
+   Además el arreglo cacheado se devuelve por referencia, así que quien lo
+   ordene o filtre tiene que copiarlo antes ([...products].sort()). */
+let cacheado: { at: number; products: Product[] } | null = null;
+let ultimoOk: Product[] | null = null;
+let enVuelo: Promise<Product[]> | null = null;
+
+/* El catálogo entra en dos páginas de 100 y la segunda se pide con el `offset`
+   que devolvió la primera. Ese token dura segundos: cachear la respuesta con
+   revalidate lo dejaba viejo y Airtable respondía 422, tumbando la carga
+   entera. Por eso las páginas van sin caché y lo que se cachea es el arreglo
+   ya armado, acá abajo. */
+async function traerTodo(): Promise<Product[]> {
+  const records: AirtableRecord[] = [];
+  let offset: string | undefined;
+
+  do {
+    const url = new URL(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${TABLE_NAME}`);
+    url.searchParams.set("filterByFormula", "{Publicado}=1");
+    url.searchParams.set("pageSize", "100");
+    if (offset) url.searchParams.set("offset", offset);
+
+    let res: Response | null = null;
+    for (let intento = 1; intento <= REINTENTOS; intento++) {
+      res = await fetch(url, {
+        headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` },
+        cache: "no-store",
+      });
+      /* 429 es el límite de 5 pedidos por segundo por base, y los 5xx son
+         cortes momentáneos: los dos se resuelven esperando. Un 4xx distinto es
+         un problema de permisos o de fórmula y reintentarlo no cambia nada. */
+      if (res.ok || (res.status !== 429 && res.status < 500)) break;
+      if (intento < REINTENTOS) await new Promise((r) => setTimeout(r, 400 * intento));
+    }
+    if (!res || !res.ok) throw new Error(`Airtable ${res?.status ?? "sin respuesta"}`);
+
+    const data = await res.json();
+    records.push(...data.records);
+    offset = data.offset;
+  } while (offset);
+
+  return records.map(recordToProduct).filter((p): p is Product => p !== null);
+}
+
 export async function getProducts(): Promise<Product[]> {
   if (!AIRTABLE_BASE_ID || !AIRTABLE_TOKEN) return seedProducts;
 
-  try {
-    const records: AirtableRecord[] = [];
-    let offset: string | undefined;
+  const ahora = Date.now();
+  if (cacheado && ahora - cacheado.at < TTL_MS) return cacheado.products;
 
-    do {
-      const url = new URL(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${TABLE_NAME}`);
-      url.searchParams.set("filterByFormula", "{Publicado}=1");
-      if (offset) url.searchParams.set("offset", offset);
-
-      const res = await fetch(url, {
-        headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` },
-        next: { revalidate: 60 },
+  /* Una sola llamada a Airtable aunque la página pida el catálogo tres veces
+     (metadata, ficha y relacionados): las demás esperan a la misma promesa. */
+  if (!enVuelo) {
+    enVuelo = traerTodo()
+      .then((products) => {
+        if (products.length > 0) {
+          cacheado = { at: Date.now(), products };
+          ultimoOk = products;
+        }
+        return products.length > 0 ? products : (ultimoOk ?? seedProducts);
+      })
+      .catch((err) => {
+        console.error("getProducts: Airtable falló, sirvo lo último bueno", err);
+        return ultimoOk ?? cacheado?.products ?? seedProducts;
+      })
+      .finally(() => {
+        enVuelo = null;
       });
-      if (!res.ok) throw new Error(`Airtable ${res.status}`);
-
-      const data = await res.json();
-      records.push(...data.records);
-      offset = data.offset;
-    } while (offset);
-
-    const products = records.map(recordToProduct).filter((p): p is Product => p !== null);
-    return products.length > 0 ? products : seedProducts;
-  } catch (err) {
-    console.error("getProducts: falling back to seed data", err);
-    return seedProducts;
   }
+
+  return enVuelo;
 }
 
 export async function getProductById(id: string): Promise<Product | undefined> {

@@ -5,17 +5,6 @@ import { createPortal } from "react-dom";
 import { HiStar, HiOutlineXMark } from "react-icons/hi2";
 import SectionDivider from "./SectionDivider";
 
-function GoogleGIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 48 48" className={className} aria-hidden="true">
-      <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" />
-      <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" />
-      <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" />
-      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" />
-    </svg>
-  );
-}
-
 interface Review {
   name: string;
   device: string;
@@ -70,10 +59,11 @@ const INITIAL = 6;
 
 function Stars({ count }: { count: number }) {
   return (
-    <div className="flex gap-0.5">
+    <div role="img" aria-label={`${count} de 5 estrellas`} className="flex gap-0.5">
       {Array.from({ length: 5 }, (_, i) => (
         <HiStar
           key={i}
+          aria-hidden="true"
           className={`size-3.5 ${i < count ? "text-yellow-400" : "text-white/10"}`}
         />
       ))}
@@ -120,7 +110,7 @@ function ReviewFormModal({ onClose, onSubmit }: { onClose: () => void; onSubmit:
           className="cursor-pointer absolute top-4 right-4 text-slate-500 hover:text-white transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
           aria-label="Cerrar"
         >
-          <HiOutlineXMark className="size-6" />
+          <HiOutlineXMark aria-hidden="true" className="size-6" />
         </button>
 
         <div>
@@ -135,10 +125,13 @@ function ReviewFormModal({ onClose, onSubmit }: { onClose: () => void; onSubmit:
             {[1, 2, 3, 4, 5].map((star) => (
               <button
                 key={star}
+                type="button"
                 onClick={() => setRating(star)}
+                aria-label={`${star} ${star === 1 ? "estrella" : "estrellas"}`}
+                aria-pressed={star === rating}
                 className="cursor-pointer p-0.5"
               >
-                <HiStar className={`size-7 transition-colors ${star <= rating ? "text-yellow-400" : "text-white/10 hover:text-white/30"}`} />
+                <HiStar aria-hidden="true" className={`size-7 transition-colors ${star <= rating ? "text-yellow-400" : "text-white/10 hover:text-white/30"}`} />
               </button>
             ))}
           </div>
@@ -252,14 +245,21 @@ export default function Reviews() {
 
         {/* Google-style rating card */}
         <div className="glass-panel rounded-2xl p-5 sm:p-6 max-w-lg mx-auto mb-12 flex items-center gap-4 sm:gap-5">
-          <GoogleGIcon className="size-9 sm:size-10 shrink-0" />
+          <span
+            aria-hidden="true"
+            className="size-9 sm:size-10 shrink-0 rounded-full bg-[#d4a843]/10 border border-[#d4a843]/25 flex items-center justify-center"
+          >
+            <HiStar aria-hidden="true" className="size-5" style={{ color: "#d4a843" }} />
+          </span>
           <div className="flex-1 min-w-0">
             <p className="text-white font-semibold text-sm sm:text-base truncate">IPHONES LUXURY</p>
             <div className="flex items-center gap-2 mt-1">
               <span className="text-xl font-bold text-white tabular-nums">{avg}</span>
               <Stars count={Math.round(Number(avg))} />
             </div>
-            <p className="text-xs text-slate-500 mt-0.5">{allReviews.length} reseñas de clientes reales</p>
+            <p className="text-xs text-slate-500 mt-0.5">
+              {allReviews.length} testimonios recibidos por WhatsApp y por este sitio
+            </p>
           </div>
           <button
             onClick={() => {

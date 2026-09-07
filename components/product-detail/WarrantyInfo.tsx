@@ -29,8 +29,8 @@ export default function WarrantyInfo({
   return (
     <div className="glass-panel rounded-xl p-6 space-y-4">
       <div className="flex items-center gap-2.5">
-        <HiOutlineShieldCheck className="w-5 h-5 text-slate-300" />
-        <h3 className="text-sm font-medium text-white">Garantía</h3>
+        <HiOutlineShieldCheck aria-hidden="true" className="w-5 h-5 text-slate-300" />
+        <h2 className="text-sm font-medium text-white">Garantía</h2>
       </div>
       <ul className="space-y-2.5 text-sm text-slate-400">
         {items.map((item) => (

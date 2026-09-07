@@ -14,6 +14,8 @@ interface ModelCard {
   name: string;
   kicker: string;
   image?: string;
+  /** Color de la unidad cuya foto se muestra: sin esto el alt describiría un color que no es el de la foto. */
+  imageColor?: string;
   minPrice: number;
   maxPrice: number;
   cheapest: Product;
@@ -53,6 +55,7 @@ function buildModels(products: Product[]): ModelCard[] {
       name: key,
       kicker: series ? `Serie ${series}` : "iPhone",
       image: withImage?.images?.[0],
+      imageColor: withImage?.color,
       minPrice: Math.min(...prices),
       maxPrice: Math.max(...prices),
       cheapest,
@@ -253,9 +256,9 @@ export default function ModelCarousel({ products }: { products: Product[] }) {
                     {m.image ? (
                       <Image
                         src={m.image}
-                        alt={m.name}
+                        alt={m.imageColor ? `${m.name} ${m.imageColor}` : m.name}
                         fill
-                        sizes="(max-width: 1024px) 90vw, 40vw"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1024px) 70vw, 40vw"
                         className="object-cover"
                         draggable={false}
                       />
@@ -274,7 +277,8 @@ export default function ModelCarousel({ products }: { products: Product[] }) {
                     }`}
                   >
                     <div>
-                      <h3 className="text-2xl sm:text-3xl font-medium text-white leading-tight">{m.name}</h3>
+                      {/* h4: el título del bloque ("Explorá cada modelo") ya es el h3 de esta subsección */}
+                      <h4 className="text-2xl sm:text-3xl font-medium text-white leading-tight">{m.name}</h4>
                       <p className="text-xs text-slate-500 mt-1">
                         {m.variants} {m.variants === 1 ? "variante disponible" : "variantes disponibles"}
                       </p>
@@ -314,6 +318,7 @@ export default function ModelCarousel({ products }: { products: Product[] }) {
                     <div className="mt-auto flex flex-col sm:flex-row justify-center gap-3 pt-2">
                       <Link
                         href={`/producto/${m.cheapest.id}`}
+                        aria-label={`Ver ${m.name}`}
                         className="btn-gold flex items-center justify-center gap-2 px-6 py-3 min-h-[44px] rounded-full text-sm font-semibold uppercase tracking-wide active:scale-95 transition-[transform,filter]"
                       >
                         Ver modelo
@@ -322,6 +327,7 @@ export default function ModelCarousel({ products }: { products: Product[] }) {
                         href={getWhatsAppLink(m.cheapest)}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`Consultar por WhatsApp por el ${m.name}`}
                         className="btn-outline-gold flex items-center justify-center gap-2 px-6 py-3 min-h-[44px] rounded-full text-sm font-semibold uppercase active:scale-95"
                       >
                         <FaWhatsapp aria-hidden="true" className="size-4" />
@@ -357,9 +363,30 @@ export default function ModelCarousel({ products }: { products: Product[] }) {
             </button>
           </>
         )}
+      </div>
 
-        {/* Counter + mute */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+      {/* Contador + dots + mute. Van en flujo debajo del carrusel: flotando dentro de la pista
+          caían justo encima de los CTA de la tarjeta activa y tapaban "Ver modelo" y "Consultar". */}
+      <div className="mt-6 flex items-center justify-center gap-x-4 gap-y-3 flex-wrap">
+        {models.length > 1 && (
+          <div className="flex items-center justify-center gap-2 flex-wrap">
+            {models.map((m, i) => (
+              <button
+                key={m.key}
+                type="button"
+                onClick={() => goTo(i)}
+                aria-label={`Ir a ${m.name}`}
+                aria-current={i === active ? "true" : undefined}
+                className={`cursor-pointer h-2 rounded-full transition-all duration-200 ${
+                  i === active ? "w-8 bg-[#d4a843]" : "w-2 bg-white/20 hover:bg-white/40"
+                }`}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Contador y mute juntos para que al envolver en mobile bajen como un solo bloque */}
+        <div className="flex items-center gap-2">
           <span aria-live="polite" className="glass-panel rounded-full px-4 py-1.5 text-xs text-white tabular-nums">
             {active + 1} / {models.length}
           </span>
@@ -378,24 +405,6 @@ export default function ModelCarousel({ products }: { products: Product[] }) {
           </button>
         </div>
       </div>
-
-      {/* Dots */}
-      {models.length > 1 && (
-        <div className="mt-6 flex items-center justify-center gap-2 flex-wrap">
-          {models.map((m, i) => (
-            <button
-              key={m.key}
-              type="button"
-              onClick={() => goTo(i)}
-              aria-label={`Ir a ${m.name}`}
-              aria-current={i === active ? "true" : undefined}
-              className={`cursor-pointer h-2 rounded-full transition-all duration-200 ${
-                i === active ? "w-8 bg-[#d4a843]" : "w-2 bg-white/20 hover:bg-white/40"
-              }`}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 }

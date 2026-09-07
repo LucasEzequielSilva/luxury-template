@@ -120,6 +120,7 @@ export default function Inventory({ products }: { products: Product[] }) {
               <button
                 key={cat.key}
                 onClick={() => switchCategory(cat.key)}
+                aria-pressed={category === cat.key}
                 className={`cursor-pointer px-4 sm:px-6 py-2.5 min-h-[44px] rounded-full text-sm font-semibold uppercase transition-[border-color,background-color,color,filter] ${
                   category === cat.key
                     ? "btn-gold"
@@ -133,7 +134,7 @@ export default function Inventory({ products }: { products: Product[] }) {
 
           <div className="flex items-center gap-2">
             <div className="relative">
-              <HiOutlineMagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 size-3.5 text-slate-500" />
+              <HiOutlineMagnifyingGlass aria-hidden="true" className="absolute left-3 top-1/2 -translate-y-1/2 size-3.5 text-slate-500" />
               <input
                 type="text"
                 value={search}
@@ -142,6 +143,7 @@ export default function Inventory({ products }: { products: Product[] }) {
                   setVisible(INITIAL_COUNT);
                 }}
                 placeholder="Buscar..."
+                aria-label="Buscar por modelo o color"
                 className="w-32 sm:w-40 bg-white/[0.03] border border-white/10 rounded-full pl-9 pr-8 py-2 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-white/20 focus:w-48 sm:focus:w-52 transition-all"
               />
               {search && (
@@ -150,21 +152,23 @@ export default function Inventory({ products }: { products: Product[] }) {
                     setSearch("");
                     setVisible(INITIAL_COUNT);
                   }}
+                  aria-label="Borrar la búsqueda"
                   className="cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white p-0.5"
                 >
-                  <HiOutlineXMark className="size-3.5" />
+                  <HiOutlineXMark aria-hidden="true" className="size-3.5" />
                 </button>
               )}
             </div>
             <button
               onClick={cycleSort}
+              aria-label={`Ordenar por precio (actual: ${sortLabel})`}
               className={`cursor-pointer flex items-center gap-1.5 px-4 py-2 rounded-full text-sm border transition-[border-color,background-color,color] ${
                 sort !== "default"
                   ? "border-white/25 bg-white/10 text-white"
                   : "border-white/10 text-slate-400 hover:border-white/20 hover:text-white"
               }`}
             >
-              <HiArrowsUpDown className="size-3.5" />
+              <HiArrowsUpDown aria-hidden="true" className="size-3.5" />
               <span className="hidden sm:inline">{sortLabel}</span>
             </button>
           </div>

@@ -73,10 +73,10 @@ export default function QualityGallery({ products }: { products: Product[] }) {
                   className="glass-panel rounded-xl p-5 sm:p-6 flex gap-4 items-start"
                 >
                   <div className="shrink-0 size-10 sm:size-11 rounded-full bg-amber-500/10 flex items-center justify-center">
-                    <Icon className="size-5 sm:size-6 text-amber-400" />
+                    <Icon aria-hidden="true" className="size-5 sm:size-6 text-amber-400" />
                   </div>
                   <div>
-                    <p className="text-white font-medium text-sm sm:text-base">{point.title}</p>
+                    <h3 className="text-white font-medium text-sm sm:text-base">{point.title}</h3>
                     <p className="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">{point.desc}</p>
                   </div>
                 </div>
@@ -88,7 +88,7 @@ export default function QualityGallery({ products }: { products: Product[] }) {
               rel="noopener noreferrer"
               className="cursor-pointer glass-panel rounded-xl p-5 sm:p-6 flex items-center justify-center gap-3 text-amber-400 hover:bg-amber-500/5 hover:border-amber-500/20 transition-[background-color,border-color] duration-150 mt-auto"
             >
-              <FaWhatsapp className="size-5" />
+              <FaWhatsapp aria-hidden="true" className="size-5" />
               <span className="font-medium text-sm sm:text-base">Pedí fotos reales antes de comprar</span>
             </a>
           </div>

@@ -27,16 +27,19 @@ export default function ProductHeader({ product }: { product: Product }) {
         <span
           className={`inline-flex items-center gap-1.5 text-sm font-medium px-3 py-1 rounded-full border ${style.classes}`}
         >
-          <span className={`size-1.5 rounded-full ${style.dot}`} />
+          <span aria-hidden="true" className={`size-1.5 rounded-full ${style.dot}`} />
           {product.condition}
         </span>
-        <span className="text-xs text-slate-500">
-          {product.capacity} &middot; {product.color}
-          {product.batteryHealth ? ` · Batería ${product.batteryHealth}%` : ""}
-        </span>
+        {product.batteryHealth ? (
+          <span className="text-xs text-slate-500">Batería {product.batteryHealth}%</span>
+        ) : null}
       </div>
+      {/* Capacidad y color van en el h1: hay un registro por variante, así que sin
+          ellos decenas de URLs distintas comparten exactamente el mismo h1. */}
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-medium text-white leading-tight text-balance">
-        {product.category === "android" || product.category === "consolas" ? product.name : `Apple ${product.name}`}
+        {product.category === "android" || product.category === "consolas"
+          ? `${product.name} ${product.capacity} ${product.color}`
+          : `Apple ${product.name} ${product.capacity} ${product.color}`}
       </h1>
     </div>
   );

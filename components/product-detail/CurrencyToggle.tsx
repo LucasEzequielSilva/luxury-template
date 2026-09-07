@@ -9,6 +9,7 @@ export default function CurrencyToggle() {
     <div className="flex items-center gap-3">
       <button
         onClick={toggleCurrency}
+        aria-label={`Ver los precios en ${currency === "USD" ? "pesos" : "dólares"}`}
         className="cursor-pointer relative flex items-center bg-white/5 rounded-full p-1 border border-white/10 min-h-[44px]"
       >
         <span

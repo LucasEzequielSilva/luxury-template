@@ -49,6 +49,8 @@ function ModelSelector({ product, allProducts }: { product: Product; allProducts
             <Link
               key={model.id}
               href={`/producto/${model.id}`}
+              aria-label={`Ver ${model.name} ${model.capacity} ${model.condition}`}
+              aria-current={isActive ? "page" : undefined}
               className={`relative rounded-xl p-3.5 transition-[border-color,background-color] border ${
                 isActive
                   ? "bg-white/10 border-white/30 shadow-[0_0_20px_rgba(255,255,255,0.05)]"
@@ -56,7 +58,7 @@ function ModelSelector({ product, allProducts }: { product: Product; allProducts
               }`}
             >
               {isActive && (
-                <div className="absolute top-2.5 right-2.5 size-2 rounded-full bg-amber-400" />
+                <div aria-hidden="true" className="absolute top-2.5 right-2.5 size-2 rounded-full bg-amber-400" />
               )}
               <div className="space-y-1.5">
                 <p
@@ -117,6 +119,8 @@ function ColorSelector({ product, allProducts }: { product: Product; allProducts
             <Link
               key={variant.id}
               href={`/producto/${variant.id}`}
+              aria-label={`Ver ${variant.name} en color ${variant.color}`}
+              aria-current={isActive ? "page" : undefined}
               className={`group relative flex flex-col items-center gap-2 rounded-xl p-2.5 transition-[border-color,background-color] border ${
                 isActive
                   ? "border-white/25 bg-white/5"
@@ -198,6 +202,8 @@ function CapacitySelector({ product, allProducts }: { product: Product; allProdu
             <Link
               key={variant.id}
               href={`/producto/${variant.id}`}
+              aria-label={`Ver la versión de ${variant.capacity}`}
+              aria-current={isActive ? "page" : undefined}
               className={`px-5 py-2.5 rounded-full text-sm font-medium transition-[border-color,background-color,color] border ${
                 isActive
                   ? "bg-white/10 border-white/30 text-white"
@@ -238,6 +244,8 @@ function ConditionSelector({ product, allProducts }: { product: Product; allProd
             <Link
               key={variant.id}
               href={`/producto/${variant.id}`}
+              aria-label={`Ver la unidad en condición ${variant.condition}`}
+              aria-current={isActive ? "page" : undefined}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
                 isActive
                   ? conditionStyles[variant.condition]

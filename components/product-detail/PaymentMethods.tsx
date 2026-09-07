@@ -4,8 +4,8 @@ export default function PaymentMethods() {
   return (
     <div className="glass-panel rounded-xl p-6 space-y-4">
       <div className="flex items-center gap-2.5">
-        <HiOutlineBanknotes className="w-5 h-5 text-slate-300" />
-        <h3 className="text-sm font-medium text-white">Medios de pago</h3>
+        <HiOutlineBanknotes aria-hidden="true" className="w-5 h-5 text-slate-300" />
+        <h2 className="text-sm font-medium text-white">Medios de pago</h2>
       </div>
       <ul className="space-y-2.5 text-sm text-slate-400">
         <li className="flex items-start gap-2">

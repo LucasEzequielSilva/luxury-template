@@ -25,16 +25,23 @@ export default function ProductCard({ product, allProducts = [] }: { product: Pr
   const hasBothConditions = modelConditions.size > 1;
 
   const arsPrice = blueRate ? Math.round(product.price * blueRate) : null;
+  // Identidad completa de la unidad: sirve de alt de la foto y de nombre accesible
+  // de los links, que si no se repiten como "Ver detalle" x N en la grilla.
+  const fullName = `${product.name} ${product.capacity} ${product.color}`;
 
   return (
     <div className="glass-panel rounded-2xl p-3 flex flex-col hover:border-white/20 transition-[border-color] group shadow-lg shadow-black/20">
       {/* Image area */}
-      <Link href={`/producto/${product.id}`} className="relative block rounded-2xl overflow-hidden">
+      <Link
+        href={`/producto/${product.id}`}
+        aria-label={`Ver ${fullName}`}
+        className="relative block rounded-2xl overflow-hidden"
+      >
         {hasImage ? (
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-black/30">
             <Image
               src={product.images![0]}
-              alt={`${product.name} ${product.color}`}
+              alt={`${product.name} ${product.capacity} ${product.color}, condición ${product.condition}`}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-200"
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -137,6 +144,7 @@ export default function ProductCard({ product, allProducts = [] }: { product: Pr
               href={getWhatsAppLink(product)}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Consultar por WhatsApp por el ${fullName}`}
               className="btn-gold flex items-center gap-2 px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium active:scale-95 transition-[transform,filter] cursor-pointer"
             >
               <FaWhatsapp aria-hidden="true" className="size-4" />
@@ -144,6 +152,7 @@ export default function ProductCard({ product, allProducts = [] }: { product: Pr
             </a>
             <Link
               href={`/producto/${product.id}`}
+              aria-label={`Ver detalle de ${fullName}`}
               className="flex items-center gap-1 text-sm text-slate-500 hover:text-white transition-colors min-h-[44px] cursor-pointer"
             >
               Ver detalle

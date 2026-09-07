@@ -31,9 +31,13 @@ export default function HomeClient({
       {showLoader && !loaderDone && (
         <IntroLoader onComplete={handleLoaderComplete} />
       )}
+      {/* El HTML del servidor tiene que salir visible: con opacity:0 por defecto,
+          cualquier rastreador o preview de link sin JS (y cualquier fallo de
+          hidratación) veía la home en blanco. Solo se atenúa mientras el
+          IntroLoader está efectivamente en pantalla. */}
       <div
         style={{
-          opacity: loaderDone ? 1 : 0,
+          opacity: showLoader && !loaderDone ? 0 : 1,
           transition: "opacity 0.5s ease",
         }}
       >

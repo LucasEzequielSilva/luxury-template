@@ -70,7 +70,7 @@ function ModalContent({ onClose }: { onClose: () => void }) {
           rel="noopener noreferrer"
           className="btn-gold flex items-center justify-center gap-2.5 w-full px-6 py-3.5 min-h-[44px] rounded-full text-sm font-semibold active:scale-95 transition-[transform,filter]"
         >
-          <FaWhatsapp className="size-5" />
+          <FaWhatsapp aria-hidden="true" className="size-5" />
           Pedir lista mayorista
         </a>
       </div>

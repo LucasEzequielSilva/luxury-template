@@ -1,3 +1,13 @@
+import type { Metadata } from "next";
+
+/* Next ya emite su propio noindex en el 404, pero el "index, follow" del
+   layout también se hereda y quedaban dos directivas contradictorias: se pisa
+   acá para que las dos digan lo mismo. */
+export const metadata: Metadata = {
+  title: "Página no encontrada | IPHONES LUXURY",
+  robots: { index: false, follow: false },
+};
+
 export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white px-6">

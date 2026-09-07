@@ -67,8 +67,13 @@ function ImageLoader() {
   );
 }
 
-function ProductImage({ src, alt }: { src: string; alt: string }) {
-  const [loading, setLoading] = useState(true);
+/**
+ * `fade` solo para las fotos que el usuario elige después del primer render: la
+ * primera es el LCP de la ficha y con opacity-0 el píxel más grande de la página
+ * no se pintaba hasta que corría JS.
+ */
+function ProductImage({ src, alt, fade }: { src: string; alt: string; fade: boolean }) {
+  const [loading, setLoading] = useState(fade);
 
   return (
     <>
@@ -77,8 +82,10 @@ function ProductImage({ src, alt }: { src: string; alt: string }) {
         src={src}
         alt={alt}
         fill
-        className={`object-contain p-4 transition-opacity duration-300 ${loading ? "opacity-0" : "opacity-100"}`}
-        sizes="(max-width: 768px) 100vw, 50vw"
+        className={`object-contain p-4 ${
+          fade ? `transition-opacity duration-300 ${loading ? "opacity-0" : "opacity-100"}` : ""
+        }`}
+        sizes="(max-width: 1024px) 100vw, 45vw"
         priority
         onLoad={() => setLoading(false)}
       />
@@ -121,7 +128,8 @@ export default function ProductGallery({ product, specs }: Props) {
               <ProductImage
                 key={activeImage}
                 src={images[activeImage] ?? images[0]}
-                alt={`${product.name} ${product.color}`}
+                alt={`${product.name} ${product.capacity} ${product.color}, condición ${product.condition}`}
+                fade={activeImage !== 0}
               />
             ) : (
               <div className="flex flex-col items-center gap-4">
@@ -200,6 +208,7 @@ export default function ProductGallery({ product, specs }: Props) {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
+              aria-pressed={activeTab === tab.id}
               className={`cursor-pointer flex-1 glass-panel rounded-xl min-h-[44px] py-2.5 px-2 sm:p-3 flex flex-col items-center justify-center gap-1 sm:gap-1.5 transition-[border-color,background-color] ${
                 activeTab === tab.id
                   ? "border-white/20 bg-white/5"

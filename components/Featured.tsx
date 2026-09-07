@@ -34,6 +34,7 @@ export default function Featured({ products }: { products: Product[] }) {
           {items.map((product) => {
             const hasImage = product.images && product.images.length > 0;
             const arsPrice = blueRate ? Math.round(product.price * blueRate) : null;
+            const fullName = `${product.name} ${product.capacity} ${product.color}`;
 
             return (
               <div
@@ -41,12 +42,16 @@ export default function Featured({ products }: { products: Product[] }) {
                 className="glass-panel rounded-xl overflow-hidden border-white/15 hover:border-white/25 transition-[border-color] group"
               >
                 {/* Image / Color area */}
-                <Link href={`/producto/${product.id}`} className="relative block">
+                <Link
+                  href={`/producto/${product.id}`}
+                  aria-label={`Ver ${fullName}`}
+                  className="relative block"
+                >
                   {hasImage ? (
                     <div className="relative aspect-[16/10] overflow-hidden bg-black/30">
                       <Image
                         src={product.images![0]}
-                        alt={`${product.name} ${product.color}`}
+                        alt={`${product.name} ${product.capacity} ${product.color}, condición ${product.condition}`}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-200"
                         sizes="(max-width: 768px) 100vw, 50vw"
@@ -128,6 +133,7 @@ export default function Featured({ products }: { products: Product[] }) {
                     <div className="flex items-center justify-between gap-4 pt-1">
                       <Link
                         href={`/producto/${product.id}`}
+                        aria-label={`Ver detalle de ${fullName}`}
                         className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-white transition-colors min-h-[44px] cursor-pointer"
                       >
                         Ver detalle
@@ -137,6 +143,7 @@ export default function Featured({ products }: { products: Product[] }) {
                         href={getWhatsAppLink(product)}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`Consultar por WhatsApp por el ${fullName}`}
                         className="btn-gold flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 min-h-[44px] rounded-full text-sm font-medium active:scale-95 transition-[transform,filter] cursor-pointer"
                       >
                         <FaWhatsapp aria-hidden="true" className="size-4" />

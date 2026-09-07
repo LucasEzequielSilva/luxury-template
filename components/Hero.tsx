@@ -44,7 +44,7 @@ export default function Hero({ products }: { products: Product[] }) {
 
           {/* Heading */}
           <h1 className="text-[28px] sm:text-3xl md:text-4xl font-medium tracking-tight text-white leading-tight text-balance">
-            El iPhone que buscás.
+            El iPhone que buscás en Iguazú.
             <br />
             <span className="text-gold">
               Revisado y con garantía.
