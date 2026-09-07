@@ -90,6 +90,10 @@ const negocio: JsonLdObject = {
 
 export default async function Home() {
   const products = await getProducts();
+  /* Destacados es la única sección de fondo negro entre Calidad y Stock, que
+     son las dos grises. Si no hay ningún equipo destacado no se dibuja, y sin
+     ella los divisores de esas dos secciones se cruzan. */
+  const hayDestacados = products.some((p) => p.featured);
 
   return (
     <>
@@ -99,9 +103,9 @@ export default async function Home() {
       <HomeClient>
         <Navbar />
         <Hero products={products} />
-        <QualityGallery products={products} />
+        <QualityGallery products={products} conDivisorInferior={hayDestacados} />
         <Featured products={products} />
-        <Inventory products={products} />
+        <Inventory products={products} conDivisorSuperior={hayDestacados} />
         <Warranty />
         <Reviews />
         <Location />

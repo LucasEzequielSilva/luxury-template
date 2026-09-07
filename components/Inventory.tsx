@@ -12,7 +12,17 @@ const LOAD_MORE_COUNT = 6;
 type Category = "iphone" | "android" | "consolas";
 type SortOrder = "default" | "price-asc" | "price-desc";
 
-export default function Inventory({ products }: { products: Product[] }) {
+/* conDivisorSuperior: ver el comentario de QualityGallery. Entre Calidad y
+   Stock vive Destacados, que tiene fondo negro; si no hay destacados esa
+   sección no se dibuja, las dos secciones grises quedan pegadas y los dos
+   divisores se cruzan formando un ojo. */
+export default function Inventory({
+  products,
+  conDivisorSuperior = true,
+}: {
+  products: Product[];
+  conDivisorSuperior?: boolean;
+}) {
   const [category, setCategory] = useState<Category>("iphone");
   const [sort, setSort] = useState<SortOrder>("default");
   const [search, setSearch] = useState("");
@@ -94,7 +104,7 @@ export default function Inventory({ products }: { products: Product[] }) {
 
   return (
     <section id="inventory" className="relative py-20 px-6 bg-[#101010]">
-      <SectionDivider edge="top" mirror />
+      {conDivisorSuperior && <SectionDivider edge="top" mirror />}
       <SectionDivider edge="bottom" shape="asymmetric" />
       <div className="max-w-7xl mx-auto">
         <div className="text-center max-w-2xl mx-auto mb-6">

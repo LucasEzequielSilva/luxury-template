@@ -28,11 +28,23 @@ const qualityPoints = [
   },
 ];
 
-export default function QualityGallery({ products }: { products: Product[] }) {
+/* Los divisores de abajo de Calidad y de arriba de Stock existen porque entre
+   las dos vive Destacados, que tiene fondo negro. Cuando no hay ningún equipo
+   destacado esa sección no se renderiza, las dos secciones grises quedan
+   pegadas y los dos divisores se dibujan uno encima del otro: se ven dos curvas
+   doradas cruzadas, como un ojo. Con el flag se apaga el par y las dos
+   secciones del mismo gris se funden, que es lo que corresponde. */
+export default function QualityGallery({
+  products,
+  conDivisorInferior = true,
+}: {
+  products: Product[];
+  conDivisorInferior?: boolean;
+}) {
   return (
     <section id="quality" className="relative py-16 md:py-20 bg-[#101010]">
       <SectionDivider edge="top" />
-      <SectionDivider edge="bottom" />
+      {conDivisorInferior && <SectionDivider edge="bottom" />}
       {/* Hero: Video + Quality Points */}
       <div className="max-w-7xl mx-auto px-6 mb-12 md:mb-16">
         <span className="section-badge mb-5">
