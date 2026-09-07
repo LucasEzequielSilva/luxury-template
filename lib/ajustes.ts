@@ -14,9 +14,11 @@ const TABLA = "Ajustes";
 const MIN_COTIZACION = 100;
 const MAX_COTIZACION = 100_000;
 
-/* El ajuste que se suma al blue cuando la cotización es automática. Es el
-   spread de financiera que ya estaba escrito en el código; ahora es el valor
-   por defecto y el dueño lo puede cambiar desde la tabla. */
+/* Los pesos que se suman al blue cuando la cotización es automática: el spread
+   de financiera con el que ya venía trabajando el sitio. Vive acá y no en la
+   tabla a propósito. Cuando eran dos columnas de números, una con el precio del
+   dólar y otra con el ajuste, se leían como lo mismo y se cargaba el precio en
+   la columna equivocada. Un solo campo visible: el precio del dólar. */
 const AJUSTE_POR_DEFECTO = 20;
 
 export interface Ajustes {
@@ -35,8 +37,9 @@ let enVuelo: Promise<Ajustes> | null = null;
 
 interface FilaAjustes {
   fields: {
+    "Precio del dólar"?: number;
+    /* Nombre anterior del mismo campo, por si quedó una copia de la tabla. */
     "Cotización manual"?: number;
-    "Ajuste por dólar"?: number;
   };
 }
 
@@ -60,11 +63,10 @@ async function traer(): Promise<Ajustes> {
   const fila = data.records?.[0];
   if (!fila) return AJUSTES_POR_DEFECTO;
 
+  const cargado = fila.fields["Precio del dólar"] ?? fila.fields["Cotización manual"];
   return {
-    cotizacionManual: numeroValido(fila.fields["Cotización manual"], MIN_COTIZACION, MAX_COTIZACION),
-    /* El ajuste sí puede ser 0 (vender al blue pelado) y puede ser negativo si
-       alguna vez quiere vender por debajo, así que solo se acota el disparate. */
-    ajustePorDolar: numeroValido(fila.fields["Ajuste por dólar"], -10_000, 10_000) ?? AJUSTE_POR_DEFECTO,
+    cotizacionManual: numeroValido(cargado, MIN_COTIZACION, MAX_COTIZACION),
+    ajustePorDolar: AJUSTE_POR_DEFECTO,
   };
 }
 
