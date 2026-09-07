@@ -15,6 +15,12 @@ interface AirtableRecord {
     Categoría?: "iphone" | "android" | "consolas";
     Capacidad?: string;
     Condición?: Product["condition"];
+    /* El tramo elegido en el desplegable: "80% o más", "85% o más", "90% o
+       más" o "100%". Una fila es una variante del catálogo y no un equipo
+       puntual, así que un porcentaje exacto no aplicaría: de ese modelo puede
+       haber varias unidades, cada una con su batería. */
+    "Batería"?: string;
+    /* El campo numérico anterior, por si quedó algo cargado ahí. */
     "Batería %"?: number;
     Color?: string;
     "Color Hex"?: string;
@@ -24,6 +30,14 @@ interface AirtableRecord {
     Publicado?: boolean;
     Fotos?: AirtableAttachment[];
   };
+}
+
+/* Del "85% o más" del desplegable sale el 85. Se guarda el número para que el
+   resto del sitio siga comparando valores, y el texto se arma al mostrarlo. */
+function tramoBateria(valor: string | undefined): number | undefined {
+  if (!valor) return undefined;
+  const n = parseInt(valor, 10);
+  return Number.isFinite(n) ? n : undefined;
 }
 
 function recordToProduct(record: AirtableRecord): Product | null {
@@ -42,7 +56,7 @@ function recordToProduct(record: AirtableRecord): Product | null {
     originalPrice: f["Precio Original USD"],
     featured: !!f.Destacado,
     category: f.Categoría || "iphone",
-    batteryHealth: f["Batería %"],
+    batteryHealth: tramoBateria(f["Batería"]) ?? f["Batería %"],
     images: f.Fotos?.map((a) => a.url),
   };
 }

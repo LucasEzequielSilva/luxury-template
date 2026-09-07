@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import { FiArrowRight } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
-import { formatPrice, getWhatsAppLink, type Product } from "@/data/products";
+import { formatPrice, textoBateria, getWhatsAppLink, type Product } from "@/data/products";
 import { useCurrency } from "./CurrencyProvider";
 
 export default function Featured({ products }: { products: Product[] }) {
@@ -103,7 +103,7 @@ export default function Featured({ products }: { products: Product[] }) {
                     </Link>
                     <p className="text-sm text-slate-400 mt-2 leading-relaxed">
                       {product.capacity} · {product.color}
-                      {product.batteryHealth ? ` · Batería ${product.batteryHealth}%` : ""}
+                      {product.batteryHealth ? ` · ${textoBateria(product.batteryHealth, true)}` : ""}
                     </p>
                   </div>
                   <div className="flex flex-col gap-3 mt-auto">

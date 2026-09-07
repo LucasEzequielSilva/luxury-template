@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaWhatsapp } from "react-icons/fa";
 import { FiArrowRight } from "react-icons/fi";
-import { Product, formatPrice, getWhatsAppLink, getDiscountPercentage } from "@/data/products";
+import { Product, formatPrice, textoBateria, getWhatsAppLink, getDiscountPercentage } from "@/data/products";
 import { useCurrency } from "./CurrencyProvider";
 
 const conditionStyles: Record<Product["condition"], string> = {
@@ -116,7 +116,7 @@ export default function ProductCard({ product, allProducts = [] }: { product: Pr
           </Link>
           <p className="text-sm text-slate-400">
             {product.condition} · {product.capacity}
-            {product.batteryHealth ? ` · Batería ${product.batteryHealth}%` : ""}
+            {product.batteryHealth ? ` · ${textoBateria(product.batteryHealth, true)}` : ""}
           </p>
         </div>
         <div className="mt-auto space-y-2">

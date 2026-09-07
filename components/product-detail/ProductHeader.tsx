@@ -1,4 +1,4 @@
-import type { Product } from "@/data/products";
+import { textoBateria, type Product } from "@/data/products";
 
 const conditionStyles: Record<
   Product["condition"],
@@ -41,7 +41,7 @@ export default function ProductHeader({ product }: { product: Product }) {
           {product.condition}
         </span>
         {product.batteryHealth ? (
-          <span className="text-xs text-slate-500">Batería {product.batteryHealth}%</span>
+          <span className="text-xs text-slate-500">{textoBateria(product.batteryHealth!)}</span>
         ) : null}
       </div>
       {/* Capacidad y color van en el h1: hay un registro por variante, así que sin

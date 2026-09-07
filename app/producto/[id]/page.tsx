@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import {
   iphoneSpecsMap,
   formatPrice,
+  textoBateria,
   products as catalogoLocal,
   type Product,
 } from "@/data/products";
@@ -132,7 +133,7 @@ function descripcionFicha(product: Product): string {
   const armar = (color: string, bateria: string) =>
     `${product.name} ${product.capacity}${color}, ${CONDICION_TEXTO[product.condition]}.${bateria} Garantía de 60 días y entrega en el día en Iguazú. ${precio} Consultá por WhatsApp.`;
 
-  const bateria = product.batteryHealth ? ` Batería ${product.batteryHealth}%.` : "";
+  const bateria = product.batteryHealth ? ` ${textoBateria(product.batteryHealth)}.` : "";
   const completa = armar(` ${product.color}`, bateria);
   if (completa.length <= 155) return completa;
   const sinColor = armar("", bateria);

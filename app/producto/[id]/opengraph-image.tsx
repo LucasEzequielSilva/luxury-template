@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
 import { getProductById } from "@/lib/airtable";
-import { formatPrice } from "@/data/products";
+import { formatPrice, textoBateria } from "@/data/products";
 
 /* El catálogo sale de Airtable con caché de 60s: la imagen se arma en cada
    pedido para que el precio del preview no quede viejo. */
@@ -61,7 +61,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
   const chips: string[] = [];
   if (product) {
     chips.push(CONDICION_TEXTO[product.condition] ?? product.condition);
-    if (product.batteryHealth) chips.push(`Batería ${product.batteryHealth}%`);
+    if (product.batteryHealth) chips.push(textoBateria(product.batteryHealth));
     chips.push("60 días de garantía");
   }
 

@@ -7,7 +7,7 @@ import {
   HiOutlineStar,
 } from "react-icons/hi2";
 import { IoGameControllerOutline } from "react-icons/io5";
-import type { Product } from "@/data/products";
+import { textoBateria, type Product } from "@/data/products";
 
 export default function TrustBadges({
   category,
@@ -37,7 +37,7 @@ export default function TrustBadges({
     const bateria = isSellado
       ? "Batería 100%"
       : batteryHealth
-        ? `Batería ${batteryHealth}%`
+        ? textoBateria(batteryHealth)
         : "Batería revisada";
     badges.push({ icon: HiOutlineCheckBadge, label: bateria });
   }

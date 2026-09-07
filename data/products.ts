@@ -604,6 +604,14 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
 
 // ─── Info de condiciones ────────────────────────────────────
 
+/* El valor guardado es el piso del tramo elegido en el panel, no la medición de
+   una unidad: 85 significa "85% o más". El 100 es el sellado y ahí no
+   corresponde el "o más". `corto` es para la tarjeta, donde no entra la frase. */
+export function textoBateria(bateria: number, corto = false): string {
+  if (bateria >= 100) return "Batería 100%";
+  return corto ? `Batería ${bateria}%+` : `Batería ${bateria}% o más`;
+}
+
 export const conditionInfo: Record<
   Product["condition"],
   { label: string; description: string }
