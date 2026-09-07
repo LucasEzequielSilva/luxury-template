@@ -21,10 +21,18 @@ const soehneBreit = localFont({
   variable: "--font-soehne-breit",
 });
 
+/* El dominio propio. Sin metadataBase, Next resuelve las URLs relativas de
+   Open Graph contra localhost en dev y contra la URL del deploy en prod, así
+   que la miniatura que ve WhatsApp cambiaba en cada deploy. Con esto queda
+   fija y el canonical apunta siempre al dominio del cliente. */
+const SITIO = "https://iphonesluxury.com.ar";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITIO),
   title: "IPHONES LUXURY | iPhones revisados con garantía en Iguazú",
   description:
     "iPhones revisados, con 60 días de garantía y entrega en el día en Puerto Iguazú. Más de 500 equipos vendidos. Consultá el stock por WhatsApp.",
+  alternates: { canonical: "/" },
   icons: {
     icon: [{ url: "/favicon.png", sizes: "192x192", type: "image/png" }],
     apple: "/apple-touch-icon.png",
@@ -33,6 +41,8 @@ export const metadata: Metadata = {
     title: "IPHONES LUXURY | iPhones revisados con garantía en Iguazú",
     description:
       "iPhones revisados, con 60 días de garantía y entrega en el día en Puerto Iguazú. Más de 500 equipos vendidos. Consultá el stock por WhatsApp.",
+    url: SITIO,
+    siteName: "IPHONES LUXURY",
     locale: "es_AR",
     type: "website",
   },
