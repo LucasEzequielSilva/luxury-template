@@ -164,3 +164,35 @@ h1, h2, h3 {
     transform: translateX(0);
   }
 }
+
+/* Secondary gold pill — compact container for nav/footer links and icon buttons */
+.pill-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  border-radius: 9999px;
+  border: 1px solid rgba(212, 168, 67, 0.3);
+  background: rgba(212, 168, 67, 0.06);
+  color: #d4a843;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+.pill-gold:hover {
+  background: rgba(212, 168, 67, 0.14);
+  border-color: rgba(212, 168, 67, 0.6);
+  color: #fef48a;
+}
+
+/* Red de seguridad contra el scroll horizontal en mobile: cualquier
+   decoración absoluta que se pase del ancho (glows, halos, cards laterales del
+   carrusel) queda recortada en X. clip en vez de hidden para no convertir a
+   html/body en scroll container, que rompería sticky y scroll-margin. */
+html,
+body {
+  overflow-x: hidden;
+  overflow-x: clip;
+}

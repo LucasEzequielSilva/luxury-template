@@ -11,6 +11,7 @@ import Location from "@/components/Location";
 // Cotizador / plan canje: lógica aparte, deshabilitada por ahora
 // import TradeInBanner from "@/components/TradeInBanner";
 import Footer from "@/components/Footer";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 import HomeClient from "@/components/HomeClient";
 import { getProducts } from "@/lib/airtable";
 
@@ -29,6 +30,7 @@ export default async function Home() {
       <Location />
       {/* <TradeInBanner /> */}
       <Footer />
+      <WhatsAppFloat />
     </HomeClient>
   );
 }

@@ -1,23 +1,27 @@
-import Image from "next/image";
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import ResellerModal from "./ResellerModal";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/5 pt-28 pb-20 sm:pt-40 sm:pb-28 px-6">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
-        <span className="flex items-center gap-2">
-          <Image src="/logo-icon.png" alt="" width={32} height={32} className="size-8 w-auto" />
-          <span className="font-sf text-xl font-semibold text-white uppercase">
-            IPHONES LUXURY
-          </span>
-        </span>
-        <div className="flex items-center gap-2 sm:gap-4 flex-wrap justify-center">
+    <footer className="relative pt-28 pb-20 sm:pt-40 sm:pb-28 px-6">
+      {/* Gold hairline */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-px"
+        style={{ background: "linear-gradient(to right, transparent, rgba(212,168,67,0.6), transparent)" }}
+      />
+
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+        <a href="/" className="flex items-center" aria-label="Ir al inicio">
+          <div role="img" aria-label="IPHONES LUXURY" className="logo-gold w-[150px] h-[48px]" />
+        </a>
+
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap justify-center">
           <a
             href="https://wa.me/3757541930"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-400 hover:text-amber-400 transition-colors min-w-[44px] min-h-[44px] inline-flex items-center justify-center cursor-pointer"
+            className="pill-gold size-11"
             aria-label="WhatsApp"
           >
             <FaWhatsapp aria-hidden="true" className="size-5" />
@@ -26,25 +30,26 @@ export default function Footer() {
             href="https://www.instagram.com/iphonesluxury/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-slate-400 hover:text-pink-400 transition-colors min-w-[44px] min-h-[44px] inline-flex items-center justify-center cursor-pointer"
+            className="pill-gold size-11"
             aria-label="Instagram"
           >
             <FaInstagram aria-hidden="true" className="size-5" />
           </a>
-          <a href="/#inventory" className="text-sm text-slate-400 hover:text-white transition-colors min-h-[44px] inline-flex items-center px-2 cursor-pointer">
+          <a href="/#inventory" className="pill-gold px-5">
             Stock
           </a>
-          <a href="/#warranty" className="text-sm text-slate-400 hover:text-white transition-colors min-h-[44px] inline-flex items-center px-2 cursor-pointer">
+          <a href="/#warranty" className="pill-gold px-5">
             Garantía
           </a>
           {/* Cotizador / plan canje: lógica aparte, deshabilitada por ahora
-          <a href="/cotizador" className="text-sm text-slate-400 hover:text-white transition-colors min-h-[44px] inline-flex items-center px-2 cursor-pointer">
+          <a href="/cotizador" className="pill-gold px-5">
             Plan Canje
           </a>
           */}
-          <ResellerModal />
+          <ResellerModal className="pill-gold px-5" />
         </div>
-        <p className="text-xs sm:text-sm text-slate-500 text-center">
+
+        <p className="text-xs sm:text-sm text-[#d4a843]/60 text-center">
           © {new Date().getFullYear()} IPHONES LUXURY. Todos los derechos reservados.
         </p>
       </div>

@@ -11,8 +11,13 @@ export default function Hero({ products }: { products: Product[] }) {
   const minPrice = Math.min(...products.filter((p) => p.category !== "android").map((p) => p.price));
   const arsMinPrice = blueRate ? Math.round(minPrice * blueRate) : null;
 
+  /* overflow-x-clip y no overflow-visible: los dos glows decorativos miden
+     500 y 600px y en un viewport de 390 asomaban hasta x=495, con lo que el
+     navegador mobile ensanchaba el layout entero y la página quedaba con
+     scroll horizontal. clip recorta solo en X, sin crear scroll container,
+     así el modelo 3D puede seguir desbordando hacia arriba y abajo. */
   return (
-    <section className="relative lg:h-dvh pt-24 pb-12 lg:pb-0 px-4 sm:px-6 overflow-visible">
+    <section className="relative lg:h-dvh pt-24 pb-12 lg:pb-0 px-4 sm:px-6 overflow-x-clip">
       {/* Ambient Glow */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"

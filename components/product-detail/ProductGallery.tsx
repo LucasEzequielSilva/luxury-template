@@ -87,8 +87,10 @@ function ProductImage({ src, alt }: { src: string; alt: string }) {
 }
 
 export default function ProductGallery({ product, specs }: Props) {
-  const hasImage = product.images && product.images.length > 0;
+  const images = product.images ?? [];
+  const hasImage = images.length > 0;
   const [activeTab, setActiveTab] = useState<string>("color");
+  const [activeImage, setActiveImage] = useState(0);
 
   const tabs = [
     { id: "color", label: "Color", icon: HiOutlineSwatch },
@@ -117,7 +119,8 @@ export default function ProductGallery({ product, specs }: Props) {
           <>
             {hasImage ? (
               <ProductImage
-                src={product.images![0]}
+                key={activeImage}
+                src={images[activeImage] ?? images[0]}
                 alt={`${product.name} ${product.color}`}
               />
             ) : (
@@ -168,6 +171,26 @@ export default function ProductGallery({ product, specs }: Props) {
           </span>
         </div>
       </div>
+
+      {/* Thumbnails: only when the product has more than one photo */}
+      {images.length > 1 && activeTab === "color" && (
+        <div className="flex gap-2 overflow-x-auto pb-1">
+          {images.map((src, i) => (
+            <button
+              key={src}
+              type="button"
+              onClick={() => setActiveImage(i)}
+              aria-label={`Foto ${i + 1} de ${images.length}`}
+              aria-pressed={i === activeImage}
+              className={`cursor-pointer relative size-16 shrink-0 rounded-xl overflow-hidden glass-panel transition-[border-color] ${
+                i === activeImage ? "border-[#d4a843]/70" : "hover:border-white/20"
+              }`}
+            >
+              <Image src={src} alt="" fill className="object-cover" sizes="64px" />
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Tabs */}
       <div className="flex gap-2 sm:gap-3">

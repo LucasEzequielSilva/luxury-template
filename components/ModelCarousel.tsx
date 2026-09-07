@@ -206,6 +206,7 @@ export default function ModelCarousel({ products }: { products: Product[] }) {
         className="relative overflow-hidden outline-none focus-visible:ring-2 focus-visible:ring-[#d4a843]/60 rounded-3xl"
       >
         {/* Track: the drag physically pulls the cards; on release the index changes and they glide into place */}
+        <div className="[mask-image:linear-gradient(to_right,transparent,rgba(0,0,0,0.15)_6%,rgba(0,0,0,0.5)_12%,black_18%,black_82%,rgba(0,0,0,0.5)_88%,rgba(0,0,0,0.15)_94%,transparent)] lg:[mask-image:linear-gradient(to_right,transparent,rgba(0,0,0,0.12)_10%,rgba(0,0,0,0.4)_20%,black_32%,black_68%,rgba(0,0,0,0.4)_80%,rgba(0,0,0,0.12)_90%,transparent)]">
         <motion.div
           drag={models.length > 1 ? "x" : false}
           dragConstraints={{ left: 0, right: 0 }}
@@ -233,7 +234,7 @@ export default function ModelCarousel({ products }: { products: Product[] }) {
                 animate={{
                   x: `${offset * STEP}%`,
                   scale: isActive ? 1 : 0.9,
-                  opacity: distance === 0 ? 1 : distance === 1 ? 0.35 : 0,
+                  opacity: distance === 0 ? 1 : distance === 1 ? 0.5 : 0,
                   filter: isActive ? "blur(0px)" : "blur(1px)",
                 }}
                 transition={transition}
@@ -333,6 +334,7 @@ export default function ModelCarousel({ products }: { products: Product[] }) {
             );
           })}
         </motion.div>
+        </div>
 
         {/* Prev / Next */}
         {models.length > 1 && (
