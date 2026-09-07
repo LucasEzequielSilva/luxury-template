@@ -80,10 +80,11 @@ export default function Hero({ products }: { products: Product[] }) {
 
           {/* Micro-proof row */}
           <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 pt-1">
-            {/* "Batería 80% o más" en vez de "Batería verificada": verificada no
-                dice nada, el piso sí es una promesa comprobable y es de lo
-                primero que pregunta el que compra un usado. */}
-            {["60 días de garantía", "Entrega el mismo día", "Batería 80% o más"].map((item) => (
+            {/* Ni "verificada", que no dice nada, ni "80% o más", que ancla en
+                el peor número: el que lee retiene el 80 y asume que todos son
+                80. Lo que diferencia al negocio es publicar el porcentaje real
+                de cada unidad, que casi ningún revendedor hace. */}
+            {["60 días de garantía", "Entrega el mismo día", "Sabés qué batería llevás"].map((item) => (
               <span key={item} className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-400">
                 <HiOutlineCheckCircle aria-hidden="true" className="size-4 shrink-0" style={{ color: "#d4a843" }} />
                 {item}

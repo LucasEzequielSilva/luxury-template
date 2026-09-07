@@ -30,15 +30,15 @@ export default function TrustBadges({
   ];
 
   /* Antes decía "Batería al 100%" en todo lo que no fuera consola, incluidos
-     los usados. El piso real del negocio es 80%, así que en un A+ era una
-     promesa que el equipo no cumple. Ahora: el sellado sí es 100%, el usado con
-     dato cargado muestra el suyo, y el usado sin dato muestra el piso. */
+     los usados: una promesa que un A+ no cumple. El sellado sí es 100% y el
+     usado con dato muestra el suyo, que es el número que vende. Sin dato no se
+     pone el piso de 80%: anclaría en el peor caso justo al lado del precio. */
   if (!isConsola) {
     const bateria = isSellado
       ? "Batería 100%"
       : batteryHealth
         ? `Batería ${batteryHealth}%`
-        : "Batería 80% o más";
+        : "Batería revisada";
     badges.push({ icon: HiOutlineCheckBadge, label: bateria });
   }
 

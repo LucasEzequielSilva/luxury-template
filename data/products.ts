@@ -621,12 +621,12 @@ export const conditionInfo: Record<
   "A+": {
     label: "Grado A+",
     description:
-      "Equipo en estado impecable, prácticamente nuevo. Sin marcas de uso visibles a simple vista. Funciona al 100% y la batería nunca baja del 80%: el porcentaje exacto de esta unidad va publicado más arriba. Garantía IPHONES LUXURY de 60 días incluida.",
+      "Equipo en estado impecable, prácticamente nuevo. Sin marcas de uso visibles a simple vista. Funciona al 100% y el porcentaje de batería de esta unidad va publicado más arriba: nunca vendemos por debajo del 80%. Garantía IPHONES LUXURY de 60 días incluida.",
   },
   A: {
     label: "Grado A",
     description:
-      "Equipo en muy buen estado con mínimos signos de uso. Puede presentar micro marcas cosméticas imperceptibles en uso diario. Funciona al 100% y la batería nunca baja del 80%: el porcentaje exacto de esta unidad va publicado más arriba. Garantía IPHONES LUXURY de 60 días incluida.",
+      "Equipo en muy buen estado con mínimos signos de uso. Puede presentar micro marcas cosméticas imperceptibles en uso diario. Funciona al 100% y el porcentaje de batería de esta unidad va publicado más arriba: nunca vendemos por debajo del 80%. Garantía IPHONES LUXURY de 60 días incluida.",
   },
   /* B y C existen para que el negocio pueda publicar equipos con desgaste
      visible sin disfrazarlos de A. Acá el desgaste es parte de lo que se
