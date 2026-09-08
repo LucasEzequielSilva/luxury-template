@@ -20,11 +20,12 @@ interface AirtableRecord {
        más" o "100%". Queda como alternativa: en la práctica cada fila es un
        equipo puntual y el vendedor tiene a mano el porcentaje exacto, así que
        cargar el número solo es más rápido y la web deduce el tramo. */
-    "Batería"?: string;
+    "Batería (tramo, opcional)"?: string;
     /* El porcentaje exacto que se lee en el equipo. Es la fuente preferida. */
-    "Batería % (sin uso)"?: number;
-    /* Nombre anterior del mismo campo, por si quedó algo cargado ahí. */
     "Batería %"?: number;
+    /* Nombres anteriores de los mismos dos campos, por si quedó algo ahí. */
+    "Batería % (sin uso)"?: number;
+    "Batería"?: string;
     Color?: string;
     "Color Hex"?: string;
     "Precio USD"?: number;
@@ -80,8 +81,8 @@ function recordToProduct(record: AirtableRecord): Product | null {
     featured: !!f.Destacado,
     category: f.Categoría || "iphone",
     batteryHealth:
-      tramoDesdeNumero(f["Batería % (sin uso)"] ?? f["Batería %"]) ??
-      tramoBateria(f["Batería"]),
+      tramoDesdeNumero(f["Batería %"] ?? f["Batería % (sin uso)"]) ??
+      tramoBateria(f["Batería (tramo, opcional)"] ?? f["Batería"]),
     images: f.Fotos?.map((a) => a.url),
   };
 }
