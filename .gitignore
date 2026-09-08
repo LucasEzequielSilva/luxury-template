@@ -21,3 +21,6 @@ build/
 
 # claude
 .claude/
+
+# Capturas de presentación (pesadas, viven en Downloads)
+docs/capturas/

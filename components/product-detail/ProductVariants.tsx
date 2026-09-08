@@ -7,13 +7,14 @@ import {
   getColorVariants,
   getSeriesNumber,
   formatPrice,
+  tituloCorto,
 } from "@/data/products";
 
 function ModelSelector({ product, allProducts }: { product: Product; allProducts: Product[] }) {
   const seriesModels = getSeriesModels(product, allProducts);
   if (seriesModels.length <= 1) return null;
 
-  const series = getSeriesNumber(product.name);
+  const series = getSeriesNumber(product.modelKey);
 
   const getTier = (name: string): string => {
     if (name.includes("Pro Max")) return "Pro Max";
@@ -42,14 +43,14 @@ function ModelSelector({ product, allProducts }: { product: Product; allProducts
       <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
         {seriesModels.map((model) => {
           const isActive = model.modelKey === product.modelKey;
-          const tier = getTier(model.name);
-          const screen = getScreenHint(model.name);
+          const tier = getTier(model.modelKey);
+          const screen = getScreenHint(model.modelKey);
 
           return (
             <Link
               key={model.id}
               href={`/producto/${model.id}`}
-              aria-label={`Ver ${model.name} ${model.capacity} ${model.condition}`}
+              aria-label={`Ver ${tituloCorto(model)} ${model.condition}`}
               aria-current={isActive ? "page" : undefined}
               className={`relative rounded-xl p-3.5 transition-[border-color,background-color] border ${
                 isActive
@@ -119,7 +120,7 @@ function ColorSelector({ product, allProducts }: { product: Product; allProducts
             <Link
               key={variant.id}
               href={`/producto/${variant.id}`}
-              aria-label={`Ver ${variant.name} en color ${variant.color}`}
+              aria-label={`Ver ${tituloCorto(variant)} en color ${variant.color}`}
               aria-current={isActive ? "page" : undefined}
               className={`group relative flex flex-col items-center gap-2 rounded-xl p-2.5 transition-[border-color,background-color] border ${
                 isActive

@@ -4,6 +4,8 @@ import {
   iphoneSpecsMap,
   formatPrice,
   textoBateria,
+  tituloEquipo,
+  tituloCorto,
   products as catalogoLocal,
   type Product,
 } from "@/data/products";
@@ -101,12 +103,12 @@ function sufijoCondicion(product: Product, catalogo: Product[]): string {
 /* Etiqueta única de la unidad: es la que identifica la entidad en el title, en
    Product.name y en la miga, así que los tres tienen que coincidir. */
 function etiquetaProducto(product: Product, catalogo: Product[]): string {
-  return `${product.name} ${product.capacity} ${product.color}${sufijoCondicion(product, catalogo)}`;
+  return `${tituloEquipo(product)}${sufijoCondicion(product, catalogo)}`;
 }
 
 function marcaDe(product: Product): string | null {
   if (product.category !== "android" && product.category !== "consolas") return "Apple";
-  const primera = product.name.trim().split(" ")[0]?.toLowerCase() ?? "";
+  const primera = (product.modelKey || product.name).trim().split(" ")[0]?.toLowerCase() ?? "";
   return MARCAS[primera] ?? null;
 }
 
@@ -118,10 +120,11 @@ function marcaDe(product: Product): string | null {
    separa dos unidades del mismo modelo, capacidad y color. */
 function tituloFicha(product: Product, catalogo: Product[]): string {
   const condicion = sufijoCondicion(product, catalogo);
-  const base = `${product.name} ${product.capacity}`;
+  const base = tituloCorto(product);
+  const completo = tituloEquipo(product);
   const candidatos = [
-    `${base} ${product.color}${condicion} | IPHONES LUXURY`,
-    `${base} ${product.color}${condicion} | LUXURY`,
+    `${completo}${condicion} | IPHONES LUXURY`,
+    `${completo}${condicion} | LUXURY`,
     `${base}${condicion} | IPHONES LUXURY`,
     `${base}${condicion} | LUXURY`,
   ];
@@ -131,7 +134,7 @@ function tituloFicha(product: Product, catalogo: Product[]): string {
 function descripcionFicha(product: Product): string {
   const precio = product.price > 0 ? `${formatPrice(product.price)}.` : "Precio a confirmar.";
   const armar = (color: string, bateria: string) =>
-    `${product.name} ${product.capacity}${color}, ${CONDICION_TEXTO[product.condition]}.${bateria} Garantía de 60 días y entrega en el día en Iguazú. ${precio} Consultá por WhatsApp.`;
+    `${tituloCorto(product)}${color}, ${CONDICION_TEXTO[product.condition]}.${bateria} Garantía de 60 días y entrega en el día en Iguazú. ${precio} Consultá por WhatsApp.`;
 
   const bateria = product.batteryHealth ? ` ${textoBateria(product.batteryHealth)}.` : "";
   const completa = armar(` ${product.color}`, bateria);

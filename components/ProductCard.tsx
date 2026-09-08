@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaWhatsapp } from "react-icons/fa";
 import { FiArrowRight } from "react-icons/fi";
-import { Product, formatPrice, textoBateria, getWhatsAppLink, getDiscountPercentage } from "@/data/products";
+import { Product, formatPrice, textoBateria, getWhatsAppLink, getDiscountPercentage, tituloEquipo, tituloCorto } from "@/data/products";
 import { useCurrency } from "./CurrencyProvider";
 
 const conditionStyles: Record<Product["condition"], string> = {
@@ -20,16 +20,39 @@ export default function ProductCard({ product, allProducts = [] }: { product: Pr
   const { blueRate } = useCurrency();
   const discount = getDiscountPercentage(product);
 
+  /* La grilla arma una tarjeta por modelo, no por unidad: si el negocio cargó
+     tres iPhone 16 Pro Max, los tres caen acá adentro. Sin avisarlo, el
+     visitante ve una sola foto y un solo precio, y encima el de la primera
+     unidad que llegue, que puede ser la más cara del modelo. */
+  const variantes = allProducts.filter((p) => p.modelKey === product.modelKey);
+  const hayVariantes = variantes.length > 1;
+
   // Check if this model has multiple conditions
-  const modelConditions = new Set(
-    allProducts.filter((p) => p.modelKey === product.modelKey).map((p) => p.condition)
-  );
+  const modelConditions = new Set(variantes.map((p) => p.condition));
   const hasBothConditions = modelConditions.size > 1;
 
-  const arsPrice = blueRate ? Math.round(product.price * blueRate) : null;
+  /* Un color por unidad, sin repetir: son los puntitos que muestran que el
+     modelo viene en varios colores sin tener que entrar a la ficha. */
+  const coloresVistos = new Set<string>();
+  const colores = variantes.filter((v) => {
+    const clave = v.color.trim().toLowerCase();
+    if (!clave || coloresVistos.has(clave)) return false;
+    coloresVistos.add(clave);
+    return true;
+  });
+  const COLORES_VISIBLES = 4;
+
+  /* "Desde" sólo si los precios del modelo difieren de verdad. Con todas las
+     unidades al mismo precio, un "desde" es ruido. */
+  const precios = variantes.map((v) => v.price).filter((p) => p > 0);
+  const precioMinimo = precios.length > 0 ? Math.min(...precios) : 0;
+  const hayRango = precios.length > 1 && precioMinimo !== Math.max(...precios);
+  const precioMostrado = hayRango ? precioMinimo : product.price;
+
+  const arsPrice = blueRate ? Math.round(precioMostrado * blueRate) : null;
   // Identidad completa de la unidad: sirve de alt de la foto y de nombre accesible
   // de los links, que si no se repiten como "Ver detalle" x N en la grilla.
-  const fullName = `${product.name} ${product.capacity} ${product.color}`;
+  const fullName = tituloEquipo(product);
 
   return (
     <div className="glass-panel rounded-2xl p-3 flex flex-col hover:border-white/20 transition-[border-color] group shadow-lg shadow-black/20">
@@ -43,7 +66,7 @@ export default function ProductCard({ product, allProducts = [] }: { product: Pr
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-black/30">
             <Image
               src={product.images![0]}
-              alt={`${product.name} ${product.capacity} ${product.color}, condición ${product.condition}`}
+              alt={`${fullName}, condición ${product.condition}`}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-200"
               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -112,30 +135,68 @@ export default function ProductCard({ product, allProducts = [] }: { product: Pr
             href={`/producto/${product.id}`}
             className="text-lg font-medium text-white hover:underline"
           >
-            {product.name}
+            {hayVariantes ? product.modelKey || product.name : tituloCorto(product)}
           </Link>
           <p className="text-sm text-slate-400">
-            {product.condition} · {product.capacity}
-            {product.batteryHealth ? ` · ${textoBateria(product.batteryHealth, true)}` : ""}
+            {hayVariantes ? (
+              <>
+                {product.condition} · {variantes.length} disponibles
+              </>
+            ) : (
+              <>
+                {/* La capacidad ya está en el título, acá va el color, que es
+                    el dato que distingue a esta unidad de las demás. */}
+                {[product.condition, product.color.trim()].filter(Boolean).join(" · ")}
+                {product.batteryHealth ? ` · ${textoBateria(product.batteryHealth, true)}` : ""}
+              </>
+            )}
           </p>
+          {colores.length > 1 && (
+            <div
+              className="flex items-center gap-1.5 mt-2"
+              role="img"
+              aria-label={`Colores disponibles: ${colores.map((c) => c.color).join(", ")}`}
+            >
+              {colores.slice(0, COLORES_VISIBLES).map((c) => (
+                <span
+                  key={c.id}
+                  title={c.color}
+                  className="size-3.5 rounded-full ring-1 ring-white/25 shadow-sm"
+                  style={{ backgroundColor: c.colorHex }}
+                />
+              ))}
+              {colores.length > COLORES_VISIBLES && (
+                <span className="text-[11px] text-slate-500 tabular-nums">
+                  +{colores.length - COLORES_VISIBLES}
+                </span>
+              )}
+            </div>
+          )}
         </div>
         <div className="mt-auto space-y-2">
           {/* Price */}
-          {product.price > 0 ? (
-            arsPrice ? (
-              <div>
+          {precioMostrado > 0 ? (
+            <div>
+              {hayRango && (
+                <p className="text-[11px] uppercase tracking-wide text-slate-500">
+                  Desde
+                </p>
+              )}
+              {arsPrice ? (
+                <>
+                  <p className="text-xl sm:text-2xl font-semibold text-white tabular-nums truncate">
+                    ${new Intl.NumberFormat("de-DE").format(arsPrice)}
+                  </p>
+                  <p className="text-sm text-slate-500 tabular-nums">
+                    {formatPrice(precioMostrado)}
+                  </p>
+                </>
+              ) : (
                 <p className="text-xl sm:text-2xl font-semibold text-white tabular-nums truncate">
-                  ${new Intl.NumberFormat("de-DE").format(arsPrice)}
+                  {formatPrice(precioMostrado)}
                 </p>
-                <p className="text-sm text-slate-500 tabular-nums">
-                  {formatPrice(product.price)}
-                </p>
-              </div>
-            ) : (
-              <p className="text-xl sm:text-2xl font-semibold text-white tabular-nums truncate">
-                {formatPrice(product.price)}
-              </p>
-            )
+              )}
+            </div>
           ) : (
             <p className="text-lg font-medium text-slate-400">
               Consultar precio

@@ -1861,21 +1861,55 @@ export function formatPrice(price: number): string {
   return "US$" + new Intl.NumberFormat("en-US").format(price);
 }
 
+/* Nombre visible de una unidad, armado con los campos estructurados y no con el
+   "Nombre" que se escribe a mano en el panel. Antes se concatenaba
+   `Nombre + Capacidad + Color`, así que apenas alguien escribía la capacidad o
+   el color en el nombre (lo natural al cargar un equipo) el título salía
+   repetido: "iPhone 15 Pro Max 256GB Titanio Azul 256GB Titanio Azul".
+   El modelo sale de una lista cerrada, así que acá no hay texto libre que
+   pueda romper nada; el "Nombre" queda para uso interno del panel. */
+export function tituloEquipo(product: Product): string {
+  const base = (product.modelKey || product.name || "").trim();
+  const partes = [base];
+  const yaIncluido = (texto: string) =>
+    base.toLowerCase().includes(texto.toLowerCase());
+  for (const dato of [product.capacity, product.color]) {
+    const limpio = (dato || "").trim();
+    if (limpio && !yaIncluido(limpio)) partes.push(limpio);
+  }
+  return partes.join(" ");
+}
+
+/* Modelo + capacidad, sin el color. Es el escalón corto para lugares con poco
+   espacio: la barra fija del celular, la imagen de compartir y el título de
+   SEO cuando el completo no entra en los 60 caracteres. */
+export function tituloCorto(product: Product): string {
+  const modelo = (product.modelKey || product.name || "").trim();
+  const capacidad = (product.capacity || "").trim();
+  return capacidad && !modelo.toLowerCase().includes(capacidad.toLowerCase())
+    ? `${modelo} ${capacidad}`
+    : modelo;
+}
+
 export function getWhatsAppLink(product: Product): string {
-  const message = `Hola! Me interesa el ${product.name} ${product.capacity} ${product.color} publicado a ${formatPrice(product.price)}. ¿Está disponible?`;
+  const message = `Hola! Me interesa el ${tituloEquipo(product)} publicado a ${formatPrice(product.price)}. ¿Está disponible?`;
   return `https://wa.me/3757541930?text=${encodeURIComponent(message)}`;
 }
 
-// Extract series number from name: "iPhone 16 Pro Max" → "16"
+/* Serie a partir del modelo y no del nombre: el modelo viene de una lista
+   cerrada del panel, mientras que el nombre es texto libre. Con el nombre,
+   escribir "IPHONE 16" en mayúscula o sin la palabra iPhone hacía desaparecer
+   el bloque entero de la serie en la ficha. */
 export function getSeriesNumber(name: string): string {
-  const match = name.match(/iPhone (\d+)/);
+  const match = name.match(/iPhone\s+(\d+)/i);
   return match ? match[1] : "";
 }
 
 // Get all model variants in the same series (e.g., 16, 16 Plus, 16 Pro, 16 Pro Max)
 // Returns unique model names with one representative product each, sorted by tier
 export function getSeriesModels(product: Product, allProducts: Product[]): Product[] {
-  const series = getSeriesNumber(product.name);
+  const series = getSeriesNumber(product.modelKey);
+  if (!series) return [];
   const seen = new Map<string, Product>();
 
   // Define tier order for sorting
@@ -1887,8 +1921,8 @@ export function getSeriesModels(product: Product, allProducts: Product[]): Produ
   };
 
   allProducts
-    .filter((p) => getSeriesNumber(p.name) === series)
-    .sort((a, b) => tierOrder(a.name) - tierOrder(b.name))
+    .filter((p) => getSeriesNumber(p.modelKey) === series)
+    .sort((a, b) => tierOrder(a.modelKey) - tierOrder(b.modelKey))
     .forEach((p) => {
       if (!seen.has(p.modelKey)) {
         seen.set(p.modelKey, p);

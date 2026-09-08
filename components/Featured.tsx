@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import { FiArrowRight } from "react-icons/fi";
 import { FaWhatsapp } from "react-icons/fa";
-import { formatPrice, textoBateria, getWhatsAppLink, type Product } from "@/data/products";
+import { formatPrice, textoBateria, getWhatsAppLink, tituloEquipo, tituloCorto, type Product } from "@/data/products";
 import { useCurrency } from "./CurrencyProvider";
 
 export default function Featured({ products }: { products: Product[] }) {
@@ -51,7 +51,7 @@ export default function Featured({ products }: { products: Product[] }) {
                     <div className="relative aspect-[16/10] overflow-hidden bg-black/30">
                       <Image
                         src={product.images![0]}
-                        alt={`${product.name} ${product.capacity} ${product.color}, condición ${product.condition}`}
+                        alt={`${tituloEquipo(product)}, condición ${product.condition}`}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-200"
                         sizes="(max-width: 768px) 100vw, 50vw"
@@ -99,10 +99,10 @@ export default function Featured({ products }: { products: Product[] }) {
                       href={`/producto/${product.id}`}
                       className="text-xl sm:text-2xl font-medium text-white hover:underline"
                     >
-                      {product.name}
+                      {tituloCorto(product)}
                     </Link>
                     <p className="text-sm text-slate-400 mt-2 leading-relaxed">
-                      {product.capacity} · {product.color}
+                      {product.color.trim()}
                       {product.batteryHealth ? ` · ${textoBateria(product.batteryHealth, true)}` : ""}
                     </p>
                   </div>

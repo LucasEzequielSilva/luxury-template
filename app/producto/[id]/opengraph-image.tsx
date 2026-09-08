@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { ImageResponse } from "next/og";
 import { getProductById } from "@/lib/airtable";
-import { formatPrice, textoBateria } from "@/data/products";
+import { formatPrice, textoBateria, tituloCorto } from "@/data/products";
 
 /* El catálogo sale de Airtable con caché de 60s: la imagen se arma en cada
    pedido para que el precio del preview no quede viejo. */
@@ -52,7 +52,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
   const { id } = await params;
   const [product, emblema] = await Promise.all([getProductById(id), getEmblema()]);
 
-  const titulo = product ? `${product.name} ${product.capacity}` : "iPhones revisados";
+  const titulo = product ? tituloCorto(product) : "iPhones revisados";
   const subtitulo = product ? product.color : "con 60 días de garantía";
   /* price 0 es el "Consultar precio" de la UI; imprimir "US$0" sería peor que
      no poner nada. Sin producto (ID inválido) directamente no hay precio. */

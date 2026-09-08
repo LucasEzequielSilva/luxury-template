@@ -1,4 +1,4 @@
-import { textoBateria, type Product } from "@/data/products";
+import { textoBateria, tituloEquipo, type Product } from "@/data/products";
 
 const conditionStyles: Record<
   Product["condition"],
@@ -45,11 +45,12 @@ export default function ProductHeader({ product }: { product: Product }) {
         ) : null}
       </div>
       {/* Capacidad y color van en el h1: hay un registro por variante, así que sin
-          ellos decenas de URLs distintas comparten exactamente el mismo h1. */}
+          ellos decenas de URLs distintas comparten exactamente el mismo h1.
+          tituloEquipo los agrega una sola vez, aunque ya estén en el nombre. */}
       <h1 className="text-2xl sm:text-3xl md:text-4xl font-medium text-white leading-tight text-balance">
         {product.category === "android" || product.category === "consolas"
-          ? `${product.name} ${product.capacity} ${product.color}`
-          : `Apple ${product.name} ${product.capacity} ${product.color}`}
+          ? tituloEquipo(product)
+          : `Apple ${tituloEquipo(product)}`}
       </h1>
     </div>
   );

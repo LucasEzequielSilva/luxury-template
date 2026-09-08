@@ -1,7 +1,7 @@
 "use client";
 
 import { FaWhatsapp } from "react-icons/fa";
-import { formatPrice, getWhatsAppLink, type Product } from "@/data/products";
+import { formatPrice, getWhatsAppLink, tituloCorto, tituloEquipo, type Product } from "@/data/products";
 
 export default function StickyBottomBar({ product }: { product: Product }) {
   return (
@@ -9,7 +9,7 @@ export default function StickyBottomBar({ product }: { product: Product }) {
       <div className="flex items-center justify-between gap-4">
         <div className="min-w-0">
           <p className="text-sm text-white font-medium truncate">
-            {product.name} {product.capacity}
+            {tituloCorto(product)}
           </p>
           <p className="text-lg text-white font-semibold">
             {formatPrice(product.price)}
@@ -19,7 +19,7 @@ export default function StickyBottomBar({ product }: { product: Product }) {
           href={getWhatsAppLink(product)}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`Consultar por WhatsApp por el ${product.name} ${product.capacity} ${product.color}`}
+          aria-label={`Consultar por WhatsApp por el ${tituloEquipo(product)}`}
           className="btn-gold cursor-pointer shrink-0 flex items-center gap-2 px-5 py-3 min-h-[44px] rounded-full text-sm font-semibold"
         >
           <FaWhatsapp aria-hidden="true" className="w-5 h-5" />
