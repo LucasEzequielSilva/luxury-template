@@ -253,13 +253,58 @@ function ConditionSelector({ product, allProducts }: { product: Product; allProd
   );
   if (conditionVariants.length <= 1) return null;
 
+  /* Dos equipos del mismo modelo, color y capacidad pueden ser idénticos
+     también en condición, batería y precio: son dos teléfonos iguales en la
+     mano del vendedor. Dos botones iguales no ayudan a elegir, así que se
+     agrupan y se dice cuántos hay. Cuando se diferencian en algo, cada opción
+     va por separado. */
+  const firma = (v: Product) => [v.condition, v.batteryHealth ?? "-", v.price].join("|");
+  const grupos: { rep: Product; cantidad: number }[] = [];
+  const posiciones = new Map<string, number>();
+  for (const v of conditionVariants) {
+    const k = firma(v);
+    const pos = posiciones.get(k);
+    if (pos === undefined) {
+      posiciones.set(k, grupos.length);
+      grupos.push({ rep: v, cantidad: 1 });
+    } else {
+      grupos[pos].cantidad += 1;
+      /* El representante pasa a ser la unidad que se está viendo, para que el
+         estado activo se marque en el botón correcto. */
+      if (v.id === product.id) grupos[pos].rep = v;
+    }
+  }
+
+  const etiqueta = (v: Product) =>
+    [
+      v.condition,
+      v.batteryHealth ? textoBateria(v.batteryHealth, true) : null,
+      formatPrice(v.price),
+    ]
+      .filter(Boolean)
+      .join(" · ");
+
+  if (grupos.length === 1) {
+    return (
+      <div className="space-y-3">
+        <p className="text-xs text-slate-500 uppercase font-medium">
+          Unidades disponibles
+        </p>
+        <p className="text-sm text-slate-300">
+          Tenemos {conditionVariants.length} equipos iguales de esta versión.{" "}
+          <span className="text-slate-500">{etiqueta(product)}</span>
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-3">
       <p className="text-xs text-slate-500 uppercase font-medium">
         Unidades disponibles
       </p>
       <div className="flex flex-wrap gap-2">
-        {conditionVariants.map((variant) => {
+        {grupos.map(({ rep: variant, cantidad }) => {
           const isActive = variant.id === product.id;
           return (
             <Link
@@ -267,7 +312,7 @@ function ConditionSelector({ product, allProducts }: { product: Product; allProd
               href={`/producto/${variant.id}`}
               aria-label={`Ver la unidad en condición ${variant.condition}${
                 variant.batteryHealth ? `, ${textoBateria(variant.batteryHealth, true)}` : ""
-              }, ${formatPrice(variant.price)}`}
+              }, ${formatPrice(variant.price)}${cantidad > 1 ? `, ${cantidad} disponibles` : ""}`}
               aria-current={isActive ? "page" : undefined}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
                 isActive
@@ -275,13 +320,8 @@ function ConditionSelector({ product, allProducts }: { product: Product; allProd
                   : "glass-panel border-white/5 text-slate-400 hover:border-white/15 hover:text-white"
               }`}
             >
-              {[
-                variant.condition,
-                variant.batteryHealth ? textoBateria(variant.batteryHealth, true) : null,
-                formatPrice(variant.price),
-              ]
-                .filter(Boolean)
-                .join(" · ")}
+              {etiqueta(variant)}
+              {cantidad > 1 && <span className="ml-1.5 text-slate-500">x{cantidad}</span>}
             </Link>
           );
         })}
