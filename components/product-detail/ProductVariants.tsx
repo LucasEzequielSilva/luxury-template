@@ -95,14 +95,23 @@ function ModelSelector({ product, allProducts }: { product: Product; allProducts
 function ColorSelector({ product, allProducts }: { product: Product; allProducts: Product[] }) {
   const allVariants = getColorVariants(product, allProducts);
 
-  // One entry per unique color (first occurrence)
+  /* Una bolita por color, comparando sin espacios ni mayúsculas: el color se
+     escribe a mano en el panel, así que "Blanco" y "Blanco " son el mismo y
+     antes salían como dos bolitas blancas iguales.
+     Entre las unidades de un mismo color se elige la de la capacidad que el
+     visitante está mirando, para que cambiar de color no lo mueva de los
+     256GB a los 512GB sin haberlo pedido. */
+  const clave = (texto: string) => texto.trim().toLowerCase();
   const uniqueColors: Product[] = [];
   const seenColors = new Set<string>();
   for (const v of allVariants) {
-    if (!seenColors.has(v.color)) {
-      seenColors.add(v.color);
-      uniqueColors.push(v);
-    }
+    const k = clave(v.color);
+    if (seenColors.has(k)) continue;
+    seenColors.add(k);
+    const mismaCapacidad = allVariants.find(
+      (otra) => clave(otra.color) === k && otra.capacity === product.capacity,
+    );
+    uniqueColors.push(mismaCapacidad ?? v);
   }
 
   return (
@@ -111,16 +120,16 @@ function ColorSelector({ product, allProducts }: { product: Product; allProducts
         <p className="text-xs text-slate-500 uppercase  font-medium">
           Color
         </p>
-        <p className="text-sm text-slate-300">{product.color}</p>
+        <p className="text-sm text-slate-300">{product.color.trim()}</p>
       </div>
       <div className="flex flex-wrap gap-2 sm:gap-2.5">
         {uniqueColors.map((variant) => {
-          const isActive = variant.color === product.color;
+          const isActive = clave(variant.color) === clave(product.color);
           return (
             <Link
               key={variant.id}
               href={`/producto/${variant.id}`}
-              aria-label={`Ver ${tituloCorto(variant)} en color ${variant.color}`}
+              aria-label={`Ver ${tituloCorto(variant)} en color ${variant.color.trim()}`}
               aria-current={isActive ? "page" : undefined}
               className={`group relative flex flex-col items-center gap-2 rounded-xl p-2.5 transition-[border-color,background-color] border ${
                 isActive
@@ -161,7 +170,7 @@ function ColorSelector({ product, allProducts }: { product: Product; allProducts
                   isActive ? "text-slate-300" : "text-slate-500"
                 }`}
               >
-                {variant.color}
+                {variant.color.trim()}
               </span>
             </Link>
           );

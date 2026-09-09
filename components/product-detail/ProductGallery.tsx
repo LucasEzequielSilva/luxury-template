@@ -1,8 +1,14 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { HiOutlineEye, HiOutlineCpuChip, HiOutlineSwatch } from "react-icons/hi2";
+import {
+  HiOutlineEye,
+  HiOutlineCpuChip,
+  HiOutlineSwatch,
+  HiChevronLeft,
+  HiChevronRight,
+} from "react-icons/hi2";
 import { tituloEquipo, type Product, type IPhoneSpecs } from "@/data/products";
 
 interface Props {
@@ -113,22 +119,66 @@ export default function ProductGallery({ product, specs }: Props) {
   const [activeTab, setActiveTab] = useState<string>("color");
   const [activeImage, setActiveImage] = useState(0);
 
-  /* Carrusel de fotos: en el celular el deslizar ya lo resuelve el scroll
-     nativo con snap, así que sólo hay que agregar el arrastre con el mouse
-     para la computadora. Nada de librerías. */
+  /* Carrusel de fotos. En el celular el gesto lo resuelve el scroll nativo con
+     snap; en la computadora se agrega el arrastre con el mouse y las flechas.
+     Sin librerías. */
   const pista = useRef<HTMLDivElement>(null);
-  const arrastre = useRef<{ x: number; scroll: number } | null>(null);
+  const arrastre = useRef<{
+    desdeX: number;
+    desdeScroll: number;
+    ultimoX: number;
+    ultimoT: number;
+    velocidad: number;
+  } | null>(null);
+  const animacion = useRef<number | null>(null);
 
-  const irAFoto = (i: number) => {
+  const frenarAnimacion = () => {
+    if (animacion.current !== null) {
+      cancelAnimationFrame(animacion.current);
+      animacion.current = null;
+    }
+  };
+
+  useEffect(() => frenarAnimacion, []);
+
+  /* Easing propio en lugar de scroll-behavior:smooth. El nativo cambia de
+     curva y de duración según el navegador, y en distancias cortas corta
+     seco. Con una desaceleración siempre igual el movimiento acompaña en vez
+     de saltar de una foto a la otra. */
+  const animarHacia = (indice: number) => {
     const el = pista.current;
-    if (!el) return;
-    el.scrollTo({ left: i * el.clientWidth, behavior: "smooth" });
+    if (!el || !el.clientWidth) return;
+    const i = Math.max(0, Math.min(indice, images.length - 1));
     setActiveImage(i);
+    frenarAnimacion();
+
+    const desde = el.scrollLeft;
+    const distancia = i * el.clientWidth - desde;
+    if (Math.abs(distancia) < 1) return;
+
+    /* El snap se apaga durante la animación: si queda prendido, el navegador
+       tironea el scroll hacia el punto de anclaje en cada cuadro. */
+    el.style.scrollSnapType = "none";
+    const duracion = 520;
+    const arranque = performance.now();
+
+    const cuadro = (ahora: number) => {
+      const t = Math.min(1, (ahora - arranque) / duracion);
+      const suave = 1 - Math.pow(1 - t, 3);
+      el.scrollLeft = desde + distancia * suave;
+      if (t < 1) {
+        animacion.current = requestAnimationFrame(cuadro);
+      } else {
+        animacion.current = null;
+        el.style.scrollSnapType = "";
+      }
+    };
+    animacion.current = requestAnimationFrame(cuadro);
   };
 
   const alScrollear = () => {
     const el = pista.current;
-    if (!el || !el.clientWidth) return;
+    if (!el || !el.clientWidth || animacion.current !== null) return;
     const i = Math.round(el.scrollLeft / el.clientWidth);
     setActiveImage((previo) => (previo === i ? previo : i));
   };
@@ -136,31 +186,63 @@ export default function ProductGallery({ product, specs }: Props) {
   /* Sólo el mouse: en pantalla táctil el navegador ya hace el gesto, y
      manotearlo desde acá se pelea con el scroll vertical de la página. */
   const alApretar = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (e.pointerType !== "mouse" || !pista.current) return;
-    arrastre.current = { x: e.clientX, scroll: pista.current.scrollLeft };
-    /* Con scroll-snap obligatorio el navegador devuelve el scroll al punto de
-       anclaje en cuanto se toca scrollLeft a mano, así que el arrastre no se
-       movía. Se apaga mientras dura y se vuelve a prender al soltar. */
-    pista.current.style.scrollSnapType = "none";
-    pista.current.setPointerCapture(e.pointerId);
+    const el = pista.current;
+    if (e.pointerType !== "mouse" || !el || images.length < 2) return;
+    frenarAnimacion();
+    arrastre.current = {
+      desdeX: e.clientX,
+      desdeScroll: el.scrollLeft,
+      ultimoX: e.clientX,
+      ultimoT: performance.now(),
+      velocidad: 0,
+    };
+    el.style.scrollSnapType = "none";
+    el.setPointerCapture(e.pointerId);
   };
 
   const alMover = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!arrastre.current || !pista.current) return;
+    const el = pista.current;
+    const gesto = arrastre.current;
+    if (!gesto || !el) return;
     e.preventDefault();
-    pista.current.scrollLeft = arrastre.current.scroll - (e.clientX - arrastre.current.x);
+    el.scrollLeft = gesto.desdeScroll - (e.clientX - gesto.desdeX);
+
+    const ahora = performance.now();
+    const lapso = ahora - gesto.ultimoT;
+    if (lapso > 0) gesto.velocidad = (e.clientX - gesto.ultimoX) / lapso;
+    gesto.ultimoX = e.clientX;
+    gesto.ultimoT = ahora;
   };
 
   const alSoltar = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!arrastre.current || !pista.current) return;
+    const el = pista.current;
+    const gesto = arrastre.current;
+    if (!gesto || !el) return;
     arrastre.current = null;
-    pista.current.style.scrollSnapType = "";
-    if (pista.current.hasPointerCapture(e.pointerId)) {
-      pista.current.releasePointerCapture(e.pointerId);
+    if (el.hasPointerCapture(e.pointerId)) el.releasePointerCapture(e.pointerId);
+
+    /* Un manotazo corto tiene que pasar de foto igual, aunque no haya
+       recorrido media pantalla: es lo que hace que se sienta suelto y no
+       trabado. Si el gesto fue lento, se acomoda a la foto más cercana. */
+    const posicion = el.scrollLeft / el.clientWidth;
+    const flick = Math.abs(gesto.velocidad) > 0.35;
+    const destino = flick
+      ? gesto.velocidad < 0
+        ? Math.ceil(posicion)
+        : Math.floor(posicion)
+      : Math.round(posicion);
+    animarHacia(destino);
+  };
+
+  const alTeclear = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (images.length < 2) return;
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      animarHacia(activeImage + 1);
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      animarHacia(activeImage - 1);
     }
-    /* El snap del navegador no se dispara si el scroll terminó por soltar el
-       mouse, así que se acomoda a mano a la foto más cercana. */
-    irAFoto(Math.round(pista.current.scrollLeft / pista.current.clientWidth));
   };
 
   const tabs = [
@@ -177,7 +259,7 @@ export default function ProductGallery({ product, specs }: Props) {
     <div className="space-y-4">
       {/* Main display */}
       <div
-        className="relative aspect-square rounded-2xl overflow-hidden glass-panel flex items-center justify-center"
+        className="group/galeria relative aspect-square rounded-2xl overflow-hidden glass-panel flex items-center justify-center"
         style={{
           background: `
             radial-gradient(ellipse at 20% 30%, ${product.colorHex}20 0%, transparent 50%),
@@ -196,6 +278,8 @@ export default function ProductGallery({ product, specs }: Props) {
                 onPointerMove={alMover}
                 onPointerUp={alSoltar}
                 onPointerCancel={alSoltar}
+                onKeyDown={alTeclear}
+                tabIndex={images.length > 1 ? 0 : -1}
                 role="group"
                 aria-roledescription="carrusel"
                 aria-label={`Fotos de ${tituloEquipo(product)}`}
@@ -264,6 +348,38 @@ export default function ProductGallery({ product, specs }: Props) {
           </div>
         )}
 
+        {/* Flechas: en la computadora aparecen al pasar el mouse para no tapar
+            la foto, en el celular quedan visibles porque no hay hover. Se
+            desvanecen en la primera y en la última en vez de quedar muertas. */}
+        {hasImage && images.length > 1 && activeTab === "color" && (
+          <>
+            {[
+              { lado: "izq", icono: HiChevronLeft, destino: activeImage - 1, oculta: activeImage === 0, texto: "Foto anterior" },
+              { lado: "der", icono: HiChevronRight, destino: activeImage + 1, oculta: activeImage === images.length - 1, texto: "Foto siguiente" },
+            ].map(({ lado, icono: Icono, destino, oculta, texto }) => (
+              <button
+                key={lado}
+                type="button"
+                onClick={() => animarHacia(destino)}
+                aria-label={texto}
+                className={`cursor-pointer absolute top-1/2 -translate-y-1/2 ${
+                  lado === "izq" ? "left-3" : "right-3"
+                } grid place-items-center size-11 rounded-full border border-white/15 bg-black/45 text-white/85 backdrop-blur-md shadow-lg shadow-black/30 transition-[opacity,transform,border-color,color] duration-300 ease-out hover:border-[#d4a843]/60 hover:text-[#d4a843] hover:scale-105 active:scale-95 ${
+                  /* La flecha del extremo no lleva las clases de hover: si las
+                     llevara, al pasar el mouse volvería a aparecer, porque las
+                     dos reglas de opacidad tienen la misma especificidad y
+                     gana la que Tailwind haya puesto última. */
+                  oculta
+                    ? "opacity-0 pointer-events-none"
+                    : "opacity-100 md:opacity-0 md:group-hover/galeria:opacity-100"
+                }`}
+              >
+                <Icono aria-hidden="true" className="size-5" />
+              </button>
+            ))}
+          </>
+        )}
+
         {/* Capacity badge overlay */}
         <div className="absolute top-4 right-4">
           <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-white/10 text-white/70 backdrop-blur-sm">
@@ -272,25 +388,6 @@ export default function ProductGallery({ product, specs }: Props) {
         </div>
       </div>
 
-      {/* Recorrido: muestra en qué foto va y cuántas quedan, que arrastrando
-          sin referencia no se sabe si hay más. */}
-      {images.length > 1 && activeTab === "color" && (
-        <div className="flex items-center gap-3">
-          <div className="h-1 flex-1 rounded-full bg-white/10 overflow-hidden">
-            <div
-              className="h-full rounded-full bg-[#d4a843] transition-transform duration-300 ease-out"
-              style={{
-                width: `${100 / images.length}%`,
-                transform: `translateX(${activeImage * 100}%)`,
-              }}
-            />
-          </div>
-          <span className="text-[11px] text-slate-500 tabular-nums shrink-0">
-            {activeImage + 1} / {images.length}
-          </span>
-        </div>
-      )}
-
       {/* Thumbnails: only when the product has more than one photo */}
       {images.length > 1 && activeTab === "color" && (
         <div className="flex gap-2 overflow-x-auto pb-1">
@@ -298,11 +395,13 @@ export default function ProductGallery({ product, specs }: Props) {
             <button
               key={src}
               type="button"
-              onClick={() => irAFoto(i)}
+              onClick={() => animarHacia(i)}
               aria-label={`Foto ${i + 1} de ${images.length}`}
               aria-pressed={i === activeImage}
-              className={`cursor-pointer relative size-16 shrink-0 rounded-xl overflow-hidden glass-panel transition-[border-color] ${
-                i === activeImage ? "border-[#d4a843]/70" : "hover:border-white/20"
+              className={`cursor-pointer relative size-16 shrink-0 rounded-xl overflow-hidden glass-panel transition-[border-color,opacity,transform] duration-300 ease-out ${
+                i === activeImage
+                  ? "border-[#d4a843]/70 opacity-100"
+                  : "opacity-55 hover:opacity-100 hover:border-white/20"
               }`}
             >
               <Image src={src} alt="" fill className="object-cover" sizes="64px" />
