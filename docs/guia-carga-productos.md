@@ -10,7 +10,7 @@ La web lee el catálogo desde Airtable. Todo lo que cambies ahí aparece en la p
 2. Completá:
    - **Modelo**: elegilo siempre de la lista desplegable. Es el campo más importante: con él la web arma el título, agrupa el stock y muestra el bloque de la serie. Si falta un modelo, avisale a Lucas.
    - **Capacidad** y **Color**: cada uno en su casillero. No hace falta repetirlos en el nombre, la web los agrega sola.
-   - **Color**: escribí el nombre común y listo (`Blanco`, `Negro`, `Gold`, `Titanio Azul`). No hay que cargar ningún código de color, la web saca el tono del nombre.
+   - **Color**: elegilo de la lista. Si el color que necesitás no está, escribilo y Airtable te lo agrega a la lista para la próxima. No hay que cargar ningún código de color: la web saca el tono del nombre.
    - **Nombre**: es solo para vos, para encontrar la fila en el panel. **No se muestra en la web.** Poné lo que te sirva.
    - **Categoría**: `iphone`, `android` o `consolas`.
    - **Condición**: `Sellado`, `A+`, `A`, `B` o `C`.
