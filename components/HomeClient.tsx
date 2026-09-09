@@ -12,7 +12,15 @@ export default function HomeClient({
   const [loaderDone, setLoaderDone] = useState(false);
 
   useEffect(() => {
-    const hasVisited = localStorage.getItem("iphones_luxury_visited");
+    /* localStorage tira excepción en navegadores con datos de sitio
+       bloqueados, como el interno de WhatsApp en algunos Android. Como esto
+       corre dentro de un efecto, esa excepción llegaba al error boundary de
+       Next y la home se reemplazaba por la página blanca de error. Si no se
+       puede leer, se trata como ya visitado y se muestra la página directo. */
+    let hasVisited: string | null = "1";
+    try {
+      hasVisited = localStorage.getItem("iphones_luxury_visited");
+    } catch {}
     if (hasVisited) {
       setLoaderDone(true);
     } else {
@@ -23,7 +31,9 @@ export default function HomeClient({
   const handleLoaderComplete = () => {
     setLoaderDone(true);
     setShowLoader(false);
-    localStorage.setItem("iphones_luxury_visited", "1");
+    try {
+      localStorage.setItem("iphones_luxury_visited", "1");
+    } catch {}
   };
 
   return (
