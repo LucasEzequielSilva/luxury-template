@@ -14,7 +14,7 @@ export default function ShippingInfo() {
         </li>
         <li className="flex items-start gap-2">
           <span className="text-amber-400 mt-0.5">&#8226;</span>
-          Por ahora solo hacemos entregas en Iguazú
+          Envíos a toda la provincia de Misiones
         </li>
         <li className="flex items-start gap-2">
           <span className="text-amber-400 mt-0.5">&#8226;</span>

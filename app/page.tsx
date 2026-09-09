@@ -59,14 +59,12 @@ const negocio: JsonLdObject = {
         "https://www.instagram.com/iphonesluxury/",
         "https://wa.me/3757541930",
       ],
+      /* La provincia entera y no sólo la ciudad: entregan en el día en Iguazú
+         y envían al resto de Misiones. */
       areaServed: {
-        "@type": "City",
-        name: "Puerto Iguazú",
-        containedInPlace: {
-          "@type": "AdministrativeArea",
-          name: "Misiones",
-          containedInPlace: { "@type": "Country", name: "AR" },
-        },
+        "@type": "AdministrativeArea",
+        name: "Misiones",
+        containedInPlace: { "@type": "Country", name: "AR" },
       },
       contactPoint: {
         "@type": "ContactPoint",

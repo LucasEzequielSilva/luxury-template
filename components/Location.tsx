@@ -17,6 +17,13 @@ const points = [
     title: "Punto de encuentro a coordinar",
     desc: "Lo coordinamos directo por WhatsApp: vos elegís dónde y a qué hora.",
   },
+  /* "En el día" es sólo Iguazú; al resto de la provincia va por envío. Se
+     dice aparte para no prometer mismo día en Posadas u Oberá. */
+  {
+    icon: HiOutlineMapPin,
+    title: "Envíos a toda Misiones",
+    desc: "Si estás en otra ciudad de la provincia, te lo mandamos. El envío se coordina por WhatsApp.",
+  },
 ];
 
 export default function Location() {
@@ -32,7 +39,7 @@ export default function Location() {
             Estamos en Puerto Iguazú, Misiones
           </h2>
           <p className="text-slate-500 text-pretty">
-            Atendemos en persona y entregamos en el día en toda la ciudad.
+            Atendemos en persona, entregamos en el día en la ciudad y enviamos a toda Misiones.
           </p>
         </div>
 

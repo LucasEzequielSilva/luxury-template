@@ -267,7 +267,7 @@ function schemaProducto(
         "@type": "WarrantyPromise",
         durationOfWarranty: { "@type": "QuantitativeValue", value: 60, unitCode: "DAY" },
       },
-      areaServed: { "@type": "City", name: "Puerto Iguazú" },
+      areaServed: { "@type": "AdministrativeArea", name: "Misiones" },
       /* Sólo efectivo: el precio marcado es el mismo que muestra
          ProductPricing, y ahí dice "precio final en efectivo, transferencia
          con 2,5% de recargo" (según PaymentMethods). Declarar transferencia,

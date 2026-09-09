@@ -22,7 +22,7 @@ const warranties = [
     icon: HiOutlineTruck,
     title: "Entrega en el día",
     description:
-      "Si estás en Iguazú, coordinamos la entrega para el mismo día.",
+      "Si estás en Iguazú, coordinamos la entrega para el mismo día. Al resto de Misiones, envío.",
   },
   {
     icon: HiOutlineChatBubbleLeftRight,
