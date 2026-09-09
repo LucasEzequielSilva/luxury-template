@@ -27,6 +27,11 @@ interface AirtableRecord {
     "Batería % (sin uso)"?: number;
     "Batería"?: string;
     Color?: string;
+    /* Nombres de paso mientras el campo de color se convierte de texto libre a
+       desplegable: leerlos a los tres evita que el catálogo quede vacío en el
+       segundo que hay entre renombrar el viejo y renombrar el nuevo. */
+    "Color nuevo"?: string;
+    "Color (texto viejo)"?: string;
     "Color Hex"?: string;
     "Precio USD"?: number;
     "Precio Original USD"?: number;
@@ -62,7 +67,11 @@ function tramoBateria(valor: string | undefined): number | undefined {
 
 function recordToProduct(record: AirtableRecord): Product | null {
   const f = record.fields;
-  if (!f.Modelo || !f.Capacidad || !f.Condición || !f.Color || !f["Precio USD"]) return null;
+  /* El color se limpia una sola vez acá y no en cada pantalla: se cargaba a
+     mano y venían valores con espacios al final, que hacían que "Blanco " y
+     "Blanco" contaran como dos colores distintos. */
+  const color = (f.Color ?? f["Color nuevo"] ?? f["Color (texto viejo)"] ?? "").trim();
+  if (!f.Modelo || !f.Capacidad || !f.Condición || !color || !f["Precio USD"]) return null;
 
   return {
     id: record.id,
@@ -70,12 +79,12 @@ function recordToProduct(record: AirtableRecord): Product | null {
     modelKey: f.Modelo,
     capacity: f.Capacidad,
     condition: f.Condición,
-    color: f.Color,
+    color,
     /* El nombre del color manda sobre el hex cargado a mano: esa columna venía
        del catálogo de ejemplo con los tonos cruzados ("Blanco" en negro), y
        nadie que carga equipos tiene por qué corregir códigos hexadecimales.
        El hex queda de respaldo para un color que no esté en la lista. */
-    colorHex: hexDeColor(f.Color) ?? f["Color Hex"] ?? "#8A8A8E",
+    colorHex: hexDeColor(color) ?? f["Color Hex"] ?? "#8A8A8E",
     price: f["Precio USD"],
     originalPrice: f["Precio Original USD"],
     featured: !!f.Destacado,
