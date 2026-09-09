@@ -80,6 +80,22 @@ class RedDeSeguridad3D extends Component<{ children: ReactNode }, { fallo: boole
   }
 }
 
+/* Si los reflejos fallan, no se renderiza nada en su lugar: el modelo ya
+   tiene cinco luces y se ve bien sin ellos. Perder el 3D entero por un
+   archivo decorativo era desproporcionado. */
+class ReflejosOpcionales extends Component<{ children: ReactNode }, { fallo: boolean }> {
+  state = { fallo: false };
+  static getDerivedStateFromError() {
+    return { fallo: true };
+  }
+  componentDidCatch(error: unknown) {
+    console.warn("Reflejos del iPhone 3D desactivados:", error);
+  }
+  render() {
+    return this.state.fallo ? null : this.props.children;
+  }
+}
+
 /* Chrome en muchos Android de gama media bloquea WebGL por la GPU. Ahí
    three.js tira "Error creating WebGL context" al montar el Canvas, y eso
    era lo que tiraba abajo la home. Se prueba antes de montar. */
@@ -122,10 +138,16 @@ export default function IPhoneModel() {
               <Model />
             </Center>
           </Suspense>
-          {/* HDR reflections load from a CDN; keep them out of the model's Suspense so a slow/blocked fetch never hides the phone */}
-          <Suspense fallback={null}>
-            <Environment preset="studio" />
-          </Suspense>
+          {/* Los reflejos son un HDR propio, servido desde el sitio. El preset
+              "studio" de drei lo bajaba de raw.githubusercontent.com, que no es
+              un CDN y devuelve 503 cada tanto; ese fallo tiraba la página
+              entera. Van en su propio boundary: si el archivo no carga, el
+              teléfono sigue girando iluminado por las luces, sin reflejos. */}
+          <ReflejosOpcionales>
+            <Suspense fallback={null}>
+              <Environment files="/hdr/studio_small_03_1k.hdr" />
+            </Suspense>
+          </ReflejosOpcionales>
           <OrbitControls
             autoRotate
             autoRotateSpeed={5}
