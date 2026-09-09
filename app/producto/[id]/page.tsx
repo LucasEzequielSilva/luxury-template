@@ -91,7 +91,7 @@ const CONDICION_SUFIJO: Record<Product["condition"], string> = {
 };
 
 function claveVariante(product: Product): string {
-  return `${product.modelKey}|${product.capacity}|${product.color}`.toLowerCase();
+  return `${product.modelKey}|${product.capacity}|${product.color.trim()}`.toLowerCase();
 }
 
 function sufijoCondicion(product: Product, catalogo: Product[]): string {

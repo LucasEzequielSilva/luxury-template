@@ -8,6 +8,7 @@ import {
   getSeriesNumber,
   formatPrice,
   tituloCorto,
+  textoBateria,
 } from "@/data/products";
 
 function ModelSelector({ product, allProducts }: { product: Product; allProducts: Product[] }) {
@@ -195,7 +196,7 @@ function CapacitySelector({ product, allProducts }: { product: Product; allProdu
   // For each capacity, find the product matching current color, or fallback
   const capacityOptions = Array.from(capacities.keys()).map((cap) => {
     const match = allVariants.find(
-      (v) => v.capacity === cap && v.color === product.color
+      (v) => v.capacity === cap && v.color.trim().toLowerCase() === product.color.trim().toLowerCase()
     );
     return match || allVariants.find((v) => v.capacity === cap)!;
   });
@@ -237,18 +238,26 @@ const conditionStyles: Record<string, string> = {
   C: "bg-slate-500/10 text-slate-300 border-slate-500/30",
 };
 
+/* El negocio carga una fila por teléfono físico, no por variante de catálogo:
+   puede tener dos blancos de 256GB que sólo se diferencian por la batería y el
+   precio. Esta lista es la que deja llegar a cada uno de esos equipos; sin
+   ella, el segundo blanco no tendría desde dónde abrirse, porque el círculo de
+   color muestra un solo blanco. La comparación del color va sin espacios ni
+   mayúsculas porque se escribe a mano. */
 function ConditionSelector({ product, allProducts }: { product: Product; allProducts: Product[] }) {
   const allVariants = getColorVariants(product, allProducts);
+  const clave = (texto: string) => texto.trim().toLowerCase();
 
-  // Find condition variants for the same color + capacity
   const conditionVariants = allVariants.filter(
-    (v) => v.color === product.color && v.capacity === product.capacity
+    (v) => clave(v.color) === clave(product.color) && v.capacity === product.capacity
   );
   if (conditionVariants.length <= 1) return null;
 
   return (
     <div className="space-y-3">
-      <p className="text-xs text-slate-500 uppercase font-medium">Condición</p>
+      <p className="text-xs text-slate-500 uppercase font-medium">
+        Unidades disponibles
+      </p>
       <div className="flex flex-wrap gap-2">
         {conditionVariants.map((variant) => {
           const isActive = variant.id === product.id;
@@ -256,7 +265,9 @@ function ConditionSelector({ product, allProducts }: { product: Product; allProd
             <Link
               key={variant.id}
               href={`/producto/${variant.id}`}
-              aria-label={`Ver la unidad en condición ${variant.condition}`}
+              aria-label={`Ver la unidad en condición ${variant.condition}${
+                variant.batteryHealth ? `, ${textoBateria(variant.batteryHealth, true)}` : ""
+              }, ${formatPrice(variant.price)}`}
               aria-current={isActive ? "page" : undefined}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
                 isActive
@@ -264,7 +275,13 @@ function ConditionSelector({ product, allProducts }: { product: Product; allProd
                   : "glass-panel border-white/5 text-slate-400 hover:border-white/15 hover:text-white"
               }`}
             >
-              {variant.condition} · {formatPrice(variant.price)}
+              {[
+                variant.condition,
+                variant.batteryHealth ? textoBateria(variant.batteryHealth, true) : null,
+                formatPrice(variant.price),
+              ]
+                .filter(Boolean)
+                .join(" · ")}
             </Link>
           );
         })}
