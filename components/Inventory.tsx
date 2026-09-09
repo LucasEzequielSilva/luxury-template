@@ -23,7 +23,12 @@ export default function Inventory({
   products: Product[];
   conDivisorSuperior?: boolean;
 }) {
-  const [category, setCategory] = useState<Category>("iphone");
+  /* Arranca en la primera categoría con stock, por si algún día no hay
+     iPhones publicados pero sí otra cosa. */
+  const [category, setCategory] = useState<Category>(() => {
+    const hay = (c: Category) => products.some((p) => (p.category ?? "iphone") === c);
+    return (["iphone", "android", "consolas"] as Category[]).find(hay) ?? "iphone";
+  });
   const [sort, setSort] = useState<SortOrder>("default");
   const [search, setSearch] = useState("");
   const [visible, setVisible] = useState(INITIAL_COUNT);
@@ -96,11 +101,16 @@ export default function Inventory({
 
   const hasMore = visible < currentList.length;
 
-  const categories: { key: Category; label: string }[] = [
-    { key: "iphone", label: "iPhone" },
-    { key: "android", label: "Android" },
-    { key: "consolas", label: "Consolas" },
+  /* Sólo las categorías que tienen algo publicado. Una pestaña "Android" con
+     el cartel de "estamos actualizando el stock" atrás es una promesa que no
+     se cumple; y con una sola categoría el selector entero sobra. */
+  const todas: { key: Category; label: string; cantidad: number }[] = [
+    { key: "iphone", label: "iPhone", cantidad: iphoneModels.length },
+    { key: "android", label: "Android", cantidad: androidModels.length },
+    { key: "consolas", label: "Consolas", cantidad: consolaModels.length },
   ];
+  const categories = todas.filter((c) => c.cantidad > 0);
+  const mostrarPestanas = categories.length > 1;
 
   return (
     <section id="inventory" className="relative py-20 px-6 bg-[#101010]">
@@ -126,7 +136,7 @@ export default function Inventory({
         {/* Category toggle + Search + Sort */}
         <div className="flex items-center justify-between gap-3 mb-10 flex-wrap">
           <div className="flex gap-2 sm:gap-3 flex-wrap">
-            {categories.map((cat) => (
+            {mostrarPestanas && categories.map((cat) => (
               <button
                 key={cat.key}
                 onClick={() => switchCategory(cat.key)}
