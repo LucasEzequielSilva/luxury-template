@@ -39,7 +39,7 @@ export default function ProductPricing({ product }: { product: Product }) {
       )}
 
       <p className="text-xs text-slate-600 leading-relaxed">
-        Precio final en efectivo. Transferencia con recargo. Financiación disponible.
+        Precio final en efectivo. Transferencia con 2,5% de recargo. También tarjeta por Mercado Pago y USDT.
       </p>
 
       <p className="text-[11px] text-slate-500 pt-1">

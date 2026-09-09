@@ -270,10 +270,10 @@ function schemaProducto(
       areaServed: { "@type": "City", name: "Puerto Iguazú" },
       /* Sólo efectivo: el precio marcado es el mismo que muestra
          ProductPricing, y ahí dice "precio final en efectivo, transferencia
-         con recargo" (+3% en pesos, +2% en dólares según PaymentMethods).
-         Declarar transferencia sobre este monto sería marcar un precio que no
-         existe. Cuando se quiera marcarla, va como un Offer aparte con su
-         propio price, no como método extra del mismo. */
+         con 2,5% de recargo" (según PaymentMethods). Declarar transferencia,
+         tarjeta o USDT sobre este monto sería marcar un precio que no existe.
+         Cuando se quiera marcarlos, van como Offer aparte con su propio
+         price, no como método extra del mismo. */
       acceptedPaymentMethod: "http://purl.org/goodrelations/v1#Cash",
     };
   }
