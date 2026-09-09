@@ -16,23 +16,10 @@ interface AirtableRecord {
     Categoría?: "iphone" | "android" | "consolas";
     Capacidad?: string;
     Condición?: Product["condition"];
-    /* El tramo elegido en el desplegable: "80% o más", "85% o más", "90% o
-       más" o "100%". Queda como alternativa: en la práctica cada fila es un
-       equipo puntual y el vendedor tiene a mano el porcentaje exacto, así que
-       cargar el número solo es más rápido y la web deduce el tramo. */
-    "Batería (tramo, opcional)"?: string;
-    /* El porcentaje exacto que se lee en el equipo. Es la fuente preferida. */
+    /* El porcentaje exacto que se lee en el equipo (Ajustes > Batería). La
+       web lo redondea al tramo que publica. */
     "Batería %"?: number;
-    /* Nombres anteriores de los mismos dos campos, por si quedó algo ahí. */
-    "Batería % (sin uso)"?: number;
-    "Batería"?: string;
     Color?: string;
-    /* Nombres de paso mientras el campo de color se convierte de texto libre a
-       desplegable: leerlos a los tres evita que el catálogo quede vacío en el
-       segundo que hay entre renombrar el viejo y renombrar el nuevo. */
-    "Color nuevo"?: string;
-    "Color (texto viejo)"?: string;
-    "Color Hex"?: string;
     "Precio USD"?: number;
     "Precio Original USD"?: number;
     Destacado?: boolean;
@@ -48,29 +35,17 @@ interface AirtableRecord {
    de un porcentaje que contradiga la promesa. */
 const TRAMOS_BATERIA = [100, 90, 85, 80];
 
-/* El panel tiene dos campos de batería: un desplegable con los tramos y el
-   porcentaje exacto que el vendedor lee en el equipo. Cargar los dos es
-   trabajo al pepe, así que alcanza con cualquiera de los dos y el número
-   exacto manda: es el dato de origen, y siendo numérico no admite errores de
-   tipeo como "%92", que en el desplegable dejaban la ficha sin batería. */
+/* El vendedor carga el porcentaje exacto que lee en el equipo; la web publica
+   el tramo. Un campo numérico además no admite errores de tipeo como "%92". */
 function tramoDesdeNumero(valor: unknown): number | undefined {
   const n = typeof valor === "number" ? valor : Number(valor);
   if (!Number.isFinite(n) || n <= 0) return undefined;
   return TRAMOS_BATERIA.find((tramo) => n >= tramo);
 }
 
-function tramoBateria(valor: string | undefined): number | undefined {
-  if (!valor) return undefined;
-  const n = parseInt(valor, 10);
-  return Number.isFinite(n) ? n : undefined;
-}
-
 function recordToProduct(record: AirtableRecord): Product | null {
   const f = record.fields;
-  /* El color se limpia una sola vez acá y no en cada pantalla: se cargaba a
-     mano y venían valores con espacios al final, que hacían que "Blanco " y
-     "Blanco" contaran como dos colores distintos. */
-  const color = (f.Color ?? f["Color nuevo"] ?? f["Color (texto viejo)"] ?? "").trim();
+  const color = (f.Color ?? "").trim();
   if (!f.Modelo || !f.Capacidad || !f.Condición || !color || !f["Precio USD"]) return null;
 
   return {
@@ -80,18 +55,13 @@ function recordToProduct(record: AirtableRecord): Product | null {
     capacity: f.Capacidad,
     condition: f.Condición,
     color,
-    /* El nombre del color manda sobre el hex cargado a mano: esa columna venía
-       del catálogo de ejemplo con los tonos cruzados ("Blanco" en negro), y
-       nadie que carga equipos tiene por qué corregir códigos hexadecimales.
-       El hex queda de respaldo para un color que no esté en la lista. */
-    colorHex: hexDeColor(color) ?? f["Color Hex"] ?? "#8A8A8E",
+    /* El tono sale del nombre del color; si no está en la lista, gris neutro. */
+    colorHex: hexDeColor(color) ?? "#8A8A8E",
     price: f["Precio USD"],
     originalPrice: f["Precio Original USD"],
     featured: !!f.Destacado,
     category: f.Categoría || "iphone",
-    batteryHealth:
-      tramoDesdeNumero(f["Batería %"] ?? f["Batería % (sin uso)"]) ??
-      tramoBateria(f["Batería (tramo, opcional)"] ?? f["Batería"]),
+    batteryHealth: tramoDesdeNumero(f["Batería %"]),
     images: f.Fotos?.map((a) => a.url),
   };
 }
