@@ -10,7 +10,7 @@ La web lee el catálogo desde Airtable. Todo lo que cambies ahí aparece en la p
 2. Completá:
    - **Modelo**: elegilo siempre de la lista desplegable. Es el campo más importante: con él la web arma el título, agrupa el stock y muestra el bloque de la serie. Si falta un modelo, avisale a Lucas.
    - **Capacidad** y **Color**: cada uno en su casillero. No hace falta repetirlos en el nombre, la web los agrega sola.
-   - **Color**: escribí el nombre común y listo (`Blanco`, `Negro`, `Gold`, `Titanio Azul`). No hay que cargar ningún código de color.
+   - **Color**: escribí el nombre común y listo (`Blanco`, `Negro`, `Gold`, `Titanio Azul`). No hay que cargar ningún código de color, la web saca el tono del nombre.
    - **Nombre**: es solo para vos, para encontrar la fila en el panel. **No se muestra en la web.** Poné lo que te sirva.
    - **Categoría**: `iphone`, `android` o `consolas`.
    - **Condición**: `Sellado`, `A+`, `A`, `B` o `C`.
@@ -20,13 +20,19 @@ La web lee el catálogo desde Airtable. Todo lo que cambies ahí aparece en la p
    - **Fotos**: arrastrá las imágenes al campo. La primera es la que se ve en la tarjeta, el resto se ven en la ficha del equipo.
 3. Tildá **Publicado**. Sin ese tilde el equipo no aparece en la web.
 
-## Por qué cargás 11 equipos y ves menos tarjetas
+## Cargá una fila por equipo, aunque se repitan
 
-En la sección **Stock** la web muestra **una tarjeta por modelo**, no una por equipo. Si cargás tres iPhone 16 Pro Max, los tres entran en la misma tarjeta.
+Está bien cargar cada teléfono que tenés en la mano, uno por fila. Si tenés dos iPhone 16 Pro Max blancos de 256GB con distinta batería y distinto precio, van dos filas.
 
-No se pierde ninguno: la tarjeta avisa cuántos hay ("5 disponibles"), muestra los colores en puntitos y arranca el precio desde el más barato. Al entrar se eligen el color y la capacidad.
+En la sección **Stock** la web muestra **una tarjeta por modelo**, no una por equipo. Eso es a propósito: con mucho stock, la grilla se llenaría de repetidos del mismo modelo y perdería el aire de catálogo.
 
-Está hecho así a propósito, para que la grilla no se llene de repetidos del mismo modelo cuando tengas mucho stock.
+No se pierde ninguno:
+
+- La tarjeta avisa cuántos hay ("5 disponibles"), muestra los colores en puntitos y arranca el precio desde el más barato.
+- Al entrar se elige el color y la capacidad.
+- Si hay más de un equipo con el mismo color y la misma capacidad, aparece **Unidades disponibles**, con la batería y el precio de cada uno para poder elegir.
+
+Por eso no hace falta que inventes nombres distintos ni que cambies el color para diferenciarlos. Cargá el color real: la web se encarga del resto.
 
 ## Cambiar precio, foto o cualquier dato
 
