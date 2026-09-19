@@ -43,6 +43,23 @@ function tramoDesdeNumero(valor: unknown): number | undefined {
   return TRAMOS_BATERIA.find((tramo) => n >= tramo);
 }
 
+/* El Modelo se elige de una lista, pero si el modelo no está, el vendedor lo
+   escribe y Airtable lo agrega tal cual: "14 Plus", "15 pro max". Sin la
+   palabra iPhone el sitio no encuentra ni la serie ni las specs, así que acá
+   se lleva a la forma de la lista. Solo toca lo que arranca con un número o
+   con "iphone"; Samsung, Xiaomi y consolas pasan sin cambios. */
+function normalizarModelo(crudo: string): string {
+  let m = crudo.trim().replace(/\s+/g, " ");
+  if (/^\d/.test(m)) m = `iPhone ${m}`;
+  if (!/^iphone/i.test(m)) return m;
+  m = m.replace(/^iphone/i, "iPhone");
+  return m
+    .replace(/pro/gi, "Pro")
+    .replace(/max/gi, "Max")
+    .replace(/plus/gi, "Plus")
+    .replace(/mini/gi, "mini");
+}
+
 function recordToProduct(record: AirtableRecord): Product | null {
   const f = record.fields;
   const color = (f.Color ?? "").trim();
@@ -50,8 +67,8 @@ function recordToProduct(record: AirtableRecord): Product | null {
 
   return {
     id: record.id,
-    name: f.Modelo,
-    modelKey: f.Modelo,
+    name: normalizarModelo(f.Modelo),
+    modelKey: normalizarModelo(f.Modelo),
     capacity: f.Capacidad,
     condition: f.Condición,
     color,

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import {
   type Product,
+  iphoneSpecsMap,
   getSeriesModels,
   getColorVariants,
   getSeriesNumber,
@@ -21,13 +22,20 @@ function ModelSelector({ product, allProducts }: { product: Product; allProducts
     if (name.includes("Pro Max")) return "Pro Max";
     if (name.includes("Pro")) return "Pro";
     if (name.includes("Plus")) return "Plus";
+    if (name.includes("mini")) return "mini";
     return "Base";
   };
 
+  /* El tamaño sale de las specs del modelo. Antes estaba fijo por gama y
+     todo Pro Max decía 6.9", cuando el 14 Pro Max es de 6.7" y el 11 Pro
+     Max de 6.5". La tabla por gama queda solo para modelos sin specs. */
   const getScreenHint = (name: string): string => {
+    const real = iphoneSpecsMap[name]?.displaySize;
+    if (real) return real;
     if (name.includes("Pro Max")) return '6.9"';
     if (name.includes("Plus")) return '6.7"';
     if (name.includes("Pro")) return '6.3"';
+    if (name.includes("mini")) return '5.4"';
     return '6.1"';
   };
 
