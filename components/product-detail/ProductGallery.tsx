@@ -318,14 +318,19 @@ export default function ProductGallery({ product, specs }: Props) {
 
         {activeTab === "specs" && specs && (
           <div className="grid grid-cols-2 gap-2 sm:gap-3 p-4 sm:p-6 md:p-8 w-full">
-            {[
-              { label: "Chip", value: specs.chip },
-              { label: "RAM", value: specs.ram },
-              { label: "Cámara", value: specs.mainCamera },
-              { label: "Batería", value: specs.battery },
-              { label: "Peso", value: specs.weight },
-              { label: "Resistencia", value: specs.waterResistance },
-            ].map((item) => (
+            {(
+              [
+                { label: "Chip", value: specs.chip },
+                { label: "RAM", value: specs.ram },
+                { label: "Cámara", value: specs.mainCamera },
+                specs.battery ? { label: "Batería", value: specs.battery } : null,
+                { label: "Peso", value: specs.weight },
+                { label: "Resistencia", value: specs.waterResistance },
+              ].filter((item): item is { label: string; value: string } => item !== null) as {
+                label: string;
+                value: string;
+              }[]
+            ).map((item) => (
               <div key={item.label} className="glass-panel rounded-xl p-3 sm:p-4 min-w-0">
                 <p className="text-[10px] sm:text-xs text-slate-500 uppercase truncate">
                   {item.label}

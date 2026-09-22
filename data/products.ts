@@ -10,12 +10,12 @@ export interface IPhoneSpecs {
   mainCamera: string;
   frontCamera: string;
   videoCapability: string;
-  battery: string;
+  battery?: string;
   waterResistance: string;
   connectivity: string;
   biometrics: string;
   weight: string;
-  os: string;
+  os?: string;
   releaseYear: number;
 }
 
@@ -48,12 +48,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "48 MP + 24 MP",
     frontCamera: "24 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "3600 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 7, Bluetooth 5.4, USB-C",
     biometrics: "Face ID",
     weight: "170 g",
-    os: "iOS 19",
     releaseYear: 2025,
   },
   "iPhone 17 Pro Max": {
@@ -66,12 +64,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "48 MP + 48 MP + 48 MP",
     frontCamera: "24 MP TrueDepth",
     videoCapability: "4K a 120fps, Dolby Vision, ProRes",
-    battery: "4685 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 7, Bluetooth 5.4, USB-C",
     biometrics: "Face ID",
     weight: "227 g",
-    os: "iOS 19",
     releaseYear: 2025,
   },
   "iPhone 17 Pro": {
@@ -84,12 +80,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "48 MP + 48 MP + 12 MP",
     frontCamera: "24 MP TrueDepth",
     videoCapability: "4K a 120fps, Dolby Vision, ProRes",
-    battery: "3650 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 7, Bluetooth 5.4, USB-C",
     biometrics: "Face ID",
     weight: "194 g",
-    os: "iOS 19",
     releaseYear: 2025,
   },
   "iPhone 16 Pro Max": {
@@ -102,12 +96,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "48 MP + 12 MP + 48 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 120fps, Dolby Vision",
-    battery: "4685 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 7, Bluetooth 5.3, USB-C",
     biometrics: "Face ID",
     weight: "227 g",
-    os: "iOS 18",
     releaseYear: 2024,
   },
   "iPhone 16 Pro": {
@@ -120,12 +112,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "48 MP + 12 MP + 48 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 120fps, Dolby Vision",
-    battery: "3582 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 7, Bluetooth 5.3, USB-C",
     biometrics: "Face ID",
     weight: "199 g",
-    os: "iOS 18",
     releaseYear: 2024,
   },
   "iPhone 16 Plus": {
@@ -138,12 +128,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "48 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "4674 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 7, Bluetooth 5.3, USB-C",
     biometrics: "Face ID",
     weight: "199 g",
-    os: "iOS 18",
     releaseYear: 2024,
   },
   "iPhone 16": {
@@ -156,12 +144,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "48 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "3561 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 7, Bluetooth 5.3, USB-C",
     biometrics: "Face ID",
     weight: "170 g",
-    os: "iOS 18",
     releaseYear: 2024,
   },
   "iPhone 15 Pro Max": {
@@ -174,12 +160,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "48 MP + 12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "4441 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6E, Bluetooth 5.3, USB-C",
     biometrics: "Face ID",
     weight: "221 g",
-    os: "iOS 17",
     releaseYear: 2023,
   },
   "iPhone 15 Pro": {
@@ -192,12 +176,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "48 MP + 12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "3274 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6E, Bluetooth 5.3, USB-C",
     biometrics: "Face ID",
     weight: "187 g",
-    os: "iOS 17",
     releaseYear: 2023,
   },
   "iPhone 15 Plus": {
@@ -210,12 +192,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "48 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "4383 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.3, USB-C",
     biometrics: "Face ID",
     weight: "201 g",
-    os: "iOS 17",
     releaseYear: 2023,
   },
   "iPhone 15": {
@@ -228,12 +208,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "48 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "3349 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.3, USB-C",
     biometrics: "Face ID",
     weight: "171 g",
-    os: "iOS 17",
     releaseYear: 2023,
   },
   "iPhone 14 Pro Max": {
@@ -246,12 +224,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "48 MP + 12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "4323 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.3, Lightning",
     biometrics: "Face ID",
     weight: "240 g",
-    os: "iOS 16",
     releaseYear: 2022,
   },
   "iPhone 14 Pro": {
@@ -264,12 +240,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "48 MP + 12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "3200 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.3, Lightning",
     biometrics: "Face ID",
     weight: "206 g",
-    os: "iOS 16",
     releaseYear: 2022,
   },
   "iPhone 14 Plus": {
@@ -282,12 +256,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "4325 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.3, Lightning",
     biometrics: "Face ID",
     weight: "203 g",
-    os: "iOS 16",
     releaseYear: 2022,
   },
   "iPhone 14": {
@@ -300,12 +272,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "3279 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.3, Lightning",
     biometrics: "Face ID",
     weight: "172 g",
-    os: "iOS 16",
     releaseYear: 2022,
   },
   "iPhone 13 Pro": {
@@ -318,12 +288,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "12 MP + 12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "3095 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.0, Lightning",
     biometrics: "Face ID",
     weight: "204 g",
-    os: "iOS 15",
     releaseYear: 2021,
   },
   "iPhone 13 Pro Max": {
@@ -336,12 +304,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "12 MP + 12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "4352 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.0, Lightning",
     biometrics: "Face ID",
     weight: "240 g",
-    os: "iOS 15",
     releaseYear: 2021,
   },
   "iPhone 13 mini": {
@@ -354,12 +320,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "2438 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.0, Lightning",
     biometrics: "Face ID",
     weight: "140 g",
-    os: "iOS 15",
     releaseYear: 2021,
   },
   "iPhone 13": {
@@ -372,12 +336,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "3227 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.0, Lightning",
     biometrics: "Face ID",
     weight: "174 g",
-    os: "iOS 15",
     releaseYear: 2021,
   },
   "iPhone 12 Pro Max": {
@@ -390,12 +352,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "12 MP + 12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "3687 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.0, Lightning",
     biometrics: "Face ID",
     weight: "228 g",
-    os: "iOS 14",
     releaseYear: 2020,
   },
   "iPhone 12 Pro": {
@@ -408,12 +368,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "12 MP + 12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "2815 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.0, Lightning",
     biometrics: "Face ID",
     weight: "189 g",
-    os: "iOS 14",
     releaseYear: 2020,
   },
   "iPhone 12 mini": {
@@ -426,12 +384,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "2227 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.0, Lightning",
     biometrics: "Face ID",
     weight: "133 g",
-    os: "iOS 14",
     releaseYear: 2020,
   },
   "iPhone 12": {
@@ -444,12 +400,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps, Dolby Vision",
-    battery: "2815 mAh",
     waterResistance: "IP68",
     connectivity: "5G, Wi-Fi 6, Bluetooth 5.0, Lightning",
     biometrics: "Face ID",
     weight: "164 g",
-    os: "iOS 14",
     releaseYear: 2020,
   },
   "iPhone 11 Pro Max": {
@@ -462,12 +416,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "12 MP + 12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps",
-    battery: "3969 mAh",
     waterResistance: "IP68",
     connectivity: "4G LTE, Wi-Fi 6, Bluetooth 5.0, Lightning",
     biometrics: "Face ID",
     weight: "226 g",
-    os: "iOS 13",
     releaseYear: 2019,
   },
   "iPhone 11 Pro": {
@@ -480,12 +432,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "12 MP + 12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps",
-    battery: "3046 mAh",
     waterResistance: "IP68",
     connectivity: "4G LTE, Wi-Fi 6, Bluetooth 5.0, Lightning",
     biometrics: "Face ID",
     weight: "188 g",
-    os: "iOS 13",
     releaseYear: 2019,
   },
   "iPhone 11": {
@@ -498,12 +448,10 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
     mainCamera: "12 MP + 12 MP",
     frontCamera: "12 MP TrueDepth",
     videoCapability: "4K a 60fps",
-    battery: "3110 mAh",
     waterResistance: "IP68",
     connectivity: "4G LTE, Wi-Fi 6, Bluetooth 5.0, Lightning",
     biometrics: "Face ID",
     weight: "194 g",
-    os: "iOS 13",
     releaseYear: 2019,
   },
 
@@ -716,8 +664,8 @@ export const iphoneSpecsMap: Record<string, IPhoneSpecs> = {
    una unidad: 85 significa "85% o más". El 100 es el sellado y ahí no
    corresponde el "o más". `corto` es para la tarjeta, donde no entra la frase. */
 export function textoBateria(bateria: number, corto = false): string {
-  if (bateria >= 100) return "Batería 100%";
-  return corto ? `Batería ${bateria}%+` : `Batería ${bateria}% o más`;
+  if (bateria >= 100) return "Batería 100% de salud";
+  return corto ? `Batería ${bateria}%+` : `Batería ${bateria}% o más de salud`;
 }
 
 export const conditionInfo: Record<

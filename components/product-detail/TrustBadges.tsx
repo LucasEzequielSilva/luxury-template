@@ -35,7 +35,7 @@ export default function TrustBadges({
      pone el piso de 80%: anclaría en el peor caso justo al lado del precio. */
   if (!isConsola) {
     const bateria = isSellado
-      ? "Batería 100%"
+      ? textoBateria(100)
       : batteryHealth
         ? textoBateria(batteryHealth)
         : "Batería revisada";

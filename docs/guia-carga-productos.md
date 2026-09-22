@@ -14,7 +14,7 @@ La web lee el catálogo desde Airtable. Todo lo que cambies ahí aparece en la p
    - **Nombre**: es solo para vos, para encontrar la fila en el panel. **No se muestra en la web.** Poné lo que te sirva.
    - **Categoría**: `iphone`, `android` o `consolas`.
    - **Condición**: `Sellado`, `A+`, `A`, `B` o `C`.
-   - **Batería %**: escribí el número que te da el equipo en Ajustes (por ejemplo `92`). Con eso alcanza: la web sola lo muestra como "90% o más". En sellados dejalo vacío, ya se entiende que es 100%.
+   - **Batería %**: escribí el número que te da el equipo en Ajustes (por ejemplo `92`). Con eso alcanza: la web sola lo muestra como "Batería 90% o más de salud". En sellados dejalo vacío, ya se entiende que es 100%.
    - **Precio USD**: el precio de venta. La web lo pasa a pesos sola.
    - **Precio Original USD** (opcional): si lo completás, la web muestra el descuento.
    - **Fotos**: arrastrá las imágenes al campo. La primera es la que se ve en la tarjeta, el resto se ven en la ficha del equipo.

@@ -1,4 +1,4 @@
-import type { IPhoneSpecs } from "@/data/products";
+import { textoBateria, type IPhoneSpecs } from "@/data/products";
 
 interface Props {
   specs: IPhoneSpecs;
@@ -22,7 +22,6 @@ const specGroups: { title: string; rows: { label: string; key: keyof IPhoneSpecs
       { label: "Procesador", key: "chip" },
       { label: "Memoria RAM", key: "ram" },
       { label: "Almacenamiento", key: "capacity" },
-      { label: "Sistema operativo", key: "os" },
     ],
   },
   {
@@ -54,7 +53,9 @@ const specGroups: { title: string; rows: { label: string; key: keyof IPhoneSpecs
 export default function SpecsTable({ specs, capacity, batteryHealth }: Props) {
   const getValue = (key: keyof IPhoneSpecs | "capacity") => {
     if (key === "capacity") return capacity;
-    if (key === "battery" && batteryHealth) return `${batteryHealth}% o más de salud · ${specs.battery}`;
+    if (key === "battery") {
+      return batteryHealth ? textoBateria(batteryHealth) : "Batería revisada";
+    }
     return String(specs[key]);
   };
 
