@@ -40,7 +40,7 @@ interface AirtableRecord {
    que es un nombre propio y queda pobre mal escrito en la web. Lo demás,
    incluido el comentario, se muestra tal cual lo escribió. */
 function marcaProlija(texto: string): string {
-  return texto.trim().replace(/iphone/gi, "iPhone");
+  return texto.trim().replace(/\biphone\b/gi, "iPhone");
 }
 
 function recordToResena(record: AirtableRecord): Resena | null {

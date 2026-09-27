@@ -51,13 +51,13 @@ function tramoDesdeNumero(valor: unknown): number | undefined {
 function normalizarModelo(crudo: string): string {
   let m = crudo.trim().replace(/\s+/g, " ");
   if (/^\d/.test(m)) m = `iPhone ${m}`;
-  if (!/^iphone/i.test(m)) return m;
+  if (!/^iphone\b/i.test(m)) return m;
   m = m.replace(/^iphone/i, "iPhone");
   return m
-    .replace(/pro/gi, "Pro")
-    .replace(/max/gi, "Max")
-    .replace(/plus/gi, "Plus")
-    .replace(/mini/gi, "mini");
+    .replace(/\bpro\b/gi, "Pro")
+    .replace(/\bmax\b/gi, "Max")
+    .replace(/\bplus\b/gi, "Plus")
+    .replace(/\bmini\b/gi, "mini");
 }
 
 function recordToProduct(record: AirtableRecord): Product | null {
