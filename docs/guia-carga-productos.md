@@ -55,7 +55,11 @@ En la tabla **Ajustes** hay un campo **Precio del dólar**.
 
 ## Reseñas
 
-Las reseñas que dejan los clientes caen en la tabla **Reseñas** y **no salen publicadas hasta que vos las apruebes**. Para publicar una, tildá **Publicada**. Si no querés que salga, dejala sin tildar.
+Las reseñas que dejan los clientes caen en la tabla **Reseñas** y **se publican solas al instante**. Te llega un mail cada vez que entra una.
+
+Si alguna no te gusta o es de un troll, entrá a la tabla y **destildá Publicada**: desaparece de la web en menos de un minuto y la fila te queda guardada. No hace falta borrarla.
+
+El formulario ya bloquea links y mensajes muy largos, así que no entra spam con enlaces.
 
 ## Consejos para las fotos
 

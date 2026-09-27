@@ -188,11 +188,10 @@ function ReviewFormModal({ onClose }: { onClose: () => void }) {
               <HiOutlineCheckCircle className="size-6" style={{ color: "#d4a843" }} />
             </span>
             <h3 id="titulo-resena" className="text-xl font-medium text-white">
-              Recibimos tu reseña
+              ¡Gracias por tu reseña!
             </h3>
             <p className="text-sm text-slate-400 leading-relaxed">
-              Queda para revisión. La publicamos en el sitio en cuanto la aprobemos, para que acá
-              solo aparezcan comentarios de clientes reales.
+              Ya está publicada en el sitio. Cerrá esta ventana y vas a verla entre las demás.
             </p>
             <button
               onClick={onClose}
@@ -208,7 +207,7 @@ function ReviewFormModal({ onClose }: { onClose: () => void }) {
                 Dejá tu reseña
               </h3>
               <p className="text-sm text-slate-500 mt-1">
-                Contanos tu experiencia con IPHONES LUXURY. La revisamos antes de publicarla.
+                Contanos tu experiencia con IPHONES LUXURY. Se publica al instante.
               </p>
             </div>
 
@@ -353,7 +352,7 @@ export default function Reviews() {
             Más de 500 equipos vendidos
           </h2>
           <p className="text-slate-500 text-pretty">
-            Cada reseña que ves acá la dejó un cliente y la revisamos antes de publicarla.
+            Cada reseña que ves acá la dejó un cliente que compró con nosotros.
           </p>
         </div>
 

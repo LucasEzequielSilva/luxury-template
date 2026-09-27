@@ -166,9 +166,14 @@ export async function crearResena(datos: NuevaResena): Promise<void> {
       Equipo: datos.equipo,
       Estrellas: datos.estrellas,
       Comentario: datos.comentario,
-      /* Publicada queda sin tildar a propósito: nada llega a la web hasta que
-         el dueño la aprueba desde Airtable. */
-      Publicada: false,
+      /* La reseña sale publicada al instante. Se probó al revés, con
+         aprobación previa, y el problema fue humano: nadie se enteraba de que
+         habían llegado y quedaban días sin publicar, así que el cliente que
+         la escribió nunca la veía. El control ahora es a posteriori: al dueño
+         le llega un aviso por cada reseña nueva y destilda esta casilla para
+         bajarla, sin perder la fila. El riesgo queda acotado porque el
+         validador de la ruta rechaza links y HTML y limita el largo. */
+      Publicada: true,
       Fecha: fechaDeHoyEnArgentina(),
     },
   });
