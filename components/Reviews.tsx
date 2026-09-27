@@ -61,7 +61,7 @@ function Stars({ count }: { count: number }) {
   );
 }
 
-function ReviewFormModal({ onClose }: { onClose: () => void }) {
+function ReviewFormModal({ onClose, onEnviada }: { onClose: () => void; onEnviada: (nueva: Resena) => void }) {
   const [nombre, setNombre] = useState("");
   const [equipo, setEquipo] = useState("");
   const [estrellas, setEstrellas] = useState(5);
@@ -150,6 +150,19 @@ function ReviewFormModal({ onClose }: { onClose: () => void }) {
       }
 
       setEnviado(true);
+      /* Se agrega a la lista de atrás en el acto. No se relee del servidor
+         porque la lectura tiene caché de 60 s y en Vercel puede caer en otra
+         instancia que todavía la tenga vieja: el que acaba de escribir vería
+         que su reseña no está. El id sintético sólo sirve de key hasta la
+         próxima carga de la página. */
+      onEnviada({
+        id: `nueva-${nombre.trim()}-${comentario.trim().length}`,
+        nombre: nombre.trim(),
+        equipo: equipo.trim(),
+        estrellas,
+        comentario: comentario.trim(),
+        fecha: new Date().toISOString().slice(0, 10),
+      });
     } catch {
       setError("No pudimos conectarnos con el servidor. Revisá tu conexión y probá de nuevo.");
     } finally {
@@ -292,31 +305,41 @@ function ReviewFormModal({ onClose }: { onClose: () => void }) {
 export default function Reviews() {
   const [visible, setVisible] = useState(INITIAL);
   const [resenas, setResenas] = useState<Resena[]>([]);
-  const [promedio, setPromedio] = useState<number | null>(null);
-  const [total, setTotal] = useState(0);
+  /* El total y el promedio se derivan de la lista en vez de guardarse aparte:
+     la ruta devuelve todas las reseñas publicadas, así que son el mismo dato
+     contado dos veces y separados se pueden desincronizar. */
   const [cargando, setCargando] = useState(true);
   const [showForm, setShowForm] = useState(false);
 
-  useEffect(() => {
-    let vigente = true;
-    fetch("/api/resenas")
-      .then((res) => res.json())
-      .then((data: { resenas?: Resena[]; promedio?: number | null; total?: number }) => {
-        if (!vigente) return;
-        setResenas(Array.isArray(data.resenas) ? data.resenas : []);
-        setPromedio(typeof data.promedio === "number" ? data.promedio : null);
-        setTotal(typeof data.total === "number" ? data.total : 0);
-      })
+  /* La misma carga sirve para el primer render y para después de enviar una
+     reseña: ahora se publican solas, así que el que la escribió tiene que
+     verla aparecer sin recargar la página. */
+  const cargar = useCallback(async () => {
+    try {
+      const res = await fetch("/api/resenas", { cache: "no-store" });
+      const data: { resenas?: Resena[] } = await res.json();
+      setResenas(Array.isArray(data.resenas) ? data.resenas : []);
+    } catch {
       /* Si la lectura falla la sección se queda en el estado vacío, que ya es
          una pantalla presentable, en vez de mostrar un error. */
-      .catch(() => {})
-      .finally(() => {
-        if (vigente) setCargando(false);
-      });
-    return () => {
-      vigente = false;
-    };
+    } finally {
+      setCargando(false);
+    }
   }, []);
+
+  useEffect(() => {
+    void cargar();
+  }, [cargar]);
+
+  const agregarResena = useCallback((nueva: Resena) => {
+    setResenas((previas) => [nueva, ...previas]);
+  }, []);
+
+  const total = resenas.length;
+  const promedio =
+    total > 0
+      ? Math.round((resenas.reduce((suma, r) => suma + r.estrellas, 0) / total) * 10) / 10
+      : null;
 
   useEffect(() => {
     if (window.location.hash === "#dejar-resena") setShowForm(true);
@@ -507,7 +530,7 @@ export default function Reviews() {
           </div>
         )}
 
-        {showForm && <ReviewFormModal onClose={cerrarForm} />}
+        {showForm && <ReviewFormModal onClose={cerrarForm} onEnviada={agregarResena} />}
       </div>
     </section>
   );
