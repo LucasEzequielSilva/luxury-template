@@ -35,6 +35,14 @@ interface AirtableRecord {
   };
 }
 
+/* El equipo lo escribe el cliente a mano, así que llega como "Iphone 16",
+   "iphone 15 pro" o "15 pro max". Se corrige solo la mayúscula de la marca,
+   que es un nombre propio y queda pobre mal escrito en la web. Lo demás,
+   incluido el comentario, se muestra tal cual lo escribió. */
+function marcaProlija(texto: string): string {
+  return texto.trim().replace(/iphone/gi, "iPhone");
+}
+
 function recordToResena(record: AirtableRecord): Resena | null {
   const f = record.fields;
   /* Sin nombre o sin puntaje la fila está a medio cargar y no se muestra. */
@@ -43,7 +51,7 @@ function recordToResena(record: AirtableRecord): Resena | null {
   return {
     id: record.id,
     nombre: f.Nombre,
-    equipo: f.Equipo ?? "",
+    equipo: marcaProlija(f.Equipo ?? ""),
     /* Airtable acepta cualquier número; se recorta a 1-5 para que el
        renderizado de estrellas no tenga que defenderse. */
     estrellas: Math.min(5, Math.max(1, Math.round(f.Estrellas))),
